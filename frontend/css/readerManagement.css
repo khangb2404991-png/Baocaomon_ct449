@@ -1,0 +1,115 @@
+/* ==========================================================================
+   Reader Management Specific Styles (readerManagement.css)
+   Harmonized with Stitch AI Technical Cockpit Theme & Bootstrap 5
+   ========================================================================== */
+
+.subnav-tab-btn {
+  position: relative;
+  padding: 0.875rem 1.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  border-top-width: 2px;
+  transition: all 0.15s ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.subnav-tab-btn.active {
+  background-color: #1f1f1f;
+  color: #ffffff;
+  border-top-color: #ffffff;
+}
+
+.subnav-tab-btn:not(.active) {
+  border-top-color: transparent;
+  color: #c4c7c8;
+}
+
+.subnav-tab-btn:not(.active):hover {
+  color: #ffffff;
+  background-color: #1b1b1b;
+}
+
+/* ==========================================================================
+   Action Icon Buttons (Reader & Staff Tables)
+   ========================================================================== */
+.btn-action-icon {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #444748;
+  background-color: #1f1f1f;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+}
+
+.btn-action-icon .material-symbols-outlined {
+  font-size: 16px;
+  color: inherit;
+  transition: color 0.15s ease-in-out;
+  line-height: 1;
+}
+
+/* 1. Khóa tài khoản độc giả (Icon khóa màu đỏ) */
+.btn-action-lock {
+  color: #e22718;
+  border-color: #444748;
+}
+.btn-action-lock:hover {
+  background-color: #e22718 !important;
+  border-color: #e22718 !important;
+  color: #ffffff !important;
+}
+.btn-action-lock:hover .material-symbols-outlined {
+  color: #ffffff !important;
+}
+
+/* 2. Mở khóa tài khoản độc giả (Icon mở khóa màu xanh lá) */
+.btn-action-unlock {
+  color: #0fa336;
+  border-color: #444748;
+}
+.btn-action-unlock:hover {
+  background-color: #0fa336 !important;
+  border-color: #0fa336 !important;
+  color: #ffffff !important;
+}
+.btn-action-unlock:hover .material-symbols-outlined {
+  color: #ffffff !important;
+}
+
+/* 3. Chỉnh sửa cán bộ/admin (Icon cây bút màu xanh dương, hover nền xanh nổi bật, icon trắng rõ nét không tệp màu nền) */
+.btn-action-edit {
+  color: #1c69d4;
+  border-color: #444748;
+}
+.btn-action-edit:hover {
+  background-color: #1c69d4 !important;
+  border-color: #1c69d4 !important;
+  color: #ffffff !important;
+}
+.btn-action-edit:hover .material-symbols-outlined {
+  color: #ffffff !important;
+}
+
+/* 4. Xóa cán bộ/admin (Icon thùng rác màu đỏ) */
+.btn-action-delete {
+  color: #e22718;
+  border-color: #444748;
+}
+.btn-action-delete:hover {
+  background-color: #e22718 !important;
+  border-color: #e22718 !important;
+  color: #ffffff !important;
+}
+.btn-action-delete:hover .material-symbols-outlined {
+  color: #ffffff !important;
+}
+

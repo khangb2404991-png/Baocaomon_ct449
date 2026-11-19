@@ -1,0 +1,44 @@
+/* ==========================================================================
+   Book Management Specific Styles (bookManagement.css)
+   Harmonized with Stitch AI Technical Cockpit Theme & Bootstrap 5
+   ========================================================================== */
+
+.book-table-row {
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.book-table-row:hover {
+  background-color: #2a2a2a;
+}
+
+.book-table-row.active {
+  border-left: 2px solid #ffffff;
+  background-color: rgba(42, 42, 42, 0.6);
+}
+
+.status-badge-active {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.125rem 0.5rem;
+  border: 1px solid #0fa336;
+  background-color: rgba(15, 163, 54, 0.1);
+  color: #0fa336;
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+}
+
+.status-badge-inactive {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.125rem 0.5rem;
+  border: 1px solid #8e9192;
+  color: #8e9192;
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+}
+

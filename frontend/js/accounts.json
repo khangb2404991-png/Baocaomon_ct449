@@ -1,0 +1,34 @@
+[
+  {
+    "id": "ACC-001",
+    "username": "user",
+    "email": "user@thuvien.edu.vn",
+    "phone": "0912345678",
+    "password": "123456",
+    "role": "user",
+    "roleName": "Độc giả",
+    "maDocGia": "DG-0842",
+    "hoLot": "Nguyễn Văn",
+    "ten": "An",
+    "hoTen": "Nguyễn Văn An",
+    "ngaySinh": "1998-08-15",
+    "phai": "Nam",
+    "dienThoai": "0912 345 678",
+    "diaChi": "Số 1 Đại Cồ Việt, Bách Khoa, Hai Bà Trưng, Hà Nội"
+  },
+  {
+    "id": "ACC-002",
+    "username": "admin",
+    "email": "admin@thuvien.edu.vn",
+    "phone": "0909112233",
+    "password": "admin123",
+    "role": "admin",
+    "roleName": "Quản trị viên / Thủ thư",
+    "msnv": "MSNV-0042",
+    "hoTen": "Trần Minh Quang",
+    "chucVu": "THỦ THƯ TRƯỞNG",
+    "dienThoai": "0909 112 233",
+    "diaChi": "Khoa Công Nghệ Thông Tin - Đại Học Cần Thơ"
+  }
+]
+

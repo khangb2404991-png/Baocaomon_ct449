@@ -1,0 +1,27 @@
+/* ==========================================================================
+   Book Detail Card Specific Styles (detailCard.css)
+   Exact CSS extracted from design/detail_card.html
+   ========================================================================== */
+
+.technical-top-line {
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, #E22718 0%, #E22718 30%, #1C69D4 30%, #1C69D4 65%, #0066B1 65%, #0066B1 100%);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #0A0A0A;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #262626;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #3A3A3A;
+}

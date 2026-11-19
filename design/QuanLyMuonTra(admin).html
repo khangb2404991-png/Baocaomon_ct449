@@ -1,0 +1,612 @@
+<!DOCTYPE html><html class="dark" lang="vi"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,300..900;1,300..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"on-tertiary-fixed-variant":"#004494","error":"#ffb4ab","primary-fixed":"#e2e2e2","outline-variant":"#444748","on-primary-fixed-variant":"#454747","on-secondary-fixed-variant":"#930100","surface-dim":"#131313","surface-tint":"#c6c6c7","on-primary":"#2f3131","on-secondary":"#680100","inverse-primary":"#5d5f5f","surface":"#131313","inverse-on-surface":"#303030","primary-fixed-dim":"#c6c6c7","tertiary-fixed":"#d8e2ff","tertiary-fixed-dim":"#adc6ff","surface-bright":"#393939","surface-variant":"#353535","on-tertiary-fixed":"#001a41","surface-container-high":"#2a2a2a","tertiary-container":"#d8e2ff","surface-container":"#1f1f1f","on-primary-container":"#636565","secondary-fixed-dim":"#ffb4a8","error-container":"#93000a","on-primary-fixed":"#1a1c1c","on-surface":"#e2e2e2","surface-container-highest":"#353535","primary-container":"#e2e2e2","on-secondary-container":"#ffcdc5","surface-container-lowest":"#0e0e0e","surface-container-low":"#1b1b1b","on-tertiary":"#002e69","primary":"#ffffff","on-background":"#e2e2e2","on-error-container":"#ffdad6","background":"#131313","tertiary":"#ffffff","outline":"#8e9192","on-tertiary-container":"#0560cb","inverse-surface":"#e2e2e2","secondary-fixed":"#ffdad4","secondary-container":"#c00200","on-surface-variant":"#c4c7c8","secondary":"#ffb4a8","on-secondary-fixed":"#410000","on-error":"#690005"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-md":"1rem","space-xl":"2.5rem","margin-tablet":"1.5rem","space-sm":"0.5rem","margin":"1rem","gutter-desktop":"1.5rem","space-lg":"1.5rem","space-xs":"0.25rem","margin-desktop":"2.5rem","gutter":"1rem"},"fontFamily":{"mono-data-md":["JetBrains Mono"],"headline-lg":["Space Grotesk"],"title-sm":["Chivo"],"headline-lg-mobile":["Space Grotesk"],"headline-md":["Space Grotesk"],"body-lg":["Chivo"],"body-sm":["Chivo"],"mono-data-lg":["JetBrains Mono"],"label-caps":["JetBrains Mono"],"display-hero":["Space Grotesk"],"body-md":["Chivo"],"display-hero-mobile":["Space Grotesk"]},"fontSize":{"mono-data-md":["14px",{"lineHeight":"20px","letterSpacing":"0em","fontWeight":"500"}],"headline-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}],"title-sm":["16px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"600"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"700"}],"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"16px","letterSpacing":"0.01em","fontWeight":"400"}],"mono-data-lg":["24px",{"lineHeight":"28px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-caps":["11px",{"lineHeight":"16px","letterSpacing":"0.08em","fontWeight":"600"}],"display-hero":["56px",{"lineHeight":"64px","letterSpacing":"-0.03em","fontWeight":"700"}],"body-md":["14px",{"lineHeight":"20px","letterSpacing":"0em","fontWeight":"400"}],"display-hero-mobile":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface selection:bg-surface-bright selection:text-primary"><aside class="fixed left-0 top-0 h-full w-[250px] bg-black border-r border-[#262626] z-50 flex flex-col justify-between rounded-none"><div class="flex flex-col"><div class="flex w-full h-[3px]"><div class="w-4 h-full bg-[#0066b1]"></div><div class="w-4 h-full bg-[#1c69d4]"></div><div class="w-4 h-full bg-[#e22718]"></div><div class="flex-1 h-full bg-[#262626]"></div></div><div class="p-space-md border-b border-[#262626]"><h1 class="font-headline-md text-headline-md font-bold tracking-tight text-primary leading-none uppercase">KHU VỰC QUẢN TRỊ</h1></div><nav class="flex flex-col py-space-sm" data-active-classes="bg-surface-container-high text-primary border-l-2 border-primary font-bold"><a class="flex items-center px-space-md py-space-sm font-headline-md text-body-md uppercase tracking-wider text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface border-l-2 border-transparent transition-colors" data-path="quan-ly-sach-va-nxb" href="#">QUẢN LÝ SÁCH &amp; NXB</a><a class="flex items-center px-space-md py-space-sm font-headline-md text-body-md uppercase tracking-wider text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface border-l-2 border-transparent transition-colors" data-path="quan-ly-tai-khoan" href="#">QUẢN LÝ TÀI KHOẢN</a><a class="flex items-center px-space-md py-space-sm font-headline-md text-body-md uppercase tracking-wider text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface border-l-2 border-transparent transition-colors" data-path="quan-ly-muon-tra" href="#">QUẢN LÝ MƯỢN TRẢ</a></nav></div><div class="p-space-md border-t border-[#262626] bg-[#0d0d0d]"><div class="font-mono-data-md text-mono-data-md text-primary font-bold leading-tight">NHÂN VIÊN: Trần Văn B</div><div class="font-label-caps text-label-caps text-on-surface-variant mt-0.5">CHỨC VỤ: Thủ thư (CHUCVU)</div><div class="mt-space-md pt-space-sm border-t border-[#262626]"><a class="flex items-center justify-center w-full h-8 bg-surface-container border border-[#3c3c3c] text-primary hover:bg-[#e22718] hover:text-primary hover:border-[#e22718] font-label-caps text-label-caps tracking-widest uppercase transition-colors rounded-none" data-path="dang-nhap" href="#"><span class="material-symbols-outlined text-[16px] mr-space-xs">logout</span>ĐĂNG XUẤT</a></div></div></aside><div class="pl-[250px]"><header class="fixed top-0 left-[250px] right-0 h-16 bg-[#000000] border-b border-[#262626] z-50 flex items-center justify-between px-8 rounded-none"><div class="flex items-center gap-3"><div class="w-7 h-7 bg-white text-black flex items-center justify-center font-bold font-mono-data-md text-xs"><span class="material-symbols-outlined text-[18px]">menu_book</span></div><div class="flex flex-col"><span class="font-headline-md text-sm font-bold tracking-wider text-white uppercase leading-none">BOOK LENDING SYSTEM</span></div></div><nav class="flex items-center gap-10"></nav></header><main class="relative pt-16 bg-surface min-h-screen flex flex-col justify-between"><div class="flex flex-col w-full">
+<!-- M-Stripe Component Signature -->
+<div class="flex w-full h-[3px]">
+<div class="w-12 h-full bg-[#0066b1]"></div>
+<div class="w-12 h-full bg-[#1c69d4]"></div>
+<div class="w-12 h-full bg-[#e22718]"></div>
+<div class="flex-1 h-full bg-[#262626]"></div>
+</div>
+<div class="p-space-lg flex flex-col gap-space-lg">
+<!-- Header Block -->
+<div class="flex flex-col md:flex-row md:items-end justify-between border-b border-[#3c3c3c] pb-space-md gap-space-sm">
+<div class="flex flex-col">
+
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary tracking-tight uppercase mt-space-xs leading-none">
+          QUẢN LÝ THEO DÕI MƯỢN TRẢ SÁCH
+        </h1>
+</div>
+<div class="flex items-center gap-space-sm">
+
+
+</div>
+</div>
+<!-- 4 Compact Metric Boxes -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Box 1: Chờ Duyệt -->
+<div class="bg-[#1a1a1a] border border-[#3c3c3c] p-space-md flex flex-col justify-between rounded-none border-l-2 border-l-[#f4b400]">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">CHỜ DUYỆT</span>
+<span class="w-2 h-2 bg-[#f4b400]"></span>
+</div>
+<div class="flex items-baseline justify-between mt-space-sm">
+<span class="font-mono-data-lg text-mono-data-lg text-primary font-bold">08</span>
+<span class="font-label-caps text-label-caps text-[#f4b400]">YÊU CẦU MỚI</span>
+</div>
+</div>
+<!-- Box 2: Đang Mượn -->
+<div class="bg-[#1a1a1a] border border-[#3c3c3c] p-space-md flex flex-col justify-between rounded-none border-l-2 border-l-[#1c69d4]">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">ĐANG MƯỢN</span>
+<span class="w-2 h-2 bg-[#1c69d4]"></span>
+</div>
+<div class="flex items-baseline justify-between mt-space-sm">
+<span class="font-mono-data-lg text-mono-data-lg text-primary font-bold">45</span>
+<span class="font-label-caps text-label-caps text-[#1c69d4]">TRONG HẠN</span>
+</div>
+</div>
+<!-- Box 3: Đã Trả Trong Tháng -->
+<div class="bg-[#1a1a1a] border border-[#3c3c3c] p-space-md flex flex-col justify-between rounded-none border-l-2 border-l-[#0fa336]">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">ĐÃ TRẢ TRONG THÁNG</span>
+<span class="w-2 h-2 bg-[#0fa336]"></span>
+</div>
+<div class="flex items-baseline justify-between mt-space-sm">
+<span class="font-mono-data-lg text-mono-data-lg text-primary font-bold">120</span>
+<span class="font-label-caps text-label-caps text-[#0fa336]">HOÀN TẤT TRẢ</span>
+</div>
+</div>
+<!-- Box 4: Quá Hạn Chưa Trả -->
+<div class="bg-[#1a1a1a] border border-[#3c3c3c] p-space-md flex flex-col justify-between rounded-none border-l-2 border-l-[#e22718]">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">QUÁ HẠN CHƯA TRẢ</span>
+<span class="w-2 h-2 bg-[#e22718]"></span>
+</div>
+<div class="flex items-baseline justify-between mt-space-sm">
+<span class="font-mono-data-lg text-mono-data-lg text-primary font-bold">03</span>
+<span class="font-label-caps text-label-caps text-[#e22718]">CẦN THU HỒI</span>
+</div>
+</div>
+</div>
+<!-- Filter & Segment Row -->
+<div class="flex flex-col gap-space-sm bg-[#0d0d0d] border border-[#3c3c3c] p-space-md">
+<!-- Search & Date Range Controls -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md items-end">
+<div class="lg:col-span-4 flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-outline uppercase tracking-wider">TÌM KIẾM ĐỘC GIẢ / SÁCH</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined text-[18px] text-outline absolute left-3 pointer-events-none">search</span>
+<input class="w-full h-11 bg-[#1a1a1a] border border-[#3c3c3c] pl-10 pr-3 font-mono-data-md text-mono-data-md text-primary placeholder-outline focus:outline-none focus:border-[#1c69d4] rounded-none transition-colors" id="searchInput" placeholder="Tìm theo Tên độc giả, SĐT, hoặc Tên sách..." type="text">
+</div>
+</div>
+<div class="lg:col-span-5 flex flex-col sm:flex-row gap-space-sm">
+<div class="flex-1 flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-outline uppercase tracking-wider">TỪ NGÀY (NGAYMUON)</label>
+<input class="w-full h-11 bg-[#1a1a1a] border border-[#3c3c3c] px-3 font-mono-data-md text-mono-data-md text-primary focus:outline-none focus:border-[#1c69d4] rounded-none" type="date" value="2024-05-01">
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-outline uppercase tracking-wider">ĐẾN NGÀY (NGAYTRA)</label>
+<input class="w-full h-11 bg-[#1a1a1a] border border-[#3c3c3c] px-3 font-mono-data-md text-mono-data-md text-primary focus:outline-none focus:border-[#1c69d4] rounded-none" type="date" value="2024-05-31">
+</div>
+</div>
+<div class="lg:col-span-3 flex items-center gap-space-xs">
+<button class="flex-1 h-11 bg-primary text-black font-title-sm text-title-sm font-bold flex items-center justify-center gap-1.5 hover:bg-[#bbbbbb] border border-primary transition-colors rounded-none" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+            LỌC DỮ LIỆU
+          </button>
+<button class="h-11 px-3 bg-[#1a1a1a] text-primary border border-[#3c3c3c] hover:bg-[#262626] hover:border-outline font-label-caps text-label-caps uppercase flex items-center gap-1 transition-colors rounded-none" title="Xuất CSV" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+            CSV
+          </button>
+</div>
+</div>
+<!-- Segment Tabs -->
+<div class="flex items-center gap-px bg-[#1a1a1a] border border-[#3c3c3c] p-0.5 mt-space-xs overflow-x-auto">
+<button class="status-tab flex-shrink-0 px-4 py-2 font-label-caps text-label-caps uppercase bg-surface-container-high text-primary border-b-2 border-primary font-bold" onclick="filterTable('all')" type="button">
+          TẤT CẢ (176)
+        </button>
+<button class="status-tab flex-shrink-0 px-4 py-2 font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary hover:bg-[#262626] border-b-2 border-transparent transition-colors" onclick="filterTable('pending')" type="button">
+          CHỜ DUYỆT (08)
+        </button>
+<button class="status-tab flex-shrink-0 px-4 py-2 font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary hover:bg-[#262626] border-b-2 border-transparent transition-colors" onclick="filterTable('borrowing')" type="button">
+          ĐANG MƯỢN (45)
+        </button>
+<button class="status-tab flex-shrink-0 px-4 py-2 font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary hover:bg-[#262626] border-b-2 border-transparent transition-colors" onclick="filterTable('overdue')" type="button">
+          QUÁ HẠN (03)
+        </button>
+<button class="status-tab flex-shrink-0 px-4 py-2 font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary hover:bg-[#262626] border-b-2 border-transparent transition-colors" onclick="filterTable('returned')" type="button">
+          ĐÃ TRẢ (120)
+        </button>
+<button class="status-tab flex-shrink-0 px-4 py-2 font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary hover:bg-[#262626] border-b-2 border-transparent transition-colors" onclick="filterTable('cancelled')" type="button">
+          ĐÃ HỦY (00)
+        </button>
+</div>
+</div>
+<!-- Main Data Table Container -->
+<div class="border border-[#3c3c3c] bg-[#1a1a1a] rounded-none overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full border-collapse text-left">
+<thead>
+<tr class="bg-[#000000] border-b border-[#3c3c3c]">
+<th class="p-3 font-label-caps text-label-caps text-outline uppercase tracking-wider">ĐỘC GIẢ MƯỢN</th>
+<th class="p-3 font-label-caps text-label-caps text-outline uppercase tracking-wider">THÔNG TIN SÁCH</th>
+<th class="p-3 font-label-caps text-label-caps text-outline uppercase tracking-wider text-right">SỐ LƯỢNG</th>
+<th class="p-3 font-label-caps text-label-caps text-outline uppercase tracking-wider">NGÀY MƯỢN</th>
+<th class="p-3 font-label-caps text-label-caps text-outline uppercase tracking-wider">NGÀY TRẢ / HẠN TRẢ</th>
+<th class="p-3 font-label-caps text-label-caps text-outline uppercase tracking-wider">NV PHỤ TRÁCH</th>
+<th class="p-3 font-label-caps text-label-caps text-outline uppercase tracking-wider text-center">TRẠNG THÁI</th>
+<th class="p-3 font-label-caps text-label-caps text-outline uppercase tracking-wider text-right">THAO TÁC XỬ LÝ</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#262626]" id="borrowTableBody">
+<!-- Row 1: Chờ duyệt -->
+<tr class="bg-[#0d0d0d] hover:bg-[#1b1b1b] transition-colors" data-status="pending">
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-md font-bold text-primary">Nguyễn Văn An</div>
+<div class="font-mono-data-md text-body-sm text-on-surface-variant">0912 345 678</div>
+
+</td>
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-md font-semibold text-primary">Thiết Kế Hệ Thống Phân Tán Quy Mô Lớn</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-mono-data-md text-[11px] text-[#1c69d4] bg-black px-1.5 py-0.5 border border-[#3c3c3c]">[MASACH: CS-0102]</span>
+<span class="font-label-caps text-body-sm text-on-surface-variant">Kho còn: <strong class="text-primary font-mono-data-md">06</strong></span>
+</div>
+</td>
+<td class="p-3 align-top text-right font-mono-data-md text-mono-data-md font-bold text-primary">
+                01
+              </td>
+<td class="p-3 align-top font-mono-data-md text-body-sm text-on-surface">
+                24/05/2024 <span class="text-outline">09:15</span>
+</td>
+<td class="p-3 align-top">
+<div class="font-mono-data-md text-body-sm text-outline">--/--/----</div>
+<div class="font-label-caps text-body-sm text-on-surface-variant mt-0.5">Dự kiến: 07/06/2024</div>
+</td>
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-sm text-outline italic">Chờ tiếp nhận (---)</div>
+<span class="inline-block mt-1 font-mono-data-md text-[11px] text-outline bg-black px-1.5 py-0.5 border border-[#3c3c3c]">[---]</span>
+</td>
+<td class="p-3 align-top text-center">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 bg-[#f4b400]/10 border border-[#f4b400] text-[#f4b400] font-label-caps text-label-caps uppercase rounded-none">
+<span class="w-1.5 h-1.5 bg-[#f4b400]"></span>
+                  CHỜ DUYỆT
+                </span>
+</td>
+<td class="p-3 align-top text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="h-8 px-3 bg-primary text-black font-label-caps text-label-caps font-bold hover:bg-[#bbbbbb] border border-primary transition-colors rounded-none flex items-center gap-1" onclick="handleApprove(this, 'Nguyễn Văn An', 'CS-0102')" type="button">
+                    DUYỆT MƯỢN →
+                  </button>
+<button class="h-8 px-2.5 bg-black text-[#e22718] border border-[#e22718] hover:bg-[#e22718] hover:text-white font-label-caps text-label-caps transition-colors rounded-none" onclick="handleReject(this, 'Nguyễn Văn An')" type="button">
+                    TỪ CHỐI
+                  </button>
+</div>
+</td>
+</tr>
+<!-- Row 2: Chờ duyệt -->
+<tr class="bg-[#1a1a1a] hover:bg-[#1b1b1b] transition-colors" data-status="pending">
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-md font-bold text-primary">Lê Thị Bích</div>
+<div class="font-mono-data-md text-body-sm text-on-surface-variant">0988 123 456</div>
+
+</td>
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-md font-semibold text-primary">An Toàn Thông Tin &amp; Mạng Máy Tính</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-mono-data-md text-[11px] text-[#1c69d4] bg-black px-1.5 py-0.5 border border-[#3c3c3c]">[MASACH: SEC-0089]</span>
+<span class="font-label-caps text-body-sm text-on-surface-variant">Kho còn: <strong class="text-primary font-mono-data-md">03</strong></span>
+</div>
+</td>
+<td class="p-3 align-top text-right font-mono-data-md text-mono-data-md font-bold text-primary">
+                02
+              </td>
+<td class="p-3 align-top font-mono-data-md text-body-sm text-on-surface">
+                24/05/2024 <span class="text-outline">08:40</span>
+</td>
+<td class="p-3 align-top">
+<div class="font-mono-data-md text-body-sm text-outline">--/--/----</div>
+<div class="font-label-caps text-body-sm text-on-surface-variant mt-0.5">Dự kiến: 07/06/2024</div>
+</td>
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-sm text-outline italic">Chờ tiếp nhận (---)</div>
+<span class="inline-block mt-1 font-mono-data-md text-[11px] text-outline bg-black px-1.5 py-0.5 border border-[#3c3c3c]">[---]</span>
+</td>
+<td class="p-3 align-top text-center">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 bg-[#f4b400]/10 border border-[#f4b400] text-[#f4b400] font-label-caps text-label-caps uppercase rounded-none">
+<span class="w-1.5 h-1.5 bg-[#f4b400]"></span>
+                  CHỜ DUYỆT
+                </span>
+</td>
+<td class="p-3 align-top text-right">
+<div class="flex items-center justify-end gap-1.5">
+<button class="h-8 px-3 bg-primary text-black font-label-caps text-label-caps font-bold hover:bg-[#bbbbbb] border border-primary transition-colors rounded-none flex items-center gap-1" onclick="handleApprove(this, 'Lê Thị Bích', 'SEC-0089')" type="button">
+                    DUYỆT MƯỢN →
+                  </button>
+<button class="h-8 px-2.5 bg-black text-[#e22718] border border-[#e22718] hover:bg-[#e22718] hover:text-white font-label-caps text-label-caps transition-colors rounded-none" onclick="handleReject(this, 'Lê Thị Bích')" type="button">
+                    TỪ CHỐI
+                  </button>
+</div>
+</td>
+</tr>
+<!-- Row 3: Đang Mượn -->
+<tr class="bg-[#0d0d0d] hover:bg-[#1b1b1b] transition-colors" data-status="borrowing">
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-md font-bold text-primary">Trần Quốc Bảo</div>
+<div class="font-mono-data-md text-body-sm text-on-surface-variant">0903 889 112</div>
+
+</td>
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-md font-semibold text-primary">Cấu Trúc Dữ Liệu &amp; Giải Thuật Thực Chiến</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-mono-data-md text-[11px] text-[#1c69d4] bg-black px-1.5 py-0.5 border border-[#3c3c3c]">[MASACH: CS-0205]</span>
+<span class="font-label-caps text-body-sm text-on-surface-variant">Kho còn: <strong class="text-primary font-mono-data-md">01</strong></span>
+</div>
+</td>
+<td class="p-3 align-top text-right font-mono-data-md text-mono-data-md font-bold text-primary">
+                01
+              </td>
+<td class="p-3 align-top font-mono-data-md text-body-sm text-on-surface">
+                18/05/2024 <span class="text-outline">10:05</span>
+</td>
+<td class="p-3 align-top">
+<div class="font-mono-data-md text-body-sm text-primary font-bold">Hạn: 01/06/2024</div>
+<div class="font-label-caps text-body-sm text-[#1c69d4] mt-0.5">Còn 8 ngày</div>
+</td>
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-sm text-primary">Trần Văn B</div>
+<span class="inline-block mt-1 font-mono-data-md text-[11px] text-outline bg-black px-1.5 py-0.5 border border-[#3c3c3c]">[MSNV-0012]</span>
+</td>
+<td class="p-3 align-top text-center">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 bg-[#1c69d4]/10 border border-[#1c69d4] text-[#1c69d4] font-label-caps text-label-caps uppercase rounded-none">
+<span class="w-1.5 h-1.5 bg-[#1c69d4]"></span>
+                  ĐANG MƯỢN
+                </span>
+</td>
+<td class="p-3 align-top text-right">
+<button class="h-8 px-3 bg-[#1a1a1a] text-primary border border-primary hover:bg-primary hover:text-black font-label-caps text-label-caps font-bold transition-colors rounded-none" onclick="handleReturn(this, 'Trần Quốc Bảo')" type="button">
+                  XÁC NHẬN ĐÃ TRẢ ✓
+                </button>
+</td>
+</tr>
+<!-- Row 4: Quá Hạn -->
+<tr class="bg-[#1a1a1a] hover:bg-[#1b1b1b] transition-colors border-l-2 border-l-[#e22718]" data-status="overdue">
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-md font-bold text-[#e22718]">Phạm Hoàng Nam</div>
+<div class="font-mono-data-md text-body-sm text-on-surface-variant">0934 567 890</div>
+
+</td>
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-md font-semibold text-primary">Trí Tuệ Nhân Tạo &amp; Deep Learning Nâng Cao</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-mono-data-md text-[11px] text-[#1c69d4] bg-black px-1.5 py-0.5 border border-[#3c3c3c]">[MASACH: AI-0512]</span>
+<span class="font-label-caps text-body-sm text-[#e22718]">Kho còn: <strong class="font-mono-data-md">00 (HẾT SÁCH)</strong></span>
+</div>
+</td>
+<td class="p-3 align-top text-right font-mono-data-md text-mono-data-md font-bold text-primary">
+                01
+              </td>
+<td class="p-3 align-top font-mono-data-md text-body-sm text-on-surface">
+                05/05/2024 <span class="text-outline">15:20</span>
+</td>
+<td class="p-3 align-top">
+<div class="font-mono-data-md text-body-sm text-[#e22718] font-bold">Hạn: 19/05/2024</div>
+<div class="font-label-caps text-body-sm text-[#e22718] font-bold mt-0.5">Quá hạn 5 ngày</div>
+</td>
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-sm text-primary">Nguyễn Thùy Linh</div>
+<span class="inline-block mt-1 font-mono-data-md text-[11px] text-outline bg-black px-1.5 py-0.5 border border-[#3c3c3c]">[MSNV-0089]</span>
+</td>
+<td class="p-3 align-top text-center">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 bg-[#e22718]/10 border border-[#e22718] text-[#e22718] font-label-caps text-label-caps uppercase rounded-none animate-pulse">
+<span class="w-1.5 h-1.5 bg-[#e22718]"></span>
+                  QUÁ HẠN
+                </span>
+</td>
+<td class="p-3 align-top text-right">
+<button class="h-8 px-3 bg-[#e22718] text-white border border-[#e22718] hover:bg-[#c00200] font-label-caps text-label-caps font-bold transition-colors rounded-none" onclick="handleReturn(this, 'Phạm Hoàng Nam')" type="button">
+                  XÁC NHẬN ĐÃ TRẢ ✓
+                </button>
+</td>
+</tr>
+<!-- Row 5: Đã Trả -->
+<tr class="bg-[#0d0d0d] hover:bg-[#1b1b1b] transition-colors" data-status="returned">
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-md font-bold text-primary">Đỗ Thị Mai</div>
+<div class="font-mono-data-md text-body-sm text-on-surface-variant">0977 444 333</div>
+
+</td>
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-md font-semibold text-primary">Thiết Kế Hệ Thống Phân Tán Quy Mô Lớn</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-mono-data-md text-[11px] text-[#1c69d4] bg-black px-1.5 py-0.5 border border-[#3c3c3c]">[MASACH: CS-0102]</span>
+<span class="font-label-caps text-body-sm text-on-surface-variant">Kho còn: <strong class="text-primary font-mono-data-md">06</strong></span>
+</div>
+</td>
+<td class="p-3 align-top text-right font-mono-data-md text-mono-data-md font-bold text-primary">
+                01
+              </td>
+<td class="p-3 align-top font-mono-data-md text-body-sm text-on-surface">
+                02/05/2024 <span class="text-outline">11:00</span>
+</td>
+<td class="p-3 align-top">
+<div class="font-mono-data-md text-body-sm text-[#0fa336] font-bold">Đã trả: 16/05/2024</div>
+<div class="font-label-caps text-body-sm text-outline mt-0.5">Đúng hạn quy định</div>
+</td>
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-sm text-primary">Trần Văn B</div>
+<span class="inline-block mt-1 font-mono-data-md text-[11px] text-outline bg-black px-1.5 py-0.5 border border-[#3c3c3c]">[MSNV-0012]</span>
+</td>
+<td class="p-3 align-top text-center">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 bg-[#0fa336]/10 border border-[#0fa336] text-[#0fa336] font-label-caps text-label-caps uppercase rounded-none">
+<span class="w-1.5 h-1.5 bg-[#0fa336]"></span>
+                  ĐÃ TRẢ
+                </span>
+</td>
+<td class="p-3 align-top text-right">
+<span class="font-mono-data-md text-label-caps text-outline uppercase tracking-wider">HOÀN TẤT</span>
+</td>
+</tr>
+<!-- Row 6: Đang Mượn -->
+<tr class="bg-[#1a1a1a] hover:bg-[#1b1b1b] transition-colors" data-status="borrowing">
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-md font-bold text-primary">Vũ Minh Đức</div>
+<div class="font-mono-data-md text-body-sm text-on-surface-variant">0961 223 344</div>
+<span class="inline-block mt-1 font-mono-data-md text-[11px] text-outline bg-black px-1.5 py-0.5 border border-[#3c3c3c]">[DG-0418]</span>
+</td>
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-md font-semibold text-primary">An Toàn Thông Tin &amp; Mạng Máy Tính</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-mono-data-md text-[11px] text-[#1c69d4] bg-black px-1.5 py-0.5 border border-[#3c3c3c]">[MASACH: SEC-0089]</span>
+<span class="font-label-caps text-body-sm text-on-surface-variant">Kho còn: <strong class="text-primary font-mono-data-md">03</strong></span>
+</div>
+</td>
+<td class="p-3 align-top text-right font-mono-data-md text-mono-data-md font-bold text-primary">
+                01
+              </td>
+<td class="p-3 align-top font-mono-data-md text-body-sm text-on-surface">
+                19/05/2024 <span class="text-outline">16:45</span>
+</td>
+<td class="p-3 align-top">
+<div class="font-mono-data-md text-body-sm text-primary font-bold">Hạn: 02/06/2024</div>
+<div class="font-label-caps text-body-sm text-[#1c69d4] mt-0.5">Còn 9 ngày</div>
+</td>
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-sm text-primary">Trần Văn B</div>
+<span class="inline-block mt-1 font-mono-data-md text-[11px] text-outline bg-black px-1.5 py-0.5 border border-[#3c3c3c]">[MSNV-0012]</span>
+</td>
+<td class="p-3 align-top text-center">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 bg-[#1c69d4]/10 border border-[#1c69d4] text-[#1c69d4] font-label-caps text-label-caps uppercase rounded-none">
+<span class="w-1.5 h-1.5 bg-[#1c69d4]"></span>
+                  ĐANG MƯỢN
+                </span>
+</td>
+<td class="p-3 align-top text-right">
+<button class="h-8 px-3 bg-[#1a1a1a] text-primary border border-primary hover:bg-primary hover:text-black font-label-caps text-label-caps font-bold transition-colors rounded-none" onclick="handleReturn(this, 'Vũ Minh Đức')" type="button">
+                  XÁC NHẬN ĐÃ TRẢ ✓
+                </button>
+</td>
+</tr>
+<!-- Row 7: Quá Hạn -->
+<tr class="bg-[#0d0d0d] hover:bg-[#1b1b1b] transition-colors border-l-2 border-l-[#e22718]" data-status="overdue">
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-md font-bold text-[#e22718]">Hoàng Yến Nhi</div>
+<div class="font-mono-data-md text-body-sm text-on-surface-variant">0945 998 776</div>
+
+</td>
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-md font-semibold text-primary">Cấu Trúc Dữ Liệu &amp; Giải Thuật Thực Chiến</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-mono-data-md text-[11px] text-[#1c69d4] bg-black px-1.5 py-0.5 border border-[#3c3c3c]">[MASACH: CS-0205]</span>
+<span class="font-label-caps text-body-sm text-on-surface-variant">Kho còn: <strong class="text-primary font-mono-data-md">01</strong></span>
+</div>
+</td>
+<td class="p-3 align-top text-right font-mono-data-md text-mono-data-md font-bold text-primary">
+                01
+              </td>
+<td class="p-3 align-top font-mono-data-md text-body-sm text-on-surface">
+                08/05/2024 <span class="text-outline">13:10</span>
+</td>
+<td class="p-3 align-top">
+<div class="font-mono-data-md text-body-sm text-[#e22718] font-bold">Hạn: 22/05/2024</div>
+<div class="font-label-caps text-body-sm text-[#e22718] font-bold mt-0.5">Quá hạn 2 ngày</div>
+</td>
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-sm text-primary">Nguyễn Thùy Linh</div>
+<span class="inline-block mt-1 font-mono-data-md text-[11px] text-outline bg-black px-1.5 py-0.5 border border-[#3c3c3c]">[MSNV-0089]</span>
+</td>
+<td class="p-3 align-top text-center">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 bg-[#e22718]/10 border border-[#e22718] text-[#e22718] font-label-caps text-label-caps uppercase rounded-none animate-pulse">
+<span class="w-1.5 h-1.5 bg-[#e22718]"></span>
+                  QUÁ HẠN
+                </span>
+</td>
+<td class="p-3 align-top text-right">
+<button class="h-8 px-3 bg-[#e22718] text-white border border-[#e22718] hover:bg-[#c00200] font-label-caps text-label-caps font-bold transition-colors rounded-none" onclick="handleReturn(this, 'Hoàng Yến Nhi')" type="button">
+                  XÁC NHẬN ĐÃ TRẢ ✓
+                </button>
+</td>
+</tr>
+<!-- Row 8: Đã Trả -->
+<tr class="bg-[#1a1a1a] hover:bg-[#1b1b1b] transition-colors" data-status="returned">
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-md font-bold text-primary">Đặng Tuấn Kiệt</div>
+<div class="font-mono-data-md text-body-sm text-on-surface-variant">0923 111 888</div>
+
+</td>
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-md font-semibold text-primary">Trí Tuệ Nhân Tạo &amp; Deep Learning Nâng Cao</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-mono-data-md text-[11px] text-[#1c69d4] bg-black px-1.5 py-0.5 border border-[#3c3c3c]">[MASACH: AI-0512]</span>
+<span class="font-label-caps text-body-sm text-on-surface-variant">Kho còn: <strong class="text-primary font-mono-data-md">00</strong></span>
+</div>
+</td>
+<td class="p-3 align-top text-right font-mono-data-md text-mono-data-md font-bold text-primary">
+                01
+              </td>
+<td class="p-3 align-top font-mono-data-md text-body-sm text-on-surface">
+                01/05/2024 <span class="text-outline">08:00</span>
+</td>
+<td class="p-3 align-top">
+<div class="font-mono-data-md text-body-sm text-[#0fa336] font-bold">Đã trả: 12/05/2024</div>
+<div class="font-label-caps text-body-sm text-outline mt-0.5">Đúng hạn quy định</div>
+</td>
+<td class="p-3 align-top">
+<div class="font-title-sm text-body-sm text-primary">Trần Văn B</div>
+<span class="inline-block mt-1 font-mono-data-md text-[11px] text-outline bg-black px-1.5 py-0.5 border border-[#3c3c3c]">[MSNV-0012]</span>
+</td>
+<td class="p-3 align-top text-center">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 bg-[#0fa336]/10 border border-[#0fa336] text-[#0fa336] font-label-caps text-label-caps uppercase rounded-none">
+<span class="w-1.5 h-1.5 bg-[#0fa336]"></span>
+                  ĐÃ TRẢ
+                </span>
+</td>
+<td class="p-3 align-top text-right">
+<span class="font-mono-data-md text-label-caps text-outline uppercase tracking-wider">HOÀN TẤT</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer & Pagination -->
+<div class="p-3 bg-[#0d0d0d] border-t border-[#3c3c3c] flex flex-col md:flex-row items-center justify-between gap-space-sm">
+<div class="font-mono-data-md text-body-sm text-on-surface-variant">
+          Hiển thị <span class="text-primary font-bold">1 - 8</span> trên tổng số <span class="text-primary font-bold">176</span> bản ghi
+        </div>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 flex items-center justify-center bg-[#1a1a1a] border border-[#3c3c3c] text-outline hover:text-primary hover:border-outline font-mono-data-md text-body-sm rounded-none" type="button">&lt;&lt;</button>
+<button class="w-8 h-8 flex items-center justify-center bg-[#1a1a1a] border border-[#3c3c3c] text-outline hover:text-primary hover:border-outline font-mono-data-md text-body-sm rounded-none" type="button">&lt;</button>
+<button class="w-8 h-8 flex items-center justify-center bg-primary border border-primary text-black font-mono-data-md text-body-sm font-bold rounded-none" type="button">1</button>
+<button class="w-8 h-8 flex items-center justify-center bg-[#1a1a1a] border border-[#3c3c3c] text-primary hover:border-outline font-mono-data-md text-body-sm rounded-none" type="button">2</button>
+<button class="w-8 h-8 flex items-center justify-center bg-[#1a1a1a] border border-[#3c3c3c] text-primary hover:border-outline font-mono-data-md text-body-sm rounded-none" type="button">3</button>
+<span class="px-1 text-outline font-mono-data-md">...</span>
+<button class="w-8 h-8 flex items-center justify-center bg-[#1a1a1a] border border-[#3c3c3c] text-primary hover:border-outline font-mono-data-md text-body-sm rounded-none" type="button">22</button>
+<button class="w-8 h-8 flex items-center justify-center bg-[#1a1a1a] border border-[#3c3c3c] text-outline hover:text-primary hover:border-outline font-mono-data-md text-body-sm rounded-none" type="button">&gt;</button>
+<button class="w-8 h-8 flex items-center justify-center bg-[#1a1a1a] border border-[#3c3c3c] text-outline hover:text-primary hover:border-outline font-mono-data-md text-body-sm rounded-none" type="button">&gt;&gt;</button>
+</div>
+</div>
+</div>
+<!-- Live Telemetry Status Bar -->
+
+</div>
+</div><footer class="w-full border-t border-[#262626] bg-[#000000] py-6 px-8 flex flex-col sm:flex-row justify-between items-start gap-4 rounded-none mt-space-lg"><div class="flex flex-col gap-2 text-left font-mono-data-md text-xs text-[#8e9192]"><div class="leading-relaxed"><strong class="font-bold text-on-surface uppercase">LIÊN HỆ QUẢN LÝ THƯ VIỆN:</strong> quanly@thuvien.edu.vn | (0292) 3831 567</div><div class="leading-relaxed"><strong class="font-bold text-on-surface uppercase">LIÊN HỆ HỖ TRỢ KỸ THUẬT:</strong> hotro@thuvien.edu.vn</div></div><div class="flex flex-col items-start sm:items-end text-left sm:text-right text-xs"><a class="font-headline-md text-on-surface font-bold uppercase tracking-wider hover:text-white transition-colors" href="#">QUY CHẾ THƯ VIỆN</a><a class="font-body-md text-[#8e9192] hover:text-white mt-1 transition-colors" href="#">Quy định mượn trả sách &amp; Bảo quản tài liệu</a></div></footer>
+<script>
+  function filterTable(status) {
+    const tabs = document.querySelectorAll('.status-tab');
+    tabs.forEach(tab => {
+      tab.className = 'status-tab flex-shrink-0 px-4 py-2 font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary hover:bg-[#262626] border-b-2 border-transparent transition-colors';
+    });
+    event.currentTarget.className = 'status-tab flex-shrink-0 px-4 py-2 font-label-caps text-label-caps uppercase bg-surface-container-high text-primary border-b-2 border-primary font-bold';
+
+    const rows = document.querySelectorAll('#borrowTableBody tr');
+    rows.forEach(row => {
+      if (status === 'all' || row.getAttribute('data-status') === status) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) {
+    searchInput.addEventListener('input', function(e) {
+      const term = e.target.value.toLowerCase();
+      const rows = document.querySelectorAll('#borrowTableBody tr');
+      rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        if (text.includes(term)) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    });
+  }
+
+  function handleApprove(btn, readerName, bookCode) {
+    const row = btn.closest('tr');
+    if (!row) return;
+    row.setAttribute('data-status', 'borrowing');
+    
+    // Update status cell
+    const statusCell = row.cells[6];
+    statusCell.innerHTML = `
+      <span class="inline-flex items-center gap-1.5 px-2 py-1 bg-[#1c69d4]/10 border border-[#1c69d4] text-[#1c69d4] font-label-caps text-label-caps uppercase rounded-none">
+        <span class="w-1.5 h-1.5 bg-[#1c69d4]"></span>
+        ĐANG MƯỢN
+      </span>
+    `;
+
+    // Update staff cell
+    const staffCell = row.cells[5];
+    staffCell.innerHTML = `
+      <div class="font-title-sm text-body-sm text-primary">Trần Văn B</div>
+      <span class="inline-block mt-1 font-mono-data-md text-[11px] text-outline bg-black px-1.5 py-0.5 border border-[#3c3c3c]">[MSNV-0012]</span>
+    `;
+
+    // Update action cell
+    const actionCell = row.cells[7];
+    actionCell.innerHTML = `
+      <button type="button" onclick="handleReturn(this, '${readerName}')" class="h-8 px-3 bg-[#1a1a1a] text-primary border border-primary hover:bg-primary hover:text-black font-label-caps text-label-caps font-bold transition-colors rounded-none">
+        XÁC NHẬN ĐÃ TRẢ ✓
+      </button>
+    `;
+  }
+
+  function handleReject(btn, readerName) {
+    const row = btn.closest('tr');
+    if (!row) return;
+    row.setAttribute('data-status', 'cancelled');
+    
+    // Update status cell
+    const statusCell = row.cells[6];
+    statusCell.innerHTML = `
+      <span class="inline-flex items-center gap-1.5 px-2 py-1 bg-black border border-outline text-outline font-label-caps text-label-caps uppercase rounded-none">
+        <span class="w-1.5 h-1.5 bg-outline"></span>
+        ĐÃ HỦY
+      </span>
+    `;
+
+    // Update action cell
+    const actionCell = row.cells[7];
+    actionCell.innerHTML = `
+      <span class="font-mono-data-md text-label-caps text-outline uppercase tracking-wider">ĐÃ TỪ CHỐI</span>
+    `;
+  }
+
+  function handleReturn(btn, readerName) {
+    const row = btn.closest('tr');
+    if (!row) return;
+    row.setAttribute('data-status', 'returned');
+    row.classList.remove('border-l-2', 'border-l-[#e22718]');
+
+    // Update return date cell
+    const dateCell = row.cells[4];
+    const today = new Date();
+    const formatted = String(today.getDate()).padStart(2, '0') + '/' + String(today.getMonth() + 1).padStart(2, '0') + '/' + today.getFullYear();
+    dateCell.innerHTML = `
+      <div class="font-mono-data-md text-body-sm text-[#0fa336] font-bold">Đã trả: ${formatted}</div>
+      <div class="font-label-caps text-body-sm text-outline mt-0.5">Xác nhận trực tiếp</div>
+    `;
+
+    // Update status cell
+    const statusCell = row.cells[6];
+    statusCell.innerHTML = `
+      <span class="inline-flex items-center gap-1.5 px-2 py-1 bg-[#0fa336]/10 border border-[#0fa336] text-[#0fa336] font-label-caps text-label-caps uppercase rounded-none">
+        <span class="w-1.5 h-1.5 bg-[#0fa336]"></span>
+        ĐÃ TRẢ
+      </span>
+    `;
+
+    // Update action cell
+    const actionCell = row.cells[7];
+    actionCell.innerHTML = `
+      <span class="font-mono-data-md text-label-caps text-outline uppercase tracking-wider">HOÀN TẤT</span>
+    `;
+  }
+</script></main></div>
+
+
+
+</body></html>

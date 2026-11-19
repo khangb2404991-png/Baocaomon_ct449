@@ -1,0 +1,43 @@
+/* ==========================================================================
+   Register Page Specific Styles (register.css)
+   Harmonized with Stitch AI Technical Cockpit Theme & Bootstrap 5
+   ========================================================================== */
+
+.register-card {
+  background-color: #131313;
+  border: 1px solid #3c3c3c;
+  position: relative;
+}
+
+.register-input {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  background-color: #0e0e0e;
+  border: 1px solid #3c3c3c;
+  color: #ffffff;
+  padding: 0.75rem;
+  width: 100%;
+  border-radius: 0;
+  transition: border-color 0.15s ease-in-out;
+}
+
+.register-input:focus {
+  border-color: #ffffff;
+  outline: none;
+}
+
+.register-input::placeholder {
+  color: #7e7e7e;
+}
+
+.register-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #bbbbbb;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.375rem;
+  font-weight: 700;
+}
+

@@ -1,0 +1,300 @@
+<!DOCTYPE html><html lang="vi" class="h-full bg-[#0A0A0A] text-white"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi Tiết Sách - Hệ Thống Mượn Sách</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            display: ['Space Grotesk', 'sans-serif'],
+          },
+          colors: {
+            dark: {
+              bg: '#0A0A0A',
+              card: '#111111',
+              cardSub: '#141414',
+              cardHover: '#161616',
+              border: '#262626',
+              borderStrong: '#2A2A2A',
+              borderMuted: '#1F1F1F',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * {
+      border-radius: 0px !important;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #0A0A0A;
+      color: #EDEDED;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .technical-top-line {
+      height: 3px;
+      width: 100%;
+      background: linear-gradient(90deg, #E22718 0%, #E22718 30%, #1C69D4 30%, #1C69D4 65%, #0066B1 65%, #0066B1 100%);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #0A0A0A;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #262626;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #3A3A3A;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-neutral-800 selection:text-white">
+
+  <!-- ========================================== -->
+  <!-- 1. GLOBAL TOP HEADER (STRICT SPECIFICATION) -->
+  <!-- ========================================== -->
+  <header class="sticky top-0 z-50 h-16 w-full bg-[#0A0A0A] border-b border-[#262626] px-8 flex items-center justify-between">
+    <!-- Far Left: Logo & English Brand Name -->
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 bg-white flex items-center justify-center text-black">
+        <span class="material-symbols-outlined text-xl">menu_book</span>
+      </div>
+      <div class="flex flex-col">
+        <span class="font-bold tracking-wider text-white text-sm font-display uppercase leading-tight">BOOK LENDING SYSTEM</span>
+        
+      </div>
+    </div>
+
+    <!-- Center: Plain Text Navigation (NO box/pill containers) -->
+    <nav class="flex items-center gap-10">
+      <a href="#" class="text-xs uppercase tracking-wider text-neutral-400 hover:text-white transition-colors duration-150 font-mono">TRANG CHỦ</a>
+      <a href="#" class="text-xs uppercase tracking-wider text-neutral-400 hover:text-white transition-colors duration-150 font-mono">GIỎ HÀNG (03)</a>
+    </nav>
+
+    <!-- Far Right: Unified User Profile Block -->
+    <div class="inline-flex items-center gap-3 px-3.5 py-1.5 bg-[#141414] border border-[#2A2A2A] cursor-pointer hover:border-neutral-500 transition-colors">
+      <div class="w-6 h-6 bg-[#262626] flex items-center justify-center text-white">
+        <span class="material-symbols-outlined text-sm">person</span>
+      </div>
+      <div class="flex flex-col">
+        <span class="text-sm font-medium text-white leading-tight">Nguyễn Văn An</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================== -->
+  <!-- 2. MAIN CONTAINER: CHI TIẾT SÁCH (BOOK DETAIL) -->
+  <!-- ========================================== -->
+  <main class="flex-1 w-full max-w-[1280px] mx-auto px-8 py-6">
+    
+    <!-- Top Navigation / Breadcrumb Bar -->
+    <div class="flex items-center justify-between pb-6 border-b border-[#262626] mb-8">
+      <a href="#" class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-400 hover:text-white transition-colors group">
+        <span class="text-neutral-500 group-hover:text-white transition-colors">←</span>
+        <span>QUAY LẠI TRANG CHỦ</span>
+      </a>
+
+      
+    </div>
+
+    <!-- Main 2-Column Detail Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- LEFT COLUMN (Book Cover Frame - 35% / 4 Cols on 12-col grid, or lg:col-span-5) -->
+      <section class="lg:col-span-4 xl:col-span-4 flex flex-col gap-4">
+        <!-- Book Cover Container -->
+        <div class="border border-[#262626] bg-[#111111] p-4 flex flex-col h-full">
+          <div class="relative w-full bg-[#0A0A0A] overflow-hidden border border-[#222222] flex items-center justify-center h-full">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDciQThz-C157nHdwRnCsiTqHaLg-Ek87e5Xtpo_1wpnXwreWeUhCabJ7LDwdwnM-apHfAW_hDuQyeDsz9xhCO6f8QJZLmW5tzwwzy3yYHuLuVU_jknkXpouHDc0Wd-IMSm0HFJUZXs115ncWmyOdCOb4xlAPuxXSV_oCC-0HfsL86kQDaRxczv1d8O9FISCcA9kHoJzsgBY316GgkspIqNcraRmqK1UnCJOEROwYk" alt="HỆ ĐIỀU HÀNH &amp; KIẾN TRÚC MÁY TÍNH" class="w-full h-full object-cover object-center">
+            <!-- Technical Watermark / Overlay Tag -->
+            
+          </div>
+
+          <!-- Availability Technical Status Bar -->
+          
+        </div>
+
+        <!-- Technical Metadata Sidebar Box -->
+        
+      <div class="border border-[#262626] bg-[#111111] p-6 flex flex-col justify-between"><div class="flex flex-col"><span class="text-xs font-mono uppercase tracking-wider text-neutral-400">ĐƠN GIÁ SÁCH (GIÁ TRỊ NIÊM YẾT)</span><div class="text-2xl font-bold font-mono text-white mt-2">185.000 VNĐ</div><div class="border-t border-[#262626] my-4"></div><div class="flex justify-between items-center text-xs font-mono"><span class="text-neutral-400">PHÍ MƯỢN TẠI THƯ VIỆN:</span><span class="text-white font-semibold">0 VNĐ (MIỄN PHÍ)</span></div><p class="text-xs text-neutral-400 mt-3 leading-relaxed font-mono">Đơn giá dùng làm căn cứ xác định giá trị tài liệu theo quy chế thư viện.</p></div></div></section>
+
+      <!-- RIGHT COLUMN (Book Specification & Borrow Actions Card - 65% / lg:col-span-8) -->
+      <section class="lg:col-span-8 xl:col-span-8 border border-[#262626] bg-[#111111] overflow-hidden flex flex-col">
+        <!-- Top Accent Line (Brand Identity stripe) -->
+        <div class="technical-top-line"></div>
+
+        <div class="p-8">
+          <!-- Header Block -->
+          <div class="space-y-3 pb-6 border-b border-[#262626]">
+            <!-- Monospace Tag Row -->
+            <div class="flex flex-wrap items-center gap-3">
+              
+              <span class="px-2.5 py-1 bg-[#141414] border border-[#262626] text-xs font-mono text-neutral-400 tracking-wider">
+                THỂ LOẠI: <span class="text-neutral-300">CÔNG NGHỆ THÔNG TIN</span>
+              </span>
+              
+            </div>
+
+            <!-- Book Title -->
+            <h1 class="text-2xl lg:text-3xl font-bold text-white font-display tracking-tight leading-tight uppercase">
+              HỆ ĐIỀU HÀNH &amp; KIẾN TRÚC MÁY TÍNH
+            </h1>
+
+            
+          </div>
+
+          <!-- Technical Metadata Grid (2x2 sharp-bordered table/grid) -->
+          <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 border border-[#262626] bg-[#0E0E0E]">
+            <!-- Cell 1: Tác giả -->
+            <div class="p-4 border-b sm:border-r border-[#262626] flex flex-col justify-between">
+              <span class="text-[11px] font-mono uppercase tracking-wider text-neutral-400 block mb-1">TÁC GIẢ / NGUỒN GỐC</span>
+              <span class="text-sm font-semibold text-white font-sans">TS. Nguyễn Văn Dũng, ThS. Lê Thị Mai Anh</span>
+            </div>
+
+            <!-- Cell 2: Nhà xuất bản -->
+            <div class="p-4 border-b border-[#262626] flex flex-col justify-between">
+              <span class="text-[11px] font-mono uppercase tracking-wider text-neutral-400 block mb-1">NHÀ XUẤT BẢN</span>
+              <span class="text-sm font-semibold text-white font-sans">Nhà Xuất Bản Kỹ Thuật - Điện Tử</span>
+            </div>
+
+            <!-- Cell 3: Năm xuất bản -->
+            <div class="p-4 sm:border-r border-b sm:border-b-0 border-[#262626] flex flex-col justify-between">
+              <span class="text-[11px] font-mono uppercase tracking-wider text-neutral-400 block mb-1">NĂM XUẤT BẢN</span>
+              <span class="text-sm font-mono font-medium text-white">2023 (Tái bản lần thứ 4)</span>
+            </div>
+
+            <!-- Cell 4: Số lượng còn lại -->
+            <div class="p-4 flex flex-col justify-between bg-[#141414]">
+              <span class="text-[11px] font-mono uppercase tracking-wider text-neutral-400 block mb-1">SỐ LƯỢNG CÒN TRONG KHO</span>
+              <div class="flex items-baseline gap-2">
+                <span class="text-lg font-mono font-bold text-white">08</span>
+                <span class="text-xs font-mono text-neutral-400 uppercase">QUYỂN CẢ HỆ THỐNG</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Borrow Action Bar -->
+          <div class="mt-6 pt-6 border-t border-[#262626]">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-end gap-4">
+              <!-- Quantity Stepper -->
+              <div class="flex flex-col gap-1.5">
+                <label class="text-[11px] font-mono uppercase tracking-wider text-neutral-400">SỐ LƯỢNG MƯỢN</label>
+                <div class="h-11 inline-flex items-center border border-[#333333] bg-[#0E0E0E]">
+                  <button type="button" class="w-10 h-full flex items-center justify-center text-neutral-400 hover:text-white hover:bg-[#1A1A1A] transition-colors border-r border-[#262626] text-base font-mono">
+                    -
+                  </button>
+                  <span class="w-14 text-center font-mono text-sm font-bold text-white">01</span>
+                  <button type="button" class="w-10 h-full flex items-center justify-center text-neutral-400 hover:text-white hover:bg-[#1A1A1A] transition-colors border-l border-[#262626] text-base font-mono">
+                    +
+                  </button>
+                </div>
+              </div>
+
+              <!-- Primary CTA Button -->
+              <button type="button" class="flex-1 h-11 bg-white text-black font-mono text-xs font-bold uppercase tracking-wider px-6 flex items-center justify-center gap-2 hover:bg-neutral-200 active:bg-neutral-300 transition-colors shadow-none">
+                <span>THÊM VÀO GIỎ HÀNG</span>
+                <span>→</span>
+              </button>
+
+              <!-- Secondary CTA Button -->
+              <button type="button" class="h-11 bg-[#161616] border border-[#333333] text-white font-mono text-xs font-semibold uppercase tracking-wider px-6 flex items-center justify-center hover:bg-[#202020] hover:border-neutral-500 transition-colors">
+                <span>ĐĂNG KÝ MƯỢN NGAY</span>
+              </button>
+            </div>
+
+            <!-- Contextual Policy Note below buttons -->
+            <div class="mt-3 flex items-center gap-2 text-[11px] font-mono text-neutral-400">
+              
+              
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <div class="h-[1px] w-full bg-[#262626] my-6"></div>
+
+          <!-- Description Block (`MOTA`) -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-neutral-300">
+                MÔ TẢ NỘI DUNG SÁCH
+              </h3>
+              
+            </div>
+
+            <div class="text-sm text-neutral-300 leading-relaxed font-sans space-y-3 bg-[#0E0E0E] p-5 border border-[#222222]">
+              <p>
+                Giáo trình cung cấp các kiến thức cơ sở và chuyên sâu toàn diện về nguyên lý hoạt động của hệ điều hành hiện đại, mô hình phần cứng máy tính và cơ chế tương tác tầng thấp giữa vi xử lý, bộ nhớ và hệ thống vào/ra (I/O).
+              </p>
+              <p>
+                Nội dung bao gồm: Quản lý tiến trình (Process &amp; Thread), cơ chế đồng bộ hóa dữ liệu và xử lý Deadlock; Cơ chế phân trang (Paging), bộ nhớ ảo (Virtual Memory) và thuật toán thay thế trang; Cấu trúc hệ thống tệp tin và an toàn hệ thống phân tán; Phân tích sâu kiến trúc vi xử lý đa nhân x86-64 và ARM hiện đại.
+              </p>
+              <div class="pt-2 border-t border-[#1F1F1F] flex flex-wrap gap-4 text-xs font-mono text-neutral-400">
+                <span>ẤN BẢN: BÌA CỨNG KỸ THUẬT</span>
+                <span>|</span>
+                <span>SỐ TRANG: 648 TRANG</span>
+                
+                
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- ========================================== -->
+  <!-- 3. GLOBAL FOOTER (STRICT SPECIFICATION)    -->
+  <!-- ========================================== -->
+  <footer class="w-full border-t border-[#262626] bg-[#0A0A0A] py-6 px-8 mt-12">
+    <div class="max-w-[1280px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      
+      <!-- Far Left: Vertical Stacked Contact Info -->
+      <div class="flex flex-col gap-2 font-mono text-xs text-neutral-400">
+        <div>
+          <span class="font-bold text-neutral-300 uppercase">LIÊN HỆ QUẢN LÝ THƯ VIỆN:</span>
+          <span class="text-neutral-400 ml-1">quanly@thuvien.edu.vn | (0292) 3831 567</span>
+        </div>
+        <div>
+          <span class="font-bold text-neutral-300 uppercase">LIÊN HỆ HỖ TRỢ KỸ THUẬT:</span>
+          <span class="text-neutral-400 ml-1">hotro@thuvien.edu.vn</span>
+        </div>
+      </div>
+
+      <!-- Far Right: Library Regulations -->
+      <div class="text-left md:text-right font-mono text-xs text-neutral-400">
+        <a href="#" class="font-bold text-neutral-300 uppercase hover:text-white transition-colors block mb-1">
+          QUY CHẾ THƯ VIỆN
+        </a>
+        <span class="text-neutral-400">Quy định mượn trả sách &amp; Bảo quản tài liệu</span>
+      </div>
+
+    </div>
+  </footer>
+
+
+
+
+
+
+
+
+
+
+</body></html>

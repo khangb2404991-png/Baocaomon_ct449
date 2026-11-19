@@ -1,0 +1,47 @@
+/* ==========================================================================
+   Profile Page Specific Styles (profile.css)
+   Harmonized with Stitch AI Technical Cockpit Theme & Bootstrap 5
+   ========================================================================== */
+
+.profile-input {
+  width: 100%;
+  height: 2.75rem;
+  padding: 0 0.75rem;
+  background-color: #1a1a1a;
+  border: 1px solid #3c3c3c;
+  color: #ffffff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  border-radius: 0;
+  transition: border-color 0.15s ease-in-out;
+}
+
+.profile-input:focus {
+  border-color: #1c69d4;
+  outline: none;
+}
+
+.status-badge-cho-duyet {
+  border: 1px solid #f4b400;
+  color: #f4b400;
+  background-color: rgba(244, 180, 0, 0.1);
+}
+
+.status-badge-dang-muon {
+  border: 1px solid #1c69d4;
+  color: #1c69d4;
+  background-color: rgba(28, 105, 212, 0.1);
+}
+
+.status-badge-da-tra {
+  border: 1px solid #0fa336;
+  color: #0fa336;
+  background-color: rgba(15, 163, 54, 0.1);
+}
+
+.status-badge-da-huy, .status-badge-qua-han {
+  border: 1px solid #e22718;
+  color: #e22718;
+  background-color: rgba(226, 39, 24, 0.1);
+}
+
