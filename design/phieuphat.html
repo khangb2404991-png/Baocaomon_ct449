@@ -1,0 +1,427 @@
+<!DOCTYPE html><html class="dark" lang="vi"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_standard" name="shell-type"><title>Book Lending System</title><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;600&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"inverse-surface":"#e2e2e2","on-secondary-container":"#ffcdc5","on-background":"#e2e2e2","on-secondary-fixed-variant":"#930100","surface-dim":"#131313","tertiary-fixed-dim":"#adc6ff","secondary-fixed-dim":"#ffb4a8","surface":"#131313","tertiary-fixed":"#d8e2ff","outline-variant":"#444748","outline":"#8e9192","surface-bright":"#393939","error-container":"#93000a","secondary":"#ffb4a8","primary-fixed-dim":"#c6c6c7","on-error":"#690005","surface-variant":"#353535","on-primary":"#2f3131","on-tertiary-fixed":"#001a41","secondary-fixed":"#ffdad4","tertiary-container":"#d8e2ff","on-secondary":"#680100","inverse-primary":"#5d5f5f","surface-tint":"#c6c6c7","on-primary-fixed-variant":"#454747","on-tertiary-container":"#0560cb","tertiary":"#ffffff","on-tertiary":"#002e69","inverse-on-surface":"#303030","surface-container-lowest":"#0e0e0e","on-primary-container":"#636565","secondary-container":"#c00200","background":"#131313","surface-container-highest":"#353535","on-primary-fixed":"#1a1c1c","primary-fixed":"#e2e2e2","error":"#ffb4ab","on-surface":"#e2e2e2","surface-container-low":"#1b1b1b","surface-container-high":"#2a2a2a","primary":"#ffffff","primary-container":"#e2e2e2","surface-container":"#1f1f1f","on-surface-variant":"#c4c7c8","on-error-container":"#ffdad6","on-tertiary-fixed-variant":"#004494","on-secondary-fixed":"#410000"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-xl":"2.5rem","margin-desktop":"2.5rem","margin-tablet":"1.5rem","space-md":"1rem","gutter":"1rem","space-sm":"0.5rem","space-lg":"1.5rem","margin":"1rem","space-xs":"0.25rem","gutter-desktop":"1.5rem"},"fontFamily":{"mono-data-md":["JetBrains Mono"],"label-caps":["JetBrains Mono"],"display-hero-mobile":["Space Grotesk"],"display-hero":["Space Grotesk"],"title-sm":["Chivo"],"body-sm":["Chivo"],"body-lg":["Chivo"],"mono-data-lg":["JetBrains Mono"],"headline-lg":["Space Grotesk"],"headline-md":["Space Grotesk"],"body-md":["Chivo"],"headline-lg-mobile":["Space Grotesk"]},"fontSize":{"mono-data-md":["14px",{"lineHeight":"20px","letterSpacing":"0em","fontWeight":"500"}],"label-caps":["11px",{"lineHeight":"16px","letterSpacing":"0.08em","fontWeight":"600"}],"display-hero-mobile":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}],"display-hero":["56px",{"lineHeight":"64px","letterSpacing":"-0.03em","fontWeight":"700"}],"title-sm":["16px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"16px","letterSpacing":"0.01em","fontWeight":"400"}],"body-lg":["16px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"400"}],"mono-data-lg":["24px",{"lineHeight":"28px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","letterSpacing":"0em","fontWeight":"400"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"700"}]}}}};</script></head><body class="bg-surface-container-lowest font-body-md text-on-surface antialiased"><header class="fixed top-0 w-full z-50 bg-surface-container-lowest border-b border-surface-container-highest"><div class="h-16 w-full px-8 flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="w-7 h-7 bg-surface-container border border-surface-container-highest flex items-center justify-center"><span class="material-symbols-outlined text-primary text-[18px]">library_books</span></div><div class="flex items-center gap-2"><span class="font-headline-md text-headline-md tracking-wider text-primary">BOOK LENDING SYSTEM</span><span class="font-label-caps text-label-caps text-outline bg-surface-container px-1.5 py-0.5 border border-surface-container-highest">[ADMIN]</span></div></div><div class="flex items-center gap-space-md"><div class="bg-surface-container-low border border-surface-container-high px-3.5 py-1.5 flex items-center gap-3"><div class="w-6 h-6 rounded-none bg-surface-container-highest flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[16px]">badge</span></div><div class="flex flex-col text-left"><span class="font-mono-data-md text-body-sm text-primary leading-tight font-medium">Trần Minh Quân</span><span class="font-label-caps text-label-caps text-outline leading-tight">Thủ thư</span></div></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface-container-lowest min-h-screen"><div class="flex flex-col w-full">
+<div class="w-full max-w-[1280px] mx-auto px-6 py-6 space-y-6">
+<!-- Top Technical Navigation & Breadcrumb -->
+<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-[#262626] pb-4">
+<div class="flex items-center gap-3">
+<a class="inline-flex items-center gap-2 font-mono-data-md text-body-sm tracking-wider text-outline hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+<span>QUAY LẠI DANH SÁCH PHIẾU PHẠT</span>
+</a>
+
+
+</div>
+
+</div>
+<!-- Telemetry Header Status Stripe -->
+
+<!-- Main 2-Column Workspace -->
+<div class="grid grid-cols-12 gap-6 items-start">
+<!-- ================= LEFT COLUMN (Col 8) ================= -->
+<div class="col-span-12 lg:col-span-8 space-y-6">
+<!-- CARD 1: Tra cứu Phiếu Mượn & Thông tin Độc Giả -->
+<div class="bg-[#111111] border border-[#262626] p-6 relative">
+<!-- Flush Top Technical Accent Hairline -->
+<div class="absolute top-0 left-0 flex h-[3px]">
+<div class="w-5 bg-[#0066b1]"></div>
+<div class="w-5 bg-[#1c69d4]"></div>
+<div class="w-5 bg-[#e22718]"></div>
+</div>
+<div class="flex items-center justify-between pb-3 border-b border-[#262626]">
+<h2 class="font-mono-data-md text-label-caps tracking-wider text-outline uppercase font-semibold">
+              01. THÔNG TIN PHIẾU MƯỢN GỐC&nbsp;</h2>
+
+</div>
+<!-- Search Query Bar -->
+<div class="mt-5 space-y-2">
+
+<div class="flex gap-2">
+<div class="relative flex-1">
+
+</div>
+
+</div>
+</div>
+<!-- Read-only Technical Metadata Matrix -->
+<div class="mt-5 border border-[#262626] bg-[#0c0c0c] p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="space-y-1">
+<div class="font-label-caps text-label-caps text-outline uppercase">ĐỘC GIẢ</div>
+<div class="font-mono-data-md text-body-md text-primary font-bold">Nguyễn Văn An</div>
+</div>
+<div class="space-y-1">
+<div class="font-label-caps text-label-caps text-outline uppercase">EMAIL LIÊN HỆ</div>
+<div class="font-mono-data-md text-body-sm text-neutral-300">an.nguyen@email.com</div>
+</div>
+<div class="space-y-1">
+<div class="font-label-caps text-label-caps text-outline uppercase">NGÀY MƯỢN / HẸN TRẢ</div>
+<div class="font-mono-data-md text-body-sm text-neutral-300">05/11/2026 — 19/11/2026</div>
+</div>
+<div class="space-y-1 pt-3 border-t border-[#1e1e1e]">
+<div class="font-label-caps text-label-caps text-outline uppercase">TRẠNG THÁI PHIẾU MƯỢN</div>
+<div class="inline-flex items-center gap-1.5 font-mono-data-md text-body-sm text-[#e22718] font-bold">
+<span class="w-1.5 h-1.5 bg-[#e22718]"></span>
+<span>[ĐANG MƯỢN - QUÁ HẠN]</span>
+</div>
+</div>
+<div class="space-y-1 pt-3 border-t border-[#1e1e1e]">
+<div class="font-label-caps text-label-caps text-outline uppercase">SỐ LƯỢNG SÁCH MƯỢN</div>
+<div class="font-mono-data-md text-body-sm text-primary font-semibold">03 QUYỂN</div>
+</div>
+<div class="space-y-1 pt-3 border-t border-[#1e1e1e]">
+<div class="font-label-caps text-label-caps text-outline uppercase">SỐ NGÀY QUÁ HẠN</div>
+<div class="font-mono-data-md text-body-md text-[#e22718] font-bold">06 NGÀY</div>
+</div>
+</div>
+</div>
+<!-- CARD 2: Danh sách sách vi phạm & Chi tiết phạt -->
+<div class="bg-[#111111] border border-[#262626] p-6">
+<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-4 border-b border-[#262626] gap-3"><div>
+<h2 class="font-mono-data-md text-label-caps tracking-wider text-outline uppercase font-semibold">
+                02. DANH SÁCH SÁCH VI PHẠM &amp; HÌNH THỨC XỬ LÝ
+              </h2>
+</div></div>
+<!-- Violation Table -->
+<div class="overflow-x-auto border border-[#262626] mt-5">
+<table class="w-full border-collapse font-mono-data-md text-body-sm" id="fineTable">
+<thead>
+<tr class="bg-[#161616] text-outline border-b border-[#262626] text-left">
+<th class="p-3 w-12 text-center font-label-caps text-label-caps">STT</th>
+<th class="p-3 font-label-caps text-label-caps">MÃ SÁCH / TÊN SÁCH&nbsp;</th>
+<th class="p-3 font-label-caps text-label-caps">LÝ DO PHẠT&nbsp;</th>
+<th class="p-3 text-right font-label-caps text-label-caps w-36">TIỀN PHẠT</th>
+<th class="p-3 text-center font-label-caps text-label-caps w-24">THAO TÁC</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#262626]">
+<!-- Row 1 -->
+<tr class="bg-[#0f0f0f] hover:bg-[#151515] transition-colors" data-fine-row="30000" data-reason-type="late">
+<td class="p-3 text-center text-outline">01</td>
+<td class="p-3">
+<div class="text-primary font-semibold">Hệ điều hành &amp; Kiến trúc máy tính</div>
+
+</td>
+<td class="p-3">
+<div class="text-neutral-300 text-body-sm">TRẢ QUÁ HẠN (06 NGÀY x 5.000 VNĐ/NGÀY)</div>
+<div class="text-outline-variant text-[11px] font-mono-data-md">Định mức: 5.000 VNĐ / ngày trễ</div>
+</td>
+<td class="p-3 text-right">
+<span class="font-mono-data-md text-body-md text-primary font-bold">30.000</span>
+<span class="text-outline text-[11px]"> VNĐ</span>
+</td>
+<td class="p-3 text-center">
+<button class="text-neutral-500 hover:text-[#e22718] font-mono-data-md text-label-caps uppercase transition-colors inline-flex items-center gap-1" onclick="removeViolationRow(this)" title="Xóa dòng" type="button">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+<span>XÓA</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-[#0c0c0c] hover:bg-[#151515] transition-colors" data-fine-row="45000" data-reason-type="damage">
+<td class="p-3 text-center text-outline">02</td>
+<td class="p-3">
+<div class="text-primary font-semibold">Kỹ thuật lập trình hệ thống C/C++</div>
+
+</td>
+<td class="p-3">
+<div class="text-neutral-300 text-body-sm">LÀM HỎNG TRANG BÌA (30% GIÁ TRỊ SÁCH)</div>
+<div class="text-outline-variant text-[11px] font-mono-data-md">Biên bản thẩm định trang bìa rách 12cm</div>
+</td>
+<td class="p-3 text-right">
+<span class="font-mono-data-md text-body-md text-primary font-bold">45.000</span>
+<span class="text-outline text-[11px]"> VNĐ</span>
+</td>
+<td class="p-3 text-center">
+<button class="text-neutral-500 hover:text-[#e22718] font-mono-data-md text-label-caps uppercase transition-colors inline-flex items-center gap-1" onclick="removeViolationRow(this)" title="Xóa dòng" type="button">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+<span>XÓA</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Inline Form to Add Violation Line Item -->
+<div class="border border-dashed border-[#262626] bg-[#0e0e0e] p-4 mt-5 space-y-4" id="addViolationForm">
+<div class="flex items-center justify-between border-b border-[#222222] pb-2"><span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">
+                + THÊM DÒNG VI PHẠM MỚI VÀO PHIẾU PHẠT
+              </span>
+<button type="button" onclick="addNewViolationRow()" class="border border-[#333333] hover:border-primary bg-[#161616] px-3.5 py-1.5 font-mono-data-md text-label-caps text-neutral-300 hover:text-white uppercase transition-colors inline-flex items-center gap-1.5" style="background-color: rgb(22, 22, 22); border: 1px solid rgb(51, 51, 51); border-radius: 0px; color: rgb(255, 255, 255); font-family: monospace; font-size: 11px; padding: 6px 14px; font-weight: bold; letter-spacing: 0.05em; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; text-transform: uppercase;">
+<span class="material-symbols-outlined text-[14px]">add</span>
+<span>THÊM DÒNG VI PHẠM</span>
+</button></div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
+<div class="md:col-span-4 space-y-1.5">
+<label class="block font-label-caps text-label-caps text-outline uppercase">
+                  CHỌN SÁCH CẦN PHẠT (TỪ PHIẾU MƯỢN)
+                </label>
+<select class="w-full bg-[#0a0a0a] border border-[#262626] focus:border-[#1c69d4] focus:outline-none text-primary px-3 py-2 font-mono-data-md text-body-sm" id="newBookSelect"><option value="BK-CNTT-0941|Hệ điều hành &amp; Kiến trúc máy tính">Hệ điều hành &amp; Kiến trúc máy tính</option>
+<option value="BK-CNTT-0812|Kỹ thuật lập trình hệ thống C/C++">Kỹ thuật lập trình C/C++</option>
+<option value="BK-TOAN-0104|Đại số tuyến tính nâng cao">Đại số tuyến tính nâng cao</option></select>
+</div>
+<div class="md:col-span-4 space-y-1.5">
+<label class="block font-label-caps text-label-caps text-outline uppercase">
+                  LÝ DO VI PHẠM (LYDO)
+                </label>
+<select class="w-full bg-[#0a0a0a] border border-[#262626] focus:border-[#1c69d4] focus:outline-none text-primary px-3 py-2 font-mono-data-md text-body-sm" id="newReasonSelect" onchange="autoFillFine(this.value)">
+<option value="Trả trễ hạn (06 ngày)">Trả trễ hạn (06 ngày)</option>
+<option value="Làm rách/hỏng tài liệu">Làm rách/hỏng tài liệu</option>
+<option value="Làm mất sách (Bồi thường 150%)">Làm mất sách (Bồi thường 150%)</option>
+<option value="Vi phạm quy chế mượn khác">Vi phạm quy chế mượn khác</option>
+</select>
+</div>
+<div class="md:col-span-2 space-y-1.5">
+<label class="block font-label-caps text-label-caps text-outline uppercase">
+                  TIỀN PHẠT (VNĐ)
+                </label>
+<input class="w-full bg-[#0a0a0a] border border-[#262626] focus:border-[#1c69d4] focus:outline-none text-primary px-3 py-2 font-mono-data-md text-body-sm text-right" id="newFineAmount" step="5000" type="number" value="30000">
+</div>
+<div class="md:col-span-2">
+<button class="w-full h-[38px] bg-[#222222] hover:bg-primary hover:text-black border border-[#333333] hover:border-primary text-primary font-mono-data-md text-label-caps uppercase transition-colors flex items-center justify-center gap-1.5" onclick="addNewViolationRow()" type="button">
+<span class="material-symbols-outlined text-[15px]">done</span>
+<span>ÁP DỤNG</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ================= RIGHT COLUMN (Col 4) ================= -->
+<div class="col-span-12 lg:col-span-4 space-y-6">
+<!-- CARD 3: Thông tin Phiếu Phạt & Nhân Viên Lập -->
+<div class="bg-[#111111] border border-[#262626] p-6 space-y-5">
+<div class="flex items-center justify-between pb-3 border-b border-[#262626]">
+<h2 class="font-mono-data-md text-label-caps tracking-wider text-outline uppercase font-semibold">
+              03. THIẾT LẬP PHIẾU PHẠT (PHIEUPHAT)
+            </h2>
+<span class="w-2 h-2 bg-[#1c69d4]"></span>
+</div>
+<div class="space-y-4">
+<!-- Mã Phiếu Phạt -->
+<div class="space-y-1.5">
+
+
+</div>
+<!-- Ngày Lập Phiếu -->
+<div class="space-y-1.5">
+<label class="block font-label-caps text-label-caps text-outline uppercase">
+                NGÀY LẬP PHIẾU (NgayLap)
+              </label>
+<div class="bg-[#0a0a0a] border border-[#262626] px-3.5 py-2 font-mono-data-md text-body-sm text-neutral-300 flex items-center justify-between">
+<span id="currentTimestamp">25/11/2026 (14:35:10)</span>
+<span class="material-symbols-outlined text-[16px] text-outline">schedule</span>
+</div>
+</div>
+<!-- Nhân Viên Lập -->
+<div class="space-y-1.5">
+<label class="block font-label-caps text-label-caps text-outline uppercase">
+                NHÂN VIÊN LẬP (MaNV / TenNV)
+              </label>
+<div class="bg-[#0a0a0a] border border-[#262626] px-3.5 py-2 font-mono-data-md text-body-sm text-neutral-200 flex items-center justify-between">
+<span>Trần Minh Quân</span>
+<span class="material-symbols-outlined text-[16px] text-outline">verified_user</span>
+</div>
+</div>
+<!-- Trạng Thái Thu Phạt -->
+<div class="space-y-1.5">
+<label class="block font-label-caps text-label-caps text-outline uppercase">
+                TRẠNG THÁI THU PHẠT (TrangThai)
+              </label>
+<select class="w-full bg-[#0a0a0a] border border-[#262626] focus:border-[#1c69d4] focus:outline-none text-primary px-3 py-2 font-mono-data-md text-body-sm">
+<option selected="" value="CHUA_NOP">CHƯA NỘP TIỀN (GHI NỢ HỆ THỐNG)</option>
+<option value="DA_THU">ĐÃ THU TIỀN TẠI QUẦY (TIỀN MẶT)</option>
+</select>
+</div>
+<!-- Ghi Chú Vi Phạm -->
+<div class="space-y-1.5">
+<label class="block font-label-caps text-label-caps text-outline uppercase">
+                GHI CHÚ / BIÊN BẢN VI PHẠM (GhiChu)
+              </label>
+<textarea class="w-full bg-[#0a0a0a] border border-[#262626] focus:border-[#1c69d4] focus:outline-none text-neutral-200 font-mono-data-md text-body-sm p-3 placeholder:text-outline-variant resize-none" placeholder="Độc giả mang sách trả trễ 6 ngày. Sách mã bị rách bìa trước mép ngoài 12cm." rows="3">Độc giả mang sách trả trễ 6 ngày. Sách mã BK-CNTT-0812 bị rách bìa trước mép ngoài 12cm.</textarea>
+</div>
+</div>
+</div>
+<!-- CARD 4: Tổng kết tài chính & Xác nhận lập phiếu -->
+<div class="bg-[#141414] border border-[#262626] p-6 space-y-6">
+<div class="flex items-center justify-between pb-3 border-b border-[#262626]">
+<h2 class="font-mono-data-md text-label-caps tracking-wider text-outline uppercase font-semibold">
+              TỔNG KẾT TÀI CHÍNH&nbsp;</h2>
+
+</div>
+<!-- Financial Summary Rows -->
+<div class="space-y-3 font-mono-data-md text-body-sm">
+<div class="flex justify-between items-center text-outline">
+<span>Tổng số mục vi phạm:</span>
+<span class="text-primary font-semibold" id="summaryItemCount">02 MỤC</span>
+</div>
+<div class="flex justify-between items-center text-outline">
+<span>Tiền phạt trả trễ:</span>
+<span class="text-primary font-semibold" id="summaryLateFee">30.000 VNĐ</span>
+</div>
+<div class="flex justify-between items-center text-outline">
+<span>Tiền phạt hỏng tài liệu / khác:</span>
+<span class="text-primary font-semibold" id="summaryDamageFee">45.000 VNĐ</span>
+</div>
+<div class="border-t border-[#262626] pt-4">
+<div class="font-label-caps text-label-caps text-outline uppercase tracking-wider">
+                TỔNG TIỀN PHẠT (TongTienPhat):
+              </div>
+<div class="flex items-baseline justify-between mt-1">
+<span class="font-mono-data-lg text-display-hero-mobile text-primary font-bold tracking-tight" id="grandTotal">
+                  75.000
+                </span>
+<span class="font-mono-data-md text-title-sm text-outline font-bold">VNĐ</span>
+</div>
+
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="space-y-3 pt-2">
+<button class="w-full h-11 bg-primary hover:bg-[#d8d8d8] text-black font-mono-data-md font-bold text-label-caps uppercase tracking-wider transition-colors flex items-center justify-center gap-2" id="btnSubmitFine" type="button">
+<span>XÁC NHẬN LẬP PHIẾU PHẠT</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+<button class="w-full h-11 bg-[#161616] hover:bg-[#202020] border border-[#333333] hover:border-outline text-outline hover:text-primary font-mono-data-md text-label-caps uppercase tracking-wider transition-colors flex items-center justify-center gap-1.5" onclick="if(confirm('Hủy bỏ toàn bộ thao tác lập phiếu phạt này?')) { window.location.reload(); }" type="button">
+<span class="material-symbols-outlined text-[15px]">close</span>
+<span>HỦY BỎ &amp; QUAY LẠI</span>
+</button>
+</div>
+<!-- Bottom Audit Monospace Stamp -->
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  function formatVND(number) {
+    return new Intl.NumberFormat('vi-VN').format(number);
+  }
+
+  function recalculateTotals() {
+    const tableBody = document.querySelector('#fineTable tbody');
+    const rows = tableBody.querySelectorAll('tr');
+    let total = 0;
+    let lateFee = 0;
+    let otherFee = 0;
+
+    rows.forEach((row, index) => {
+      // update STT
+      const sttCell = row.querySelector('td:first-child');
+      if (sttCell) {
+        sttCell.textContent = String(index + 1).padStart(2, '0');
+      }
+
+      const fineAmount = parseInt(row.getAttribute('data-fine-row') || '0', 10);
+      const reasonType = row.getAttribute('data-reason-type') || 'other';
+
+      total += fineAmount;
+      if (reasonType === 'late') {
+        lateFee += fineAmount;
+      } else {
+        otherFee += fineAmount;
+      }
+    });
+
+    const countElem = document.getElementById('summaryItemCount');
+    const lateElem = document.getElementById('summaryLateFee');
+    const damageElem = document.getElementById('summaryDamageFee');
+    const grandElem = document.getElementById('grandTotal');
+
+    if (countElem) countElem.textContent = String(rows.length).padStart(2, '0') + ' MỤC';
+    if (lateElem) lateElem.textContent = formatVND(lateFee) + ' VNĐ';
+    if (damageElem) damageElem.textContent = formatVND(otherFee) + ' VNĐ';
+    if (grandElem) grandElem.textContent = formatVND(total);
+  }
+
+  function removeViolationRow(btn) {
+    const row = btn.closest('tr');
+    if (row) {
+      row.remove();
+      recalculateTotals();
+    }
+  }
+
+  function autoFillFine(reason) {
+    const fineInput = document.getElementById('newFineAmount');
+    if (!fineInput) return;
+    if (reason.includes('Trả trễ')) {
+      fineInput.value = '30000';
+    } else if (reason.includes('Làm rách/hỏng')) {
+      fineInput.value = '45000';
+    } else if (reason.includes('Làm mất sách')) {
+      fineInput.value = '150000';
+    } else {
+      fineInput.value = '20000';
+    }
+  }
+
+  function addNewViolationRow() {
+    const bookSelect = document.getElementById('newBookSelect');
+    const reasonSelect = document.getElementById('newReasonSelect');
+    const fineInput = document.getElementById('newFineAmount');
+
+    if (!bookSelect || !reasonSelect || !fineInput) return;
+
+    const [bookCode, bookTitle] = bookSelect.value.split('|');
+    const reasonText = reasonSelect.value;
+    const fineValue = parseInt(fineInput.value || '0', 10);
+
+    if (fineValue <= 0) {
+      alert('Vui lòng nhập tiền phạt hợp lệ (lớn hơn 0 VNĐ)');
+      return;
+    }
+
+    const tableBody = document.querySelector('#fineTable tbody');
+    const isLate = reasonText.toLowerCase().includes('trễ') || reasonText.toLowerCase().includes('hạn');
+    const rowClass = tableBody.children.length % 2 === 0 ? 'bg-[#0f0f0f]' : 'bg-[#0c0c0c]';
+
+    const tr = document.createElement('tr');
+    tr.className = `${rowClass} hover:bg-[#151515] transition-colors`;
+    tr.setAttribute('data-fine-row', fineValue.toString());
+    tr.setAttribute('data-reason-type', isLate ? 'late' : 'damage');
+
+    tr.innerHTML = `
+      <td class="p-3 text-center text-outline">--</td>
+      <td class="p-3">
+        <div class="text-primary font-semibold">${bookTitle}</div>
+        <div class="text-outline text-body-sm font-mono-data-md">Mã: ${bookCode}</div>
+      </td>
+      <td class="p-3">
+        <div class="text-neutral-300 text-body-sm">${reasonText.toUpperCase()}</div>
+        <div class="text-outline-variant text-[11px] font-mono-data-md">Phát sinh từ biên bản hiện trường</div>
+      </td>
+      <td class="p-3 text-right">
+        <span class="font-mono-data-md text-body-md text-primary font-bold">${formatVND(fineValue)}</span>
+        <span class="text-outline text-[11px]"> VNĐ</span>
+      </td>
+      <td class="p-3 text-center">
+        <button
+          type="button"
+          onclick="removeViolationRow(this)"
+          class="text-neutral-500 hover:text-[#e22718] font-mono-data-md text-label-caps uppercase transition-colors inline-flex items-center gap-1"
+          title="Xóa dòng"
+        >
+          <span class="material-symbols-outlined text-[16px]">delete</span>
+          <span>XÓA</span>
+        </button>
+      </td>
+    `;
+
+    tableBody.appendChild(tr);
+    recalculateTotals();
+  }
+
+  // Trigger search stub
+  document.getElementById('btnSearchLoan')?.addEventListener('click', () => {
+    const loanCode = document.getElementById('loanInput').value;
+    alert(`[CDM TELEMETRY] Đã truy vấn thành công dữ liệu phiếu mượn: ${loanCode}`);
+  });
+
+  // Submit action stub
+  document.getElementById('btnSubmitFine')?.addEventListener('click', () => {
+    const total = document.getElementById('grandTotal').textContent.trim();
+    alert(`XÁC NHẬN LẬP PHIẾU PHẠT THÀNH CÔNG!\n- Mã phiếu: PP-20261125-0089\n- Tổng tiền phạt: ${total} VNĐ\n- Trạng thái: Đã cập nhật vào cơ sở dữ liệu thư viện.`);
+  });
+</script></main><footer class="w-full bg-surface-container-lowest border-t border-surface-container-highest py-6 px-8"><div class="w-full flex flex-col md:flex-row md:items-center md:justify-between gap-4"><div class="flex flex-col gap-1 font-mono-data-md text-body-sm text-on-surface-variant"><div class="flex items-center gap-2"><span class="text-outline font-label-caps text-label-caps">LIÊN HỆ QUẢN LÝ THƯ VIỆN:</span><span class="text-on-surface">quanly@thuvien.edu.vn</span><span class="text-outline-variant">|</span><span class="text-on-surface">(0292) 3831 567</span></div><div class="flex items-center gap-2"><span class="text-outline font-label-caps text-label-caps">LIÊN HỆ HỖ TRỢ KỸ THUẬT:</span><span class="text-on-surface">hotro@thuvien.edu.vn</span></div></div><div class="flex flex-col md:items-end gap-0.5"><div class="font-label-caps text-label-caps tracking-widest text-primary">QUY CHẾ THƯ VIỆN</div><a class="font-body-sm text-body-sm text-outline hover:text-on-surface transition-colors" href="#">Quy định mượn trả sách &amp; Xử lý vi phạm</a></div></div></footer>
+
+</body></html>

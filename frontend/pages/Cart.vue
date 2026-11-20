@@ -166,7 +166,7 @@
                       PHIẾU ĐĂNG KÝ
                     </h3>
                     <span class="font-mono-data-md text-[11px] text-[#c4c7c8] border border-[#444748] px-1.5 py-0.5">
-                      MẪU PM-01
+                      TIÊU CHUẨN
                     </span>
                   </div>
                 </div>

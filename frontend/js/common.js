@@ -14,7 +14,8 @@ const STORAGE_KEYS = {
   BORROW_HISTORY: 'bls_borrow_history',
   READERS: 'bls_readers',
   STAFF_LIST: 'bls_staff_list',
-  ACCOUNTS: 'bls_accounts'
+  ACCOUNTS: 'bls_accounts',
+  FINES: 'bls_fines'
 };
 
 // Helper: Normalize book properties to support both camelCase and lowercase
@@ -419,6 +420,45 @@ const INITIAL_BORROW = [
   }
 ];
 
+export const INITIAL_FINES = [
+  {
+    maPhieuPhat: 'PP-0001',
+    maPhieuMuon: 'PM-8790',
+    tenDocGia: 'Nguyễn Văn An',
+    emailDocGia: 'an.nguyen@email.com',
+    sdtDocGia: '0912 345 678',
+    ngayMuon: '2024-05-18',
+    ngayTra: '2024-06-01',
+    ngayLap: '2026-11-20',
+    ngayLapFormatted: '20/11/2026 (14:35:10)',
+    tenNV: 'Trần Minh Quân',
+    trangThai: 'CHUA_NOP',
+    ghiChu: 'Độc giả mang sách trả trễ hạn. Sách "Kỹ thuật lập trình hệ thống C/C++" bị rách bìa trước mép ngoài 12cm.',
+    soLuongViPham: 2,
+    tienPhatTre: 30000,
+    tienPhatHong: 45000,
+    tongTienPhat: 75000,
+    chiTiet: [
+      {
+        maSach: 'CS-0205',
+        tenSach: 'Hệ điều hành & Kiến trúc máy tính',
+        lyDo: 'TRẢ QUÁ HẠN (06 NGÀY x 5.000 VNĐ/NGÀY)',
+        loaiViPham: 'late',
+        tienPhat: 30000,
+        ghiChu: 'Định mức: 5.000 VNĐ / ngày trễ'
+      },
+      {
+        maSach: 'BK-CNTT-0812',
+        tenSach: 'Kỹ thuật lập trình hệ thống C/C++',
+        lyDo: 'LÀM HỎNG TRANG BÌA (30% GIÁ TRỊ SÁCH)',
+        loaiViPham: 'damage',
+        tienPhat: 45000,
+        ghiChu: 'Biên bản thẩm định trang bìa rách 12cm'
+      }
+    ]
+  }
+];
+
 // Centralized Storage Service
 export const LibraryStore = {
   get(key, defaultValue) {
@@ -739,6 +779,28 @@ export const LibraryStore = {
 
   saveStaff(staff) {
     this.set(STORAGE_KEYS.STAFF_LIST, staff);
+  },
+
+  getFines() {
+    return this.get(STORAGE_KEYS.FINES, INITIAL_FINES);
+  },
+
+  saveFines(fines) {
+    this.set(STORAGE_KEYS.FINES, fines);
+  },
+
+  createFine(fineData) {
+    const fines = this.getFines();
+    const count = fines.length + 1;
+    const pad = String(count).padStart(4, '0');
+    const newFine = {
+      maPhieuPhat: fineData.maPhieuPhat || `PP-${pad}`,
+      ...fineData,
+      ngayLap: fineData.ngayLap || new Date().toISOString()
+    };
+    fines.unshift(newFine);
+    this.saveFines(fines);
+    return { success: true, fine: newFine };
   },
 
   getCurrentUser() {

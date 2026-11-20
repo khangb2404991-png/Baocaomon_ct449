@@ -127,6 +127,7 @@ export function getAuthHeader() {
 export function getAdminSidebar(activeTab = 'books', staffInfo = {}) {
   const isBooks = activeTab === 'books';
   const isBorrow = activeTab === 'borrow';
+  const isFines = activeTab === 'fines';
   const isReaders = activeTab === 'readers';
 
   const staffName = staffInfo.name || staffInfo.hoten || 'Trần Minh Quang';
@@ -137,6 +138,10 @@ export function getAdminSidebar(activeTab = 'books', staffInfo = {}) {
     : "flex items-center px-space-md py-space-sm text-[#c4c7c8] hover:bg-[#1b1b1b] hover:text-white transition-colors font-mono-data-md text-mono-data-md no-underline";
 
   const borrowClass = isBorrow
+    ? "flex items-center px-space-md py-space-sm transition-colors bg-[#2a2a2a] text-white border-l-2 border-white font-semibold no-underline"
+    : "flex items-center px-space-md py-space-sm text-[#c4c7c8] hover:bg-[#1b1b1b] hover:text-white transition-colors font-mono-data-md text-mono-data-md no-underline";
+
+  const finesClass = isFines
     ? "flex items-center px-space-md py-space-sm transition-colors bg-[#2a2a2a] text-white border-l-2 border-white font-semibold no-underline"
     : "flex items-center px-space-md py-space-sm text-[#c4c7c8] hover:bg-[#1b1b1b] hover:text-white transition-colors font-mono-data-md text-mono-data-md no-underline";
 
@@ -162,10 +167,13 @@ export function getAdminSidebar(activeTab = 'books', staffInfo = {}) {
         </div>
         <nav class="flex flex-col px-space-xs gap-0.5">
           <a class="${booksClass}" href="#/admin/books">
-            <span class="w-2 h-2 mr-3 bg-[#444748]"></span>QUẢN LÝ SÁCH (SACH)
+            <span class="w-2 h-2 mr-3 bg-[#444748]"></span>QUẢN LÝ SÁCH
           </a>
           <a class="${borrowClass}" href="#/admin/borrows">
             <span class="w-2 h-2 mr-3 bg-[#444748]"></span>QUẢN LÝ MƯỢN/TRẢ
+          </a>
+          <a class="${finesClass}" href="#/admin/fine-ticket">
+            <span class="w-2 h-2 mr-3 bg-[#444748]"></span>QUẢN LÝ PHIẾU PHẠT
           </a>
           <a class="${readersClass}" href="#/admin/readers">
             <span class="w-2 h-2 mr-3 bg-[#444748]"></span>QUẢN LÝ TÀI KHOẢN

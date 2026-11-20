@@ -1,0 +1,25 @@
+/* ==========================================================================
+   FINE TICKET MODULE STYLES (fineTicket.css)
+   Cockpit Dark Theme styles extracted directly from design/phieuphat.html
+   ========================================================================== */
+
+.fine-ticket-view {
+  background-color: #0e0e0e;
+  color: #e2e2e2;
+  min-height: 100vh;
+}
+
+.fine-ticket-view ::-webkit-scrollbar {
+  display: none;
+}
+
+.fine-ticket-view select option {
+  background-color: #141414;
+  color: #ffffff;
+}
+
+.fine-ticket-view input[type="number"]::-webkit-inner-spin-button,
+.fine-ticket-view input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

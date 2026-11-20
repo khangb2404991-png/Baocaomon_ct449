@@ -91,7 +91,7 @@
                     <span class="material-symbols-outlined text-[#1c69d4] text-[22px]">contacts_product</span>
                     <div>
                       <h2 class="font-headline-md text-[16px] font-bold text-white uppercase">
-                        CƠ SỞ DỮ LIỆU ĐỘC GIẢ [DOCGIA]
+                        CƠ SỞ DỮ LIỆU ĐỘC GIẢ
                       </h2>
                       <p class="font-body-md text-[12px] text-[#8e9192]">
                         Tra cứu, điều chỉnh trạng thái và cấp phát quyền thành viên thư viện.
@@ -261,7 +261,7 @@
                     <span class="material-symbols-outlined text-[#e22718] text-[22px]">assignment_turned_in</span>
                     <div>
                       <h2 class="font-headline-md text-[16px] font-bold text-white uppercase">
-                        BẢNG DUYỆT YÊU CẦU &amp; THEO DÕI MƯỢN TRẢ [THEODOIMUONSACH]
+                        BẢNG DUYỆT YÊU CẦU &amp; THEO DÕI MƯỢN TRẢ
                       </h2>
                       <p class="font-body-md text-[12px] text-[#8e9192]">
                         Phê duyệt lệnh mượn tức thời, xác nhận hoàn trả và kiểm soát thời hạn lưu thông.
@@ -427,11 +427,23 @@
                             TỪ CHỐI
                           </button>
                         </div>
-                        <div v-else-if="rec.trangThai === 'DANG_MUON' || rec.trangThai === 'QUA_HAN'">
+                        <div v-else-if="rec.trangThai === 'DANG_MUON' || rec.trangThai === 'QUA_HAN'" class="flex items-center justify-end gap-1.5">
                           <button 
                             @click="confirmReturn(rec)"
-                            class="bg-[#2a2a2a] text-white hover:bg-white hover:text-black border border-[#444748] hover:border-white px-2.5 py-1.5 font-mono-data-md text-[10px] transition-colors cursor-pointer">
-                            XÁC NHẬN ĐÃ TRẢ
+                            class="bg-[#2a2a2a] text-white hover:bg-white hover:text-black border border-[#444748] hover:border-white px-2.5 py-1.5 font-mono-data-md text-[10px] transition-colors cursor-pointer flex items-center gap-1"
+                            title="Xác nhận hoàn trả tài liệu">
+                            <span>HOÀN TRẢ</span>
+                            <span class="material-symbols-outlined text-[12px]">check</span>
+                          </button>
+                          <button 
+                            @click="goToFineTicket(rec)"
+                            :class="[
+                              'px-2 py-1.5 font-mono-data-md text-[10px] font-bold transition-colors cursor-pointer border flex items-center gap-1',
+                              rec.trangThai === 'QUA_HAN' ? 'bg-[#e22718] text-white border-[#e22718] hover:bg-[#c00200]' : 'bg-[#1f1f1f] text-[#ffb4ab] border-[#ffb4ab]/40 hover:bg-[#e22718] hover:text-white hover:border-[#e22718]'
+                            ]"
+                            title="Lập phiếu phạt">
+                            <span>PHẠT</span>
+                            <span class="material-symbols-outlined text-[12px]">gavel</span>
                           </button>
                         </div>
                         <div v-else class="font-mono-data-md text-[10px] text-[#8e9192]">
@@ -460,7 +472,7 @@
                     <span class="material-symbols-outlined text-[#1c69d4] text-[22px]">badge</span>
                     <div>
                       <h2 class="font-headline-md text-[16px] font-bold text-white uppercase">
-                        CƠ SỞ DỮ LIỆU NHÂN SỰ [NHANVIEN]
+                        CƠ SỞ DỮ LIỆU NHÂN SỰ
                       </h2>
                       <p class="font-body-md text-[12px] text-[#8e9192]">
                         Tra cứu, cập nhật nhân sự và điều phối phân quyền tài khoản quản trị.
@@ -633,7 +645,7 @@
               <div class="p-6 border-b border-[#444748] flex items-center justify-between">
                 <div>
                   <span class="font-mono-data-md text-[11px] text-[#8e9192] uppercase">HỒ SƠ NHÂN SỰ / {{ isEditingStaff ? 'CẬP NHẬT' : 'THÊM MỚI' }}</span>
-                  <h3 class="font-headline-md text-[18px] font-bold text-white uppercase">{{ isEditingStaff ? 'CẬP NHẬT NHÂN VIÊN' : 'THÊM NHÂN VIÊN MỚI (NHANVIEN)' }}</h3>
+                  <h3 class="font-headline-md text-[18px] font-bold text-white uppercase">{{ isEditingStaff ? 'CẬP NHẬT NHÂN VIÊN' : 'THÊM NHÂN VIÊN MỚI' }}</h3>
                 </div>
                 <button 
                   @click="closeStaffModal"
@@ -734,7 +746,7 @@
               <div class="p-6 border-b border-[#444748] flex items-center justify-between">
                 <div>
                   <span class="font-mono-data-md text-[11px] text-[#8e9192] uppercase">HỒ SƠ ĐỘC GIẢ / THÊM MỚI</span>
-                  <h3 class="font-headline-md text-[18px] font-bold text-white uppercase">CẤP THẺ ĐỘC GIẢ (DOCGIA)</h3>
+                  <h3 class="font-headline-md text-[18px] font-bold text-white uppercase">CẤP THẺ ĐỘC GIẢ</h3>
                 </div>
                 <button 
                   @click="closeAddReaderModal"

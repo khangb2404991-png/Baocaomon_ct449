@@ -122,6 +122,10 @@ export default {
       });
       this.loadRecords();
     },
+    goToFineTicket(record) {
+      const borrowId = record.maPhieuMuon || record.slipId;
+      this.$router.push({ path: '/admin/fine-ticket', query: { borrowId } });
+    },
     exportCSV() {
       let csvContent = 'data:text/csv;charset=utf-8,';
       csvContent += 'STT,ĐỘC GIẢ,SĐT,TÊN SÁCH,SỐ LƯỢNG,NGÀY MƯỢN,NGÀY HẸN TRẢ,TRẠNG THÁI\n';

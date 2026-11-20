@@ -132,8 +132,8 @@ export default {
 
     // Staff filtering & pagination
     filteredStaff() {
-      let list = [...this.staffList];
-      if (this.staffSearch.trim()) {
+      let list = (this.staffList || []).filter(s => !!s);
+      if (this.staffSearch && this.staffSearch.trim()) {
         const q = this.staffSearch.toLowerCase().trim();
         list = list.filter(s => 
           ((s.hoTenNV || s.hoten || '').toLowerCase().includes(q)) ||
@@ -160,7 +160,7 @@ export default {
     },
     paginatedStaff() {
       const start = (this.staffPage - 1) * this.staffPageSize;
-      return this.filteredStaff.slice(start, start + this.staffPageSize);
+      return this.filteredStaff.slice(start, start + this.staffPageSize).filter(s => !!s);
     }
   },
   methods: {
@@ -271,6 +271,10 @@ export default {
       LibraryStore.updateBorrowStatus(rec.maPhieuMuon, 'DA_TRA');
       showToast(`Đã xác nhận hoàn trả sách cho độc giả ${rec.tenDocGia}!`, 'success');
       this.loadAllData();
+    },
+    goToFineTicket(rec) {
+      const borrowId = rec.maPhieuMuon || rec.slipId;
+      this.$router.push({ path: '/admin/fine-ticket', query: { borrowId } });
     },
     approveAllPending() {
       const pending = this.borrowRecords.filter(r => r.trangThai === 'CHO_DUYET');

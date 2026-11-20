@@ -324,15 +324,25 @@
                         </div>
 
                         <!-- If DANG_MUON or QUA_HAN -->
-                        <div v-else-if="r.trangThai === 'DANG_MUON' || r.trangThai === 'QUA_HAN'">
+                        <div v-else-if="r.trangThai === 'DANG_MUON' || r.trangThai === 'QUA_HAN'" class="flex items-center justify-end gap-1.5">
                           <button 
                             @click="returnBorrow(r)"
-                            :class="[
-                              'h-8 px-3 font-mono-data-md text-[11px] font-bold transition-colors rounded-none cursor-pointer border',
-                              r.trangThai === 'QUA_HAN' ? 'bg-[#e22718] text-white border-[#e22718] hover:bg-[#c00200]' : 'bg-[#1a1a1a] text-white border-white hover:bg-white hover:text-black'
-                            ]" 
+                            class="h-8 px-2.5 font-mono-data-md text-[11px] font-bold transition-colors rounded-none cursor-pointer border bg-[#1a1a1a] text-white border-white hover:bg-white hover:text-black flex items-center gap-1"
+                            title="Xác nhận hoàn trả tài liệu đúng hạn/bình thường"
                             type="button">
-                            XÁC NHẬN ĐÃ TRẢ ✓
+                            <span>HOÀN TRẢ</span>
+                            <span class="material-symbols-outlined text-[13px]">check</span>
+                          </button>
+                          <button 
+                            @click="goToFineTicket(r)"
+                            :class="[
+                              'h-8 px-2.5 font-mono-data-md text-[11px] font-bold transition-colors rounded-none cursor-pointer border flex items-center gap-1',
+                              r.trangThai === 'QUA_HAN' ? 'bg-[#e22718] text-white border-[#e22718] hover:bg-[#c00200]' : 'bg-[#222222] text-[#ffb4ab] border-[#ffb4ab]/40 hover:bg-[#e22718] hover:text-white hover:border-[#e22718]'
+                            ]"
+                            title="Lập phiếu phạt vi phạm hoặc quá hạn mượn"
+                            type="button">
+                            <span>LẬP PHIẾU PHẠT</span>
+                            <span class="material-symbols-outlined text-[13px]">gavel</span>
                           </button>
                         </div>
 

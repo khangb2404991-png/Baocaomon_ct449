@@ -55,6 +55,24 @@ const routes = [
     component: () => import('../pages/ReaderManagement.vue')
   },
   {
+    path: '/admin/fine-ticket',
+    name: 'FineTicket',
+    component: () => import('../pages/FineTicket.vue')
+  },
+  {
+    path: '/admin/fines',
+    name: 'FineTicketList',
+    component: () => import('../pages/FineTicket.vue')
+  },
+  {
+    path: '/fine-ticket',
+    redirect: '/admin/fine-ticket'
+  },
+  {
+    path: '/phieuphat',
+    redirect: '/admin/fine-ticket'
+  },
+  {
     path: '/book/:id',
     name: 'DetailCard',
     component: () => import('../pages/DetailCard.vue')
