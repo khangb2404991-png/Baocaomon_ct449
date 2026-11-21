@@ -200,7 +200,7 @@
                 <div class="mb-6 space-y-4">
                   <div>
                     <label class="font-mono-data-md text-[11px] text-[#8e9192] uppercase tracking-[0.15em] block mb-1.5" for="input-ngaymuon">
-                      NGÀY MƯỢN (NGAYMUON) - KHÓA TỰ ĐỘNG
+                      NGÀY MƯỢN - KHÓA TỰ ĐỘNG
                     </label>
                     <div class="relative flex items-center">
                       <input 
@@ -215,7 +215,7 @@
                   <div>
                     <div class="flex items-center justify-between mb-1.5">
                       <label class="font-mono-data-md text-[11px] text-[#8e9192] uppercase tracking-[0.15em]" for="input-ngaytra">
-                        HẠN TRẢ ĐỀ XUẤT (NGAYTRA)
+                        HẠN TRẢ ĐỀ XUẤT
                       </label>
                       <span class="font-mono-data-md text-[10px] text-[#1c69d4] uppercase font-bold">MAX 14 NGÀY</span>
                     </div>
@@ -239,7 +239,7 @@
                     <span class="font-mono-data-md text-white font-bold">{{ totalTitles }} tài liệu</span>
                   </div>
                   <div class="flex items-center justify-between text-[12px] font-body-md">
-                    <span class="text-[#c4c7c8]">Tổng số lượng mượn (SUM):</span>
+                    <span class="text-[#c4c7c8]">Tổng số lượng mượn:</span>
                     <span class="font-mono-data-md text-white font-bold">{{ totalQty }} quyển</span>
                   </div>
                   <div class="flex items-center justify-between text-[12px] font-body-md">

@@ -1,6 +1,7 @@
 // frontend/js/cart.js
-// Cart Page Component Logic
+// Cart Page Component Logic connected to MEVN Backend API
 
+import { gioHangApi, phieuMuonApi } from './api.js';
 import { LibraryStore, showToast, showPopup, showConfirm } from './common.js';
 import { getHeader, getFooter } from './components.js';
 
@@ -27,10 +28,17 @@ export default {
     };
   },
   created() {
-    this.currentUser = LibraryStore.getCurrentUser() || {
-      maDocGia: 'DG-0842',
-      hoLot: 'Nguyễn Văn',
-      ten: 'An',
+    let user = null;
+    if (typeof localStorage !== 'undefined') {
+      try {
+        const u = localStorage.getItem('user');
+        if (u) user = JSON.parse(u);
+      } catch (e) {}
+    }
+    this.currentUser = user || LibraryStore.getCurrentUser() || {
+      maDG: 'DG-0001',
+      maDocGia: 'DG-0001',
+      tenDG: 'Nguyễn Văn An',
       dienThoai: '0912 345 678',
       diaChi: 'Số 1 Đại Cồ Việt, Hai Bà Trưng, Hà Nội'
     };
@@ -71,21 +79,44 @@ export default {
   methods: {
     getHeader,
     getFooter,
-    loadCart() {
+    async loadCart() {
+      const maDG = this.currentUser.maDG || this.currentUser.maDocGia || 'DG-0001';
+      try {
+        const res = await gioHangApi.getCart(maDG);
+        if (res && res.data) {
+          const items = res.data.chiTiet || [];
+          this.cartItems = items.map(item => ({
+            maSach: item.maSach,
+            tenSach: item.tenSach || 'Tài liệu mượn',
+            tacGia: item.tacGia || 'Đang cập nhật',
+            donGia: item.donGia || 100000,
+            soLuong: item.soLuong || 1,
+            khoCon: 10,
+            hinhAnh: item.hinhAnh || 'https://lh3.googleusercontent.com/aida-public/AB6AXuCmDKfEDPCe0WmvcOnGfXYFmgYKb3L8fOMPSXvcKxvNypu3yQAnJwl9WIp01kK0GhIGJ16lqsWwSrApp2JU0MpfAQy55H_63VG0UF9ZkXWQeV4L4R0i-rWq2iUb9kTzwwXz_W39HK7ML6Bz0H6gHq1W9GDwBSTfvVFtr84aB-kgWU3JNnUZYG0I1hBt3XZX4Gk6gE2Nz2BlTpchOk552ctxYLJfd_HrNMTNDvBK2K8'
+          }));
+          this.cartCount = res.data.tongSoLuong !== undefined ? res.data.tongSoLuong : this.totalQty;
+          LibraryStore.saveCart(this.cartItems);
+          return;
+        }
+      } catch (e) {
+        console.warn('API getCart error, falling back to local store:', e.message);
+      }
+
       this.cartItems = LibraryStore.getCart();
       this.cartCount = LibraryStore.getCartCount();
     },
-    adjustQty(item, delta) {
-      const cur = item.soLuong || item.soluong || 1;
+    async adjustQty(item, delta) {
+      const cur = item.soLuong || 1;
       const newQty = cur + delta;
-      const id = item.maSach || item.masach;
+      const maSach = item.maSach;
+      const maDG = this.currentUser.maDG || this.currentUser.maDocGia || 'DG-0001';
 
       if (newQty <= 0) {
-        this.removeItem(id);
+        await this.removeItem(maSach);
         return;
       }
 
-      const maxAllowed = item.khoCon !== undefined ? item.khoCon : (item.soQuyen || 5);
+      const maxAllowed = item.khoCon !== undefined ? item.khoCon : 10;
       if (newQty > maxAllowed && maxAllowed > 0) {
         showPopup({
           title: 'GIỚI HẠN TỒN KHO',
@@ -96,16 +127,37 @@ export default {
         return;
       }
 
-      item.soLuong = newQty;
-      item.soluong = newQty;
-      LibraryStore.saveCart(this.cartItems);
-      this.cartCount = LibraryStore.getCartCount();
-      window.dispatchEvent(new CustomEvent('cart-updated', { detail: { count: this.cartCount } }));
+      try {
+        const res = await gioHangApi.updateCartItem({
+          maDG,
+          maSach,
+          soLuong: newQty
+        });
+        item.soLuong = newQty;
+        this.cartCount = (res.data && res.data.tongSoLuong) || this.totalQty;
+        LibraryStore.saveCart(this.cartItems);
+        window.dispatchEvent(new CustomEvent('cart-updated', { detail: { count: this.cartCount } }));
+      } catch (e) {
+        item.soLuong = newQty;
+        LibraryStore.saveCart(this.cartItems);
+        this.cartCount = LibraryStore.getCartCount();
+        window.dispatchEvent(new CustomEvent('cart-updated', { detail: { count: this.cartCount } }));
+      }
     },
-    removeItem(maSach) {
-      const res = LibraryStore.removeFromCart(maSach);
-      this.loadCart();
-      this.cartCount = res.count;
+    async removeItem(maSach) {
+      const maDG = this.currentUser.maDG || this.currentUser.maDocGia || 'DG-0001';
+      try {
+        const res = await gioHangApi.removeFromCart(maSach, maDG);
+        this.cartItems = this.cartItems.filter(i => i.maSach !== maSach);
+        this.cartCount = (res.data && res.data.tongSoLuong) !== undefined ? res.data.tongSoLuong : this.totalQty;
+        LibraryStore.saveCart(this.cartItems);
+        window.dispatchEvent(new CustomEvent('cart-updated', { detail: { count: this.cartCount } }));
+      } catch (e) {
+        const res = LibraryStore.removeFromCart(maSach);
+        this.loadCart();
+        this.cartCount = res.count;
+      }
+
       showPopup({
         title: 'ĐÃ XÓA TÀI LIỆU',
         message: 'Đã xóa tài liệu khỏi danh sách mượn.',
@@ -125,9 +177,16 @@ export default {
       });
 
       if (confirmed) {
+        const maDG = this.currentUser.maDG || this.currentUser.maDocGia || 'DG-0001';
+        try {
+          await gioHangApi.clearCart(maDG);
+        } catch (e) {}
+
         LibraryStore.clearCart();
-        this.loadCart();
+        this.cartItems = [];
         this.cartCount = 0;
+        window.dispatchEvent(new CustomEvent('cart-updated', { detail: { count: 0 } }));
+
         showPopup({
           title: 'ĐÃ LÀM TRỐNG GIỎ',
           message: 'Tất cả tài liệu đã được xóa khỏi giỏ sách.',
@@ -136,7 +195,7 @@ export default {
         });
       }
     },
-    submitBorrowOrder() {
+    async submitBorrowOrder() {
       if (this.isCartEmpty) {
         showPopup({
           title: 'GIỎ SÁCH ĐANG TRỐNG',
@@ -174,50 +233,55 @@ export default {
         return;
       }
 
-      const borrowData = {
-        maDocGia: this.currentUser.maDocGia || this.currentUser.id || 'DG-0842',
-        tenDocGia: (this.currentUser.hoLot ? `${this.currentUser.hoLot} ${this.currentUser.ten}` : (this.currentUser.ten || this.currentUser.hoTen || this.currentUser.name || 'Nguyễn Văn An')),
-        sdt: this.currentUser.dienThoai || this.currentUser.dienthoai || '0912 345 678',
-        ngayMuon: this.borrowDate,
-        ngayTra: this.returnDate,
-        items: this.cartItems.map(item => ({
-          maSach: item.maSach || item.masach,
-          tenSach: item.tenSach || item.tensach,
-          tacGia: item.tacGia || item.tacgia,
-          hinhAnh: item.hinhAnh || item.hinhanh,
-          soLuong: item.soLuong || item.soluong || 1,
-          donGia: item.donGia || item.dongia || 0
-        })),
-        tongSoLuong: this.totalQty,
-        tongGiaTri: this.totalVal,
-        trangThai: 'CHO_DUYET'
-      };
+      const maDG = this.currentUser.maDG || this.currentUser.maDocGia || 'DG-0001';
+      const readerName = this.currentUser.tenDG || this.currentUser.ten || this.currentUser.name || 'Độc giả';
 
-      const record = LibraryStore.createBorrowRecord(borrowData);
-      
-      // Clear cart
-      LibraryStore.clearCart();
-      this.loadCart();
-      this.cartCount = 0;
+      try {
+        const payload = {
+          maDG,
+          hanTra: this.returnDate,
+          items: this.cartItems.map(item => ({
+            maSach: item.maSach,
+            soLuong: item.soLuong || 1
+          }))
+        };
 
-      // Setup modal
-      this.modalDetails = {
-        maPhieuMuon: record.maPhieuMuon,
-        docGia: borrowData.tenDocGia,
-        viTri: 'Kho Kỹ Thuật Máy Tính - Tầng 2, Dãy B4',
-        canBo: 'Trần Minh Thắng (Thủ thư phụ trách)',
-        ghiChu: 'Tình trạng nguyên vẹn, đã xác thực tài sản thư viện.',
-        ngayMuon: record.ngayMuon,
-        ngayTra: record.ngayTra,
-        tongSoLuong: record.tongSoLuong,
-        tongGiaTri: record.tongGiaTri
-      };
-      this.isModalOpen = true;
+        const res = await phieuMuonApi.create(payload);
+        const record = res.data;
 
-      showToast('HỆ THỐNG GHI NHẬN: Phiếu đăng ký mượn tài liệu của bạn đã được tạo thành công!', 'success');
+        // Clear cart local & remote
+        LibraryStore.clearCart();
+        this.cartItems = [];
+        this.cartCount = 0;
+        window.dispatchEvent(new CustomEvent('cart-updated', { detail: { count: 0 } }));
+
+        // Setup modal
+        this.modalDetails = {
+          maPhieuMuon: record.maPM || 'PM-NEW',
+          docGia: readerName,
+          viTri: 'Kho Kỹ Thuật Máy Tính - Tầng 2, Dãy B4',
+          canBo: 'Trần Minh Thắng (Thủ thư phụ trách)',
+          ghiChu: 'Đăng ký trực tuyến qua hệ thống thư viện. Chờ thủ thư xét duyệt.',
+          ngayMuon: new Date(record.ngayMuon || Date.now()).toLocaleDateString('vi-VN'),
+          ngayTra: new Date(record.hanTra || this.returnDate).toLocaleDateString('vi-VN'),
+          tongSoLuong: this.totalQty,
+          tongGiaTri: record.tongTienSach || this.totalVal
+        };
+        this.isModalOpen = true;
+
+        showToast('HỆ THỐNG GHI NHẬN: Phiếu đăng ký mượn tài liệu của bạn đã được gửi thành công!', 'success');
+      } catch (err) {
+        showPopup({
+          title: 'GỬI YÊU CẦU THẤT BẠI',
+          message: err.message || 'Không thể tạo phiếu mượn lúc này!',
+          type: 'error',
+          confirmText: 'THỬ LẠI'
+        });
+      }
     },
     closeModal() {
       this.isModalOpen = false;
+      this.$router.push('/profile');
     },
     getHeader,
     getFooter,
@@ -226,4 +290,3 @@ export default {
     }
   }
 };
-

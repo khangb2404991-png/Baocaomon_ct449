@@ -40,6 +40,32 @@ const routes = [
     component: () => import('../pages/BookManagement.vue')
   },
   {
+    path: '/admin/publishers',
+    name: 'PublisherManagement',
+    component: () => import('../pages/PublisherManagement.vue')
+  },
+  {
+    path: '/admin/nhaxb',
+    redirect: '/admin/publishers'
+  },
+  {
+    path: '/quanlynxb',
+    redirect: '/admin/publishers'
+  },
+  {
+    path: '/admin/authors',
+    name: 'AuthorManagement',
+    component: () => import('../pages/AuthorManagement.vue')
+  },
+  {
+    path: '/admin/tacgia',
+    redirect: '/admin/authors'
+  },
+  {
+    path: '/quanlytacgia',
+    redirect: '/admin/authors'
+  },
+  {
     path: '/admin/borrows',
     name: 'BorrowManagement',
     component: () => import('../pages/BorrowManagement.vue')
@@ -61,8 +87,16 @@ const routes = [
   },
   {
     path: '/admin/fines',
-    name: 'FineTicketList',
-    component: () => import('../pages/FineTicket.vue')
+    name: 'FineManagement',
+    component: () => import('../pages/FineManagement.vue')
+  },
+  {
+    path: '/admin/qlpp',
+    redirect: '/admin/fines'
+  },
+  {
+    path: '/qlpp',
+    redirect: '/admin/fines'
   },
   {
     path: '/fine-ticket',
@@ -124,6 +158,42 @@ const router = createRouter({
       return { top: 0 };
     }
   }
+});
+
+// Navigation Guard: Bảo vệ route quản trị & phân luồng đăng nhập
+router.beforeEach((to, from, next) => {
+  const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
+  const role = typeof localStorage !== 'undefined' ? localStorage.getItem('role') : null;
+
+  // 1. Kiểm tra các route quản trị Admin (/admin/...)
+  if (to.path.startsWith('/admin')) {
+    if (!token) {
+      return next('/login');
+    }
+    if (role !== 'NHANVIEN') {
+      return next('/home');
+    }
+  }
+
+  // 2. Chặn khách vãng lai (chưa đăng nhập) vào giỏ hàng hoặc trang cá nhân
+  if (to.path === '/cart' || to.path === '/profile') {
+    if (!token) {
+      return next('/login');
+    }
+  }
+
+  // 3. Nếu đã đăng nhập mà truy cập /login hoặc /register thì điều hướng phù hợp
+  if (to.path === '/login' || to.path === '/register') {
+    if (token) {
+      if (role === 'NHANVIEN') {
+        return next('/admin/books');
+      } else {
+        return next('/home');
+      }
+    }
+  }
+
+  next();
 });
 
 export default router;

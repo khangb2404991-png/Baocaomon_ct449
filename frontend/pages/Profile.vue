@@ -45,14 +45,14 @@
                 <!-- Row 1: Họ & Tên Lót + Tên -->
                 <div class="grid grid-cols-12 gap-3">
                   <div class="col-span-7 flex flex-col gap-1">
-                    <label class="font-mono-data-md text-[11px] text-[#7e7e7e] uppercase">HỌ VÀ TÊN LÓT (HOLOT)</label>
+                    <label class="font-mono-data-md text-[11px] text-[#7e7e7e] uppercase">HỌ VÀ TÊN LÓT</label>
                     <input 
                       v-model="form.hoLot"
                       class="w-full h-11 px-3 bg-[#1a1a1a] border border-[#3c3c3c] text-white font-mono-data-md text-[14px] focus:border-[#1c69d4] focus:outline-none transition-colors" 
                       type="text">
                   </div>
                   <div class="col-span-5 flex flex-col gap-1">
-                    <label class="font-mono-data-md text-[11px] text-[#7e7e7e] uppercase">TÊN (TEN)</label>
+                    <label class="font-mono-data-md text-[11px] text-[#7e7e7e] uppercase">TÊN</label>
                     <input 
                       v-model="form.ten"
                       class="w-full h-11 px-3 bg-[#1a1a1a] border border-[#3c3c3c] text-white font-mono-data-md text-[14px] focus:border-[#1c69d4] focus:outline-none transition-colors" 
@@ -63,14 +63,14 @@
                 <!-- Row 2: Ngày sinh & Giới tính -->
                 <div class="grid grid-cols-12 gap-3">
                   <div class="col-span-7 flex flex-col gap-1">
-                    <label class="font-mono-data-md text-[11px] text-[#7e7e7e] uppercase">NGÀY SINH (NGAYSINH)</label>
+                    <label class="font-mono-data-md text-[11px] text-[#7e7e7e] uppercase">NGÀY SINH</label>
                     <input 
                       v-model="form.ngaySinh"
                       class="w-full h-11 px-3 bg-[#1a1a1a] border border-[#3c3c3c] text-white font-mono-data-md text-[14px] focus:border-[#1c69d4] focus:outline-none transition-colors [color-scheme:dark]" 
                       type="date">
                   </div>
                   <div class="col-span-5 flex flex-col gap-1">
-                    <label class="font-mono-data-md text-[11px] text-[#7e7e7e] uppercase">GIỚI TÍNH (PHAI)</label>
+                    <label class="font-mono-data-md text-[11px] text-[#7e7e7e] uppercase">GIỚI TÍNH</label>
                     <select 
                       v-model="form.phai"
                       class="w-full h-11 px-3 bg-[#1a1a1a] border border-[#3c3c3c] text-white font-mono-data-md text-[14px] focus:border-[#1c69d4] focus:outline-none transition-colors appearance-none cursor-pointer">
@@ -83,7 +83,7 @@
 
                 <!-- Field 3: Email -->
                 <div class="flex flex-col gap-1">
-                  <label class="font-mono-data-md text-[11px] text-[#7e7e7e] uppercase">EMAIL (EMAIL)</label>
+                  <label class="font-mono-data-md text-[11px] text-[#7e7e7e] uppercase">ĐỊA CHỈ EMAIL</label>
                   <input 
                     v-model="form.email"
                     class="w-full h-11 px-3 bg-[#1a1a1a] border border-[#3c3c3c] text-white font-mono-data-md text-[14px] focus:border-[#1c69d4] focus:outline-none transition-colors" 
@@ -92,7 +92,7 @@
 
                 <!-- Field 4: Điện thoại -->
                 <div class="flex flex-col gap-1">
-                  <label class="font-mono-data-md text-[11px] text-[#7e7e7e] uppercase">SỐ ĐIỆN THOẠI (DIENTHOAI)</label>
+                  <label class="font-mono-data-md text-[11px] text-[#7e7e7e] uppercase">SỐ ĐIỆN THOẠI</label>
                   <input 
                     v-model="form.dienThoai"
                     class="w-full h-11 px-3 bg-[#1a1a1a] border border-[#3c3c3c] text-white font-mono-data-md text-[14px] focus:border-[#1c69d4] focus:outline-none transition-colors" 
@@ -101,7 +101,7 @@
 
                 <!-- Field 5: Địa chỉ -->
                 <div class="flex flex-col gap-1">
-                  <label class="font-mono-data-md text-[11px] text-[#7e7e7e] uppercase">ĐỊA CHỈ THƯỜNG TRÚ (DIACHI)</label>
+                  <label class="font-mono-data-md text-[11px] text-[#7e7e7e] uppercase">ĐỊA CHỈ THƯỜNG TRÚ</label>
                   <textarea 
                     v-model="form.diaChi"
                     class="w-full p-3 bg-[#1a1a1a] border border-[#3c3c3c] text-white font-mono-data-md text-[14px] focus:border-[#1c69d4] focus:outline-none transition-colors resize-none leading-relaxed" 
@@ -110,7 +110,7 @@
 
                 <!-- Field 6: Mật khẩu mới -->
                 <div class="flex flex-col gap-1">
-                  <label class="font-mono-data-md text-[11px] text-[#7e7e7e] uppercase">ĐỔI MẬT KHẨU MỚI (PASSWORD)</label>
+                  <label class="font-mono-data-md text-[11px] text-[#7e7e7e] uppercase">ĐỔI MẬT KHẨU MỚI</label>
                   <input 
                     v-model="form.newPassword"
                     class="w-full h-11 px-3 bg-[#1a1a1a] border border-[#3c3c3c] text-white font-mono-data-md text-[14px] placeholder-[#7e7e7e] focus:border-[#1c69d4] focus:outline-none transition-colors" 

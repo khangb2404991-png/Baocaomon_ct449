@@ -1,6 +1,7 @@
 // frontend/js/profile.js
-// User Profile & Borrow History Component Logic
+// User Profile & Borrow History Component Logic connected to MEVN Backend API
 
+import { authApi, phieuMuonApi, docGiaApi } from './api.js';
 import { LibraryStore, showToast, showPopup, showConfirm } from './common.js';
 import { getHeader, getFooter } from './components.js';
 
@@ -9,12 +10,13 @@ export default {
   data() {
     return {
       form: {
-        maDocGia: 'DG-0842',
+        maDG: 'DG-0001',
+        maDocGia: 'DG-0001',
         hoLot: 'Nguyễn Văn',
         ten: 'An',
         ngaySinh: '1998-08-15',
         phai: 'Nam',
-        email: 'nguyenvanan.dev@gmail.com',
+        email: 'user@email.com',
         dienThoai: '0912 345 678',
         diaChi: 'Số 1 Đại Cồ Việt, Bách Khoa, Hai Bà Trưng, Hà Nội',
         newPassword: ''
@@ -46,7 +48,7 @@ export default {
       const choDuyet = this.borrowRecords.filter(r => r.trangThai === 'CHO_DUYET').length;
       const dangMuon = this.borrowRecords.filter(r => r.trangThai === 'DANG_MUON').length;
       const daTra = this.borrowRecords.filter(r => r.trangThai === 'DA_TRA').length;
-      const daHuy = this.borrowRecords.filter(r => r.trangThai === 'DA_HUY' || r.trangThai === 'QUA_HAN').length;
+      const daHuy = this.borrowRecords.filter(r => r.trangThai === 'DA_HUY' || r.trangThai === 'QUA_HAN' || r.trangThai === 'TU_CHOI').length;
       const dangGiu = this.borrowRecords
         .filter(r => r.trangThai === 'DANG_MUON')
         .reduce((sum, r) => sum + (r.tongSoLuong || 1), 0);
@@ -70,33 +72,109 @@ export default {
   methods: {
     getHeader,
     getFooter,
-    loadData() {
-      const user = LibraryStore.getCurrentUser();
-      if (user) {
-        this.form = {
-          ...this.form,
-          ...user,
-          hoLot: user.hoLot || 'Nguyễn Văn',
-          ten: user.ten || 'An',
-          newPassword: ''
-        };
+    async loadData() {
+      // 1. Tải hồ sơ người dùng
+      try {
+        const profileRes = await authApi.getProfile();
+        if (profileRes && profileRes.data) {
+          const u = profileRes.data;
+          const fullName = u.tenDG || u.name || '';
+          const parts = fullName.split(' ');
+          const ten = parts.length > 1 ? parts.pop() : fullName;
+          const hoLot = parts.join(' ');
+
+          this.form = {
+            ...this.form,
+            maDG: u.maDG || 'DG-0001',
+            maDocGia: u.maDG || 'DG-0001',
+            hoLot: u.hoLot || hoLot || 'Nguyễn Văn',
+            ten: ten || 'An',
+            email: u.emailDG || u.email || '',
+            dienThoai: u.dienThoai || '',
+            diaChi: u.diaChi || '',
+            ngaySinh: u.ngaySinhDG || '',
+            phai: u.gioiTinhDG || 'Nam',
+            newPassword: ''
+          };
+        }
+      } catch (e) {
+        const user = LibraryStore.getCurrentUser();
+        if (user) {
+          this.form = {
+            ...this.form,
+            ...user,
+            hoLot: user.hoLot || 'Nguyễn Văn',
+            ten: user.ten || 'An',
+            newPassword: ''
+          };
+        }
       }
+
+      // 2. Tải lịch sử phiếu mượn
+      try {
+        const borrowsRes = await phieuMuonApi.getMyBorrows();
+        if (borrowsRes && borrowsRes.data) {
+          this.borrowRecords = borrowsRes.data.map(b => {
+            const items = (b.chiTiet || []).map(i => ({
+              tenSach: i.tenSach || 'Tài liệu mượn',
+              soLuong: i.soLuongMuon || 1,
+              donGia: i.thanhTien ? Math.round(i.thanhTien / (i.soLuongMuon || 1)) : 0
+            }));
+            const totalQty = items.reduce((s, it) => s + (it.soLuong || 1), 0);
+
+            return {
+              maPhieuMuon: b.maPM,
+              slipId: b.maPM,
+              ngayMuon: b.ngayMuon ? new Date(b.ngayMuon).toLocaleDateString('vi-VN') : '',
+              ngayTra: b.hanTra ? new Date(b.hanTra).toLocaleDateString('vi-VN') : '',
+              trangThai: b.trangThaiPM,
+              tongSoLuong: totalQty,
+              tongGiaTri: b.tongTienSach || 0,
+              items
+            };
+          });
+          return;
+        }
+      } catch (e) {
+        console.warn('API getMyBorrows error, using local fallback:', e.message);
+      }
+
       this.borrowRecords = LibraryStore.getBorrowRecords();
     },
-    handleUpdateProfile() {
-      const updatedUser = {
-        ...this.form,
-        hoTen: `${this.form.hoLot} ${this.form.ten}`.trim()
-      };
-      
-      LibraryStore.setCurrentUser(updatedUser);
-      showPopup({
-        title: 'CẬP NHẬT HỒ SƠ THÀNH CÔNG',
-        message: 'Dữ liệu hồ sơ độc giả của bạn đã được lưu thành công trên hệ thống!',
-        type: 'success',
-        icon: 'badge',
-        confirmText: 'ĐỒNG Ý'
-      });
+    async handleUpdateProfile() {
+      const hoTen = `${this.form.hoLot} ${this.form.ten}`.trim();
+      try {
+        await docGiaApi.update(this.form.maDG, {
+          tenDG: hoTen,
+          hoLot: this.form.hoLot,
+          dienThoai: this.form.dienThoai,
+          diaChi: this.form.diaChi,
+          ngaySinhDG: this.form.ngaySinh,
+          gioiTinhDG: this.form.phai
+        });
+
+        // Cập nhật local storage
+        const cur = JSON.parse(localStorage.getItem('user') || '{}');
+        cur.tenDG = hoTen;
+        cur.dienThoai = this.form.dienThoai;
+        cur.diaChi = this.form.diaChi;
+        localStorage.setItem('user', JSON.stringify(cur));
+
+        showPopup({
+          title: 'CẬP NHẬT HỒ SƠ THÀNH CÔNG',
+          message: 'Dữ liệu hồ sơ độc giả của bạn đã được lưu thành công trên hệ thống!',
+          type: 'success',
+          icon: 'badge',
+          confirmText: 'ĐỒNG Ý'
+        });
+      } catch (e) {
+        showPopup({
+          title: 'CẬP NHẬT THẤT BẠI',
+          message: e.message || 'Không thể lưu hồ sơ!',
+          type: 'error',
+          confirmText: 'THỬ LẠI'
+        });
+      }
     },
     async handleLogout() {
       const confirmed = await showConfirm({
@@ -109,6 +187,9 @@ export default {
       });
 
       if (confirmed) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        localStorage.removeItem('role');
         LibraryStore.logout();
       }
     },
@@ -127,8 +208,8 @@ export default {
       });
 
       if (confirmed) {
-        const result = LibraryStore.updateBorrowStatus(maPhieuMuon, 'DA_HUY');
-        if (result.success) {
+        try {
+          await phieuMuonApi.cancel(maPhieuMuon);
           showPopup({
             title: 'ĐÃ HỦY PHIẾU MƯỢN',
             message: 'Yêu cầu mượn tài liệu đã được hủy thành công.',
@@ -136,6 +217,13 @@ export default {
             confirmText: 'ĐÃ HIỂU'
           });
           this.loadData();
+        } catch (e) {
+          showPopup({
+            title: 'HỦY THẤT BẠI',
+            message: e.message || 'Không thể hủy phiếu mượn này!',
+            type: 'error',
+            confirmText: 'ĐÃ HIỂU'
+          });
         }
       }
     },
@@ -149,4 +237,3 @@ export default {
     }
   }
 };
-

@@ -757,7 +757,7 @@
 
               <form @submit.prevent="saveNewReader" class="p-6 flex flex-col gap-4">
                 <div class="flex flex-col gap-1">
-                  <label class="font-mono-data-md text-[11px] text-[#8e9192] uppercase">GIỚI TÍNH (PHAI) *</label>
+                  <label class="font-mono-data-md text-[11px] text-[#8e9192] uppercase">GIỚI TÍNH *</label>
                   <select 
                     v-model="readerForm.phai"
                     class="w-full bg-[#0e0e0e] border border-[#444748] px-3 py-2 text-white font-mono-data-md text-[13px] focus:border-[#1c69d4] focus:outline-none cursor-pointer">
@@ -769,7 +769,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div class="flex flex-col gap-1">
-                    <label class="font-mono-data-md text-[11px] text-[#8e9192] uppercase">HỌ LÓT (HOLOT) *</label>
+                    <label class="font-mono-data-md text-[11px] text-[#8e9192] uppercase">HỌ LÓT *</label>
                     <input 
                       v-model="readerForm.hoLot"
                       class="w-full bg-[#0e0e0e] border border-[#444748] px-3 py-2 text-white font-body-md text-[13px] focus:border-[#1c69d4] focus:outline-none" 
@@ -778,7 +778,7 @@
                       type="text">
                   </div>
                   <div class="flex flex-col gap-1">
-                    <label class="font-mono-data-md text-[11px] text-[#8e9192] uppercase">TÊN (TEN) *</label>
+                    <label class="font-mono-data-md text-[11px] text-[#8e9192] uppercase">TÊN *</label>
                     <input 
                       v-model="readerForm.ten"
                       class="w-full bg-[#0e0e0e] border border-[#444748] px-3 py-2 text-white font-body-md text-[13px] focus:border-[#1c69d4] focus:outline-none" 
@@ -790,7 +790,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div class="flex flex-col gap-1">
-                    <label class="font-mono-data-md text-[11px] text-[#8e9192] uppercase">NGÀY SINH (NGAYSINH) *</label>
+                    <label class="font-mono-data-md text-[11px] text-[#8e9192] uppercase">NGÀY SINH *</label>
                     <input 
                       v-model="readerForm.ngaySinh"
                       class="w-full bg-[#0e0e0e] border border-[#444748] px-3 py-2 text-white font-mono-data-md text-[13px] focus:border-[#1c69d4] focus:outline-none [color-scheme:dark]" 
@@ -798,7 +798,7 @@
                       type="date">
                   </div>
                   <div class="flex flex-col gap-1">
-                    <label class="font-mono-data-md text-[11px] text-[#8e9192] uppercase">SỐ ĐIỆN THOẠI (DIENTHOAI) *</label>
+                    <label class="font-mono-data-md text-[11px] text-[#8e9192] uppercase">SỐ ĐIỆN THOẠI *</label>
                     <input 
                       v-model="readerForm.dienThoai"
                       class="w-full bg-[#0e0e0e] border border-[#444748] px-3 py-2 text-white font-mono-data-md text-[13px] focus:border-[#1c69d4] focus:outline-none" 
@@ -809,7 +809,7 @@
                 </div>
 
                 <div class="flex flex-col gap-1">
-                  <label class="font-mono-data-md text-[11px] text-[#8e9192] uppercase">ĐỊA CHỈ LIÊN LẠC (DIACHI)</label>
+                  <label class="font-mono-data-md text-[11px] text-[#8e9192] uppercase">ĐỊA CHỈ LIÊN LẠC</label>
                   <input 
                     v-model="readerForm.diaChi"
                     class="w-full bg-[#0e0e0e] border border-[#444748] px-3 py-2 text-white font-body-md text-[13px] focus:border-[#1c69d4] focus:outline-none" 

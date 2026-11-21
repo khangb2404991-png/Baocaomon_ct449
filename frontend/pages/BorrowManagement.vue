@@ -106,14 +106,14 @@
 
                 <div class="lg:col-span-5 flex flex-col sm:flex-row gap-2">
                   <div class="flex-1 flex flex-col gap-1">
-                    <label class="font-mono-data-md text-[11px] text-[#8e9192] uppercase tracking-wider">TỪ NGÀY (NGAYMUON)</label>
+                    <label class="font-mono-data-md text-[11px] text-[#8e9192] uppercase tracking-wider">TỪ NGÀY MƯỢN</label>
                     <input 
                       v-model="filters.fromDate"
                       class="w-full h-11 bg-[#1a1a1a] border border-[#3c3c3c] px-3 font-mono-data-md text-[13px] text-white focus:outline-none focus:border-[#1c69d4] rounded-none [color-scheme:dark]" 
                       type="date">
                   </div>
                   <div class="flex-1 flex flex-col gap-1">
-                    <label class="font-mono-data-md text-[11px] text-[#8e9192] uppercase tracking-wider">ĐẾN NGÀY (NGAYTRA)</label>
+                    <label class="font-mono-data-md text-[11px] text-[#8e9192] uppercase tracking-wider">ĐẾN HẠN TRẢ</label>
                     <input 
                       v-model="filters.toDate"
                       class="w-full h-11 bg-[#1a1a1a] border border-[#3c3c3c] px-3 font-mono-data-md text-[13px] text-white focus:outline-none focus:border-[#1c69d4] rounded-none [color-scheme:dark]" 

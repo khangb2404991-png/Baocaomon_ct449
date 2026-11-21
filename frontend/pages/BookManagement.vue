@@ -30,11 +30,9 @@
                   v-model="filters.nxb"
                   class="h-10 bg-[#0e0e0e] border border-[#444748] text-white font-mono-data-md text-[13px] px-3 pr-8 focus:border-white focus:outline-none appearance-none cursor-pointer rounded-none">
                   <option value="">Tất cả nhà xuất bản</option>
-                  <option value="NXB-01">NXB Bách Khoa Hà Nội</option>
-                  <option value="NXB-02">NXB Thông Tin &amp; Truyền Thông</option>
-                  <option value="NXB-03">NXB Trẻ</option>
-                  <option value="NXB-04">NXB Giáo Dục Việt Nam</option>
-                  <option value="NXB-05">O'Reilly Media / Pearson</option>
+                  <option v-for="p in publishers" :key="p.maNXB || p._id" :value="p.maNXB">
+                    {{ p.tenNXB }}
+                  </option>
                 </select>
                 <span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-[#8e9192] text-[16px]">expand_more</span>
               </div>
@@ -273,11 +271,9 @@
                     <select 
                       v-model="form.maNXB"
                       class="w-full h-10 px-3 pr-8 bg-[#0e0e0e] border border-[#444748] text-white font-mono-data-md text-[13px] focus:border-white focus:outline-none appearance-none rounded-none">
-                      <option value="NXB-01">NXB Bách Khoa Hà Nội</option>
-                      <option value="NXB-02">NXB Thông Tin &amp; Truyền Thông</option>
-                      <option value="NXB-03">NXB Trẻ</option>
-                      <option value="NXB-04">NXB Giáo Dục Việt Nam</option>
-                      <option value="NXB-05">O'Reilly Media / Pearson</option>
+                      <option v-for="p in publishers" :key="p.maNXB || p._id" :value="p.maNXB">
+                        {{ p.tenNXB }}
+                      </option>
                     </select>
                     <span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-[#8e9192] text-[16px]">expand_more</span>
                   </div>
@@ -319,7 +315,7 @@
                       type="number">
                   </div>
                   <div class="flex flex-col gap-1">
-                    <label class="font-mono-data-md text-[10px] text-[#8e9192] uppercase">6. SỐ LƯỢNG (KHO)</label>
+                    <label class="font-mono-data-md text-[10px] text-[#8e9192] uppercase">6. SỐ LƯỢNG TRONG KHO</label>
                     <input 
                       v-model="form.soQuyen"
                       class="h-10 px-2 bg-[#0e0e0e] border border-[#444748] text-white font-mono-data-md text-center focus:border-white focus:outline-none rounded-none" 
@@ -336,7 +332,7 @@
 
                 <!-- HINHANH Upload / URL Frame -->
                 <div class="flex flex-col gap-1">
-                  <label class="font-mono-data-md text-[11px] text-[#8e9192] uppercase">8. TỆP BÌA TÀI LIỆU (HINHANH URL)</label>
+                  <label class="font-mono-data-md text-[11px] text-[#8e9192] uppercase">8. HÌNH ẢNH BÌA TÀI LIỆU</label>
                   <div class="flex items-start gap-2 p-2 border border-[#444748] bg-[#0e0e0e]">
                     <div class="w-16 h-20 border border-[#444748] bg-[#1b1b1b] shrink-0 overflow-hidden">
                       <img class="w-full h-full object-cover" :src="form.hinhAnh" :alt="form.tenSach">
@@ -355,7 +351,7 @@
 
                 <!-- MOTA Field -->
                 <div class="flex flex-col gap-1">
-                  <label class="font-mono-data-md text-[11px] text-[#8e9192] uppercase">9. TÓM TẮT NỘI DUNG (MOTA)</label>
+                  <label class="font-mono-data-md text-[11px] text-[#8e9192] uppercase">9. TÓM TẮT NỘI DUNG</label>
                   <textarea 
                     v-model="form.moTa"
                     class="w-full p-2.5 bg-[#0e0e0e] border border-[#444748] text-white font-body-md text-[13px] focus:border-white focus:outline-none rounded-none resize-none leading-relaxed" 
@@ -365,7 +361,7 @@
                 <!-- TRANGTHAI Toggle -->
                 <div class="p-2 border border-[#444748] bg-[#0e0e0e] flex items-center justify-between">
                   <div class="flex flex-col">
-                    <span class="font-headline-md text-[13px] font-bold text-white">TRẠNG THÁI HIỂN THỊ (TRANGTHAI)</span>
+                    <span class="font-headline-md text-[13px] font-bold text-white">TRẠNG THÁI HIỂN THỊ</span>
                     <span class="font-mono-data-md text-[11px] text-[#8e9192]">Cho phép bạn đọc tìm kiếm và đăng ký mượn sách</span>
                   </div>
                   <label class="relative inline-flex items-center cursor-pointer">

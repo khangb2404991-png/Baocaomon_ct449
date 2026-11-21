@@ -1,6 +1,7 @@
 // frontend/js/readerManagement.js
-// Admin Reader, Staff & Quick Borrow Management Component Logic
+// Admin Reader, Staff & Quick Borrow Management Component Logic connected to MEVN Backend API
 
+import { docGiaApi, nhanVienApi, phieuMuonApi } from './api.js';
 import { LibraryStore, showToast, showPopup, showConfirm } from './common.js';
 import { getAdminSidebar, getAdminHeader, getAdminFooter } from './components.js';
 
@@ -46,6 +47,7 @@ export default {
       employeeForm: {
         msnv: '',
         hoTenNV: '',
+        emailNV: '',
         password: 'Admin@2024Secure',
         chucVu: 'ThuThu',
         soDienThoai: '',
@@ -82,7 +84,6 @@ export default {
       if (this.readerSearch.trim()) {
         const q = this.readerSearch.toLowerCase().trim();
         list = list.filter(r => 
-          (r.maDocGia && r.maDocGia.toLowerCase().includes(q)) ||
           (r.hoLot && r.hoLot.toLowerCase().includes(q)) ||
           (r.ten && r.ten.toLowerCase().includes(q)) ||
           (r.dienThoai && r.dienThoai.toLowerCase().includes(q)) ||
@@ -113,9 +114,7 @@ export default {
       if (this.borrowSearch.trim()) {
         const q = this.borrowSearch.toLowerCase().trim();
         list = list.filter(r => 
-          (r.maDocGia && r.maDocGia.toLowerCase().includes(q)) ||
-          (r.tenDocGia && r.tenDocGia.toLowerCase().includes(q)) ||
-          (r.maPhieuMuon && r.maPhieuMuon.toLowerCase().includes(q))
+          (r.tenDocGia && r.tenDocGia.toLowerCase().includes(q))
         );
       }
       if (this.borrowFilter === 'pending') {
@@ -167,11 +166,80 @@ export default {
     getAdminSidebar,
     getAdminHeader,
     getAdminFooter,
-    loadAllData() {
-      this.readers = LibraryStore.getReaders();
-      this.borrowRecords = LibraryStore.getBorrowRecords();
-      this.staffList = LibraryStore.getStaff();
+    async loadAllData() {
+      // 1. Tải độc giả
+      try {
+        const docGiaRes = await docGiaApi.getAll();
+        if (docGiaRes && docGiaRes.data) {
+          this.readers = docGiaRes.data.map(d => {
+            const parts = (d.tenDG || '').split(' ');
+            const ten = parts.length > 1 ? parts.pop() : (d.tenDG || '');
+            const hoLot = parts.join(' ');
+
+            return {
+              maDG: d.maDG,
+              maDocGia: d.maDG,
+              hoLot: d.hoLot || hoLot,
+              ten: ten,
+              phai: d.gioiTinhDG || 'Nam',
+              ngaySinh: d.ngaySinhDG || '',
+              dienThoai: d.dienThoai || '',
+              email: d.emailDG || '',
+              diaChi: d.diaChi || '',
+              trangThai: d.trangThaiDG ? 'HOAT_DONG' : 'BI_KHOA'
+            };
+          });
+        }
+      } catch (e) {
+        this.readers = LibraryStore.getReaders();
+      }
+
+      // 2. Tải phiếu mượn
+      try {
+        const pmRes = await phieuMuonApi.getAll();
+        if (pmRes && pmRes.data) {
+          this.borrowRecords = pmRes.data.map(r => ({
+            maPhieuMuon: r.maPM,
+            maPM: r.maPM,
+            tenDocGia: r.tenDG || 'Độc giả',
+            ngayMuon: r.ngayMuon ? new Date(r.ngayMuon).toLocaleDateString('vi-VN') : '',
+            ngayTra: r.hanTra ? new Date(r.hanTra).toLocaleDateString('vi-VN') : '',
+            trangThai: r.trangThaiPM,
+            tongSoLuong: (r.chiTiet || []).reduce((s, it) => s + (it.soLuongMuon || 1), 0),
+            items: r.chiTiet
+          }));
+        }
+      } catch (e) {
+        this.borrowRecords = LibraryStore.getBorrowRecords();
+      }
+
+      // 3. Tải nhân sự
+      try {
+        const nvRes = await nhanVienApi.getAll();
+        if (nvRes && nvRes.data) {
+          this.staffList = nvRes.data.map(n => ({
+            msnv: n.maNV,
+            maNV: n.maNV,
+            hoTenNV: n.tenNV,
+            hoten: n.tenNV,
+            emailNV: n.emailNV,
+            email: n.emailNV,
+            chucVu: (n.chucVuNV && n.chucVuNV.toLowerCase().includes('admin')) ? 'Admin' : 'ThuThu',
+            chucvu: (n.chucVuNV && n.chucVuNV.toLowerCase().includes('admin')) ? 'Admin' : 'ThuThu',
+            chucVuNV: n.chucVuNV || 'Thủ thư',
+            soDienThoai: n.soDienThoai || '',
+            phone: n.soDienThoai || '',
+            diaChi: n.diaChi || '',
+            address: n.diaChi || '',
+            status: n.trangThaiNV ? 1 : 0,
+            trangThai: n.trangThaiNV ? 1 : 0
+          }));
+        }
+      } catch (e) {
+        this.staffList = LibraryStore.getStaff();
+      }
     },
+
     switchTab(tab) {
       this.activeTab = tab;
       if (tab === 'tab-nhanvien' && this.$route && this.$route.path !== '/admin/staff') {
@@ -182,12 +250,17 @@ export default {
     },
 
     // Tab 1: Reader actions
-    toggleLockDocGia(reader) {
-      const nextStatus = reader.trangThai === 'BI_KHOA' ? 'HOAT_DONG' : 'BI_KHOA';
-      reader.trangThai = nextStatus;
-      LibraryStore.saveReaders(this.readers);
-      showToast(`Đã ${nextStatus === 'BI_KHOA' ? 'khóa' : 'mở khóa'} độc giả ${reader.hoLot} ${reader.ten}`, 'info');
+    async toggleLockDocGia(reader) {
+      const readerId = reader.maDG || reader.maDocGia;
+      try {
+        const res = await docGiaApi.toggleLock(readerId);
+        reader.trangThai = res.trangThaiDG ? 'HOAT_DONG' : 'BI_KHOA';
+        showToast(res.message || `Đã cập nhật trạng thái độc giả ${reader.hoLot} ${reader.ten}`, 'info');
+      } catch (err) {
+        showToast(err.message || 'Không thể đổi trạng thái tài khoản!', 'error');
+      }
     },
+
     openAddReaderModal() {
       const autoId = 'DG-' + Math.floor(1000 + Math.random() * 9000);
       this.readerForm = {
@@ -203,9 +276,11 @@ export default {
       };
       this.isAddReaderModalOpen = true;
     },
+
     closeAddReaderModal() {
       this.isAddReaderModalOpen = false;
     },
+
     saveNewReader() {
       if (!this.readerForm.hoLot || !this.readerForm.ten || !this.readerForm.dienThoai) {
         showToast('Vui lòng điền họ tên và số điện thoại!', 'error');
@@ -216,6 +291,7 @@ export default {
       showToast(`Đã cấp mới thẻ cho độc giả ${this.readerForm.hoLot} ${this.readerForm.ten} thành công!`, 'success');
       this.closeAddReaderModal();
     },
+
     exportReadersCSV() {
       let csvContent = 'data:text/csv;charset=utf-8,';
       csvContent += 'HỌ LÓT,TÊN,NGÀY SINH,PHÁI,ĐIỆN THOẠI,EMAIL,ĐỊA CHỈ,TRẠNG THÁI\n';
@@ -236,15 +312,20 @@ export default {
     filterMuonTra(status) {
       this.borrowFilter = status;
     },
-    approveBorrow(rec, msnv = 'MSNV-0042') {
-      rec.trangThai = 'DANG_MUON';
-      rec.nvPhuTrach = 'Trần Minh Quang';
-      rec.msnv = msnv;
-      LibraryStore.updateBorrowStatus(rec.maPhieuMuon, 'DANG_MUON');
-      showToast(`Đã duyệt mượn sách cho độc giả ${rec.tenDocGia}!`, 'success');
-      this.loadAllData();
+
+    async approveBorrow(rec) {
+      const maPM = rec.maPM || rec.maPhieuMuon;
+      try {
+        await phieuMuonApi.approve(maPM);
+        showToast(`Đã duyệt mượn sách cho độc giả ${rec.tenDocGia}!`, 'success');
+        await this.loadAllData();
+      } catch (e) {
+        showToast(e.message || 'Không thể duyệt mượn!', 'error');
+      }
     },
+
     async rejectBorrow(rec) {
+      const maPM = rec.maPM || rec.maPhieuMuon;
       const confirmed = await showConfirm({
         title: 'XÁC NHẬN TỪ CHỐI PHIẾU',
         message: `Bạn có chắc chắn muốn từ chối yêu cầu mượn của độc giả <strong>${rec.tenDocGia}</strong>?`,
@@ -255,51 +336,61 @@ export default {
       });
 
       if (confirmed) {
-        rec.trangThai = 'DA_HUY';
-        LibraryStore.updateBorrowStatus(rec.maPhieuMuon, 'DA_HUY');
-        showPopup({
-          title: 'ĐÃ TỪ CHỐI PHIẾU MƯỢN',
-          message: `Đã từ chối phiếu mượn của độc giả <strong>${rec.tenDocGia}</strong>`,
-          type: 'info',
-          confirmText: 'ĐÃ HIỂU'
-        });
-        this.loadAllData();
+        try {
+          await phieuMuonApi.reject(maPM, 'Thủ thư từ chối yêu cầu');
+          showToast(`Đã từ chối phiếu mượn của độc giả ${rec.tenDocGia}`, 'info');
+          await this.loadAllData();
+        } catch (e) {
+          showToast(e.message || 'Không thể từ chối phiếu!', 'error');
+        }
       }
     },
-    confirmReturn(rec) {
-      rec.trangThai = 'DA_TRA';
-      LibraryStore.updateBorrowStatus(rec.maPhieuMuon, 'DA_TRA');
-      showToast(`Đã xác nhận hoàn trả sách cho độc giả ${rec.tenDocGia}!`, 'success');
-      this.loadAllData();
+
+    async confirmReturn(rec) {
+      const maPM = rec.maPM || rec.maPhieuMuon;
+      try {
+        await phieuMuonApi.returnBook(maPM);
+        showToast(`Đã xác nhận hoàn trả sách cho độc giả ${rec.tenDocGia}!`, 'success');
+        await this.loadAllData();
+      } catch (e) {
+        showToast(e.message || 'Không thể xác nhận trả sách!', 'error');
+      }
     },
+
     goToFineTicket(rec) {
-      const borrowId = rec.maPhieuMuon || rec.slipId;
+      const borrowId = rec.maPM || rec.maPhieuMuon;
       this.$router.push({ path: '/admin/fine-ticket', query: { borrowId } });
     },
-    approveAllPending() {
+
+    async approveAllPending() {
       const pending = this.borrowRecords.filter(r => r.trangThai === 'CHO_DUYET');
       if (pending.length === 0) {
         showToast('Không có yêu cầu nào đang chờ duyệt', 'info');
         return;
       }
-      pending.forEach(r => {
-        r.trangThai = 'DANG_MUON';
-        LibraryStore.updateBorrowStatus(r.maPhieuMuon, 'DANG_MUON');
-      });
-      showToast(`Đã phê duyệt nhanh ${pending.length} yêu cầu chờ mượn!`, 'success');
-      this.loadAllData();
+
+      for (const r of pending) {
+        try {
+          await phieuMuonApi.approve(r.maPM || r.maPhieuMuon);
+        } catch (e) {}
+      }
+
+      showToast(`Đã phê duyệt các yêu cầu chờ mượn!`, 'success');
+      await this.loadAllData();
     },
 
     // Tab 3: Staff actions
     generateMSNV() {
-      this.employeeForm.msnv = 'MSNV-' + String(Math.floor(100 + Math.random() * 900)).padStart(4, '0');
+      this.employeeForm.msnv = 'NV-' + String(Math.floor(100 + Math.random() * 900)).padStart(4, '0');
     },
+
     openAddStaffModal() {
       this.isEditingStaff = false;
       this.generateMSNV();
       this.employeeForm = {
         msnv: this.employeeForm.msnv,
         hoTenNV: '',
+        emailNV: `staff${Math.floor(100 + Math.random() * 900)}@email.com`,
         password: 'Admin@2024Secure',
         chucVu: 'ThuThu',
         soDienThoai: '',
@@ -308,11 +399,13 @@ export default {
       };
       this.isStaffModalOpen = true;
     },
+
     openEditStaffModal(staff) {
       this.isEditingStaff = true;
       this.employeeForm = {
-        msnv: staff.msnv,
+        msnv: staff.msnv || staff.maNV,
         hoTenNV: staff.hoTenNV || staff.hoten || '',
+        emailNV: staff.emailNV || staff.email || '',
         password: staff.password || 'Admin@2024Secure',
         chucVu: staff.chucVu || staff.chucvu || 'ThuThu',
         soDienThoai: staff.soDienThoai || staff.phone || '',
@@ -321,12 +414,15 @@ export default {
       };
       this.isStaffModalOpen = true;
     },
+
     closeStaffModal() {
       this.isStaffModalOpen = false;
       this.isEditingStaff = false;
     },
+
     async deleteStaff(staff) {
       const name = staff.hoTenNV || staff.hoten || 'cán bộ';
+      const msnv = staff.msnv || staff.maNV;
       const confirmed = await showConfirm({
         title: 'XÁC NHẬN XÓA NHÂN SỰ',
         message: `Bạn có chắc chắn muốn xóa cán bộ nhân sự <strong>${name}</strong> khỏi hệ thống?`,
@@ -337,11 +433,16 @@ export default {
       });
 
       if (confirmed) {
-        this.staffList = this.staffList.filter(s => s.msnv !== staff.msnv);
-        LibraryStore.saveStaff(this.staffList);
-        showToast(`Đã xóa nhân viên ${name} thành công!`, 'success');
+        try {
+          await nhanVienApi.delete(msnv);
+          showToast(`Đã xóa nhân viên ${name} thành công!`, 'success');
+          await this.loadAllData();
+        } catch (e) {
+          showToast(e.message || 'Không thể xóa cán bộ nhân sự này!', 'error');
+        }
       }
     },
+
     exportStaffCSV() {
       let csvContent = 'data:text/csv;charset=utf-8,';
       csvContent += 'HỌ TÊN,CHỨC VỤ,ĐIỆN THOẠI,ĐỊA CHỈ,TRẠNG THÁI\n';
@@ -362,7 +463,8 @@ export default {
       document.body.removeChild(link);
       showToast('Đã xuất danh sách nhân sự ra CSV!', 'success');
     },
-    saveEmployee() {
+
+    async saveEmployee() {
       if (!this.employeeForm.hoTenNV || !this.employeeForm.soDienThoai) {
         showToast('Vui lòng nhập họ tên và số điện thoại nhân viên!', 'error');
         return;
@@ -372,37 +474,34 @@ export default {
         this.generateMSNV();
       }
 
-      if (this.isEditingStaff) {
-        const idx = this.staffList.findIndex(s => s.msnv === this.employeeForm.msnv);
-        if (idx !== -1) {
-          this.staffList[idx] = { 
-            ...this.staffList[idx],
-            ...this.employeeForm,
-            hoten: this.employeeForm.hoTenNV,
-            phone: this.employeeForm.soDienThoai,
-            address: this.employeeForm.diaChi,
-            status: this.employeeForm.trangThai
-          };
-          LibraryStore.saveStaff(this.staffList);
+      const payload = {
+        maNV: this.employeeForm.msnv,
+        tenNV: this.employeeForm.hoTenNV,
+        emailNV: this.employeeForm.emailNV || `${this.employeeForm.msnv.toLowerCase()}@email.com`,
+        matKhauNV: this.employeeForm.password,
+        chucVuNV: this.employeeForm.chucVu === 'Admin' ? 'Quản trị viên' : 'Thủ thư',
+        soDienThoai: this.employeeForm.soDienThoai,
+        diaChi: this.employeeForm.diaChi,
+        trangThaiNV: this.employeeForm.trangThai === 1
+      };
+
+      try {
+        if (this.isEditingStaff) {
+          await nhanVienApi.update(this.employeeForm.msnv, payload);
           showToast(`Đã cập nhật hồ sơ cán bộ ${this.employeeForm.hoTenNV}`, 'success');
+        } else {
+          await nhanVienApi.create(payload);
+          showToast(`Đã khởi tạo cán bộ nhân sự ${this.employeeForm.hoTenNV}!`, 'success');
         }
-      } else {
-        const newStaff = {
-          ...this.employeeForm,
-          hoten: this.employeeForm.hoTenNV,
-          phone: this.employeeForm.soDienThoai,
-          address: this.employeeForm.diaChi,
-          status: this.employeeForm.trangThai
-        };
-        this.staffList.unshift(newStaff);
-        LibraryStore.saveStaff(this.staffList);
-        showToast(`Đã khởi tạo cán bộ nhân sự ${this.employeeForm.hoTenNV}!`, 'success');
+        await this.loadAllData();
+        this.closeStaffModal();
+      } catch (err) {
+        showToast(err.message || 'Không thể lưu hồ sơ nhân sự!', 'error');
       }
-      this.closeStaffModal();
     },
+
     formatDate(d) {
       return LibraryStore.formatDate(d);
     }
   }
 };
-

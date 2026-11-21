@@ -69,71 +69,7 @@ export function normalizeBook(b) {
 // Initial Sample Data (Seeded from 40 books in books.json)
 const INITIAL_BOOKS = booksData.map(normalizeBook);
 
-const INITIAL_CART = [
-  {
-    maSach: 'CS-0102',
-    masach: 'CS-0102',
-    tenSach: 'Thiết Kế Hệ Thống Phân Tán Quy Mô Lớn',
-    tensach: 'Thiết Kế Hệ Thống Phân Tán Quy Mô Lớn',
-    tacGia: 'Alex Xu',
-    tacgia: 'Alex Xu',
-    soLuong: 1,
-    soluong: 1,
-    khoCon: 6,
-    soQuyen: 6,
-    ngayThem: '2024-05-20',
-    donGia: 240000,
-    dongia: 240000,
-    theLoai: 'Khoa Học Máy Tính',
-    hinhAnh: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBA3mI7md6yPHsCm3-bBSuP8XoKLHVOpxVSV6F1ld9AwCa6Hob6y7xv1kaCCs1utv3vHdISrD_rZhQYWTe4A6tgwHjV9GGNrxLeuJc2iSFpi7ZZv2gQn8IdIrAhNSqSJpJ8OBDY7Bizu2dq6LphMMIYzAF-NYPIOZwubpSGF4Ezv5AK52Oh3GBwphCMfP_6hlNFFNcsLfll8fV99WJY5b7r1oLVMon_1BCEkOPY6uU',
-    hinhanh: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBA3mI7md6yPHsCm3-bBSuP8XoKLHVOpxVSV6F1ld9AwCa6Hob6y7xv1kaCCs1utv3vHdISrD_rZhQYWTe4A6tgwHjV9GGNrxLeuJc2iSFpi7ZZv2gQn8IdIrAhNSqSJpJ8OBDY7Bizu2dq6LphMMIYzAF-NYPIOZwubpSGF4Ezv5AK52Oh3GBwphCMfP_6hlNFFNcsLfll8fV99WJY5b7r1oLVMon_1BCEkOPY6uU',
-    badgeText: 'DISTRIB SYS',
-    version: 'v2.4',
-    badgeColor: '#1c69d4'
-  },
-  {
-    maSach: 'CS-0205',
-    masach: 'CS-0205',
-    tenSach: 'Cấu Trúc Dữ Liệu & Giải Thuật Thực Chiến',
-    tensach: 'Cấu Trúc Dữ Liệu & Giải Thuật Thực Chiến',
-    tacGia: 'Robert C. Martin',
-    tacgia: 'Robert C. Martin',
-    soLuong: 1,
-    soluong: 1,
-    khoCon: 4,
-    soQuyen: 4,
-    ngayThem: '2024-05-21',
-    donGia: 195000,
-    dongia: 195000,
-    theLoai: 'Khoa Học Máy Tính',
-    hinhAnh: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCEV1Z0jB7zK-gO9r7Z13U59w83K4lYgE4uW-4u97K9V-0j499B7Z13U59w83K4lYgE4uW-4u97K9V-0j499B7Z13U59w83K4lYgE4uW-4u97K9V-0j499B7Z13U59w83K4lYgE4uW-4u97K9V-0j499B7Z13U59w83K4lYgE4uW-4u97K9V-0j499B7Z13U59w83K4lYgE4uW-4u97K9V-0j499B7Z13U59w',
-    hinhanh: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCEV1Z0jB7zK-gO9r7Z13U59w83K4lYgE4uW-4u97K9V-0j499B7Z13U59w83K4lYgE4uW-4u97K9V-0j499B7Z13U59w83K4lYgE4uW-4u97K9V-0j499B7Z13U59w83K4lYgE4uW-4u97K9V-0j499B7Z13U59w83K4lYgE4uW-4u97K9V-0j499B7Z13U59w',
-    badgeText: 'DATA STRUCT',
-    version: 'v1.1',
-    badgeColor: '#0066b1'
-  },
-  {
-    maSach: 'SEC-0089',
-    masach: 'SEC-0089',
-    tenSach: 'An Toàn Thông Tin & Mạng Máy Tính',
-    tensach: 'An Toàn Thông Tin & Mạng Máy Tính',
-    tacGia: 'Vũ Quốc Đạt',
-    tacgia: 'Vũ Quốc Đạt',
-    soLuong: 1,
-    soluong: 1,
-    khoCon: 8,
-    soQuyen: 8,
-    ngayThem: '2024-05-22',
-    donGia: 175000,
-    dongia: 175000,
-    theLoai: 'An Toàn Thông Tin',
-    hinhAnh: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA3MpoRa8vonRP0ObwAZVtIbO_JypMw-L6cOs0r74bzyQACVYj6TdOKtdJX-P9BX_HKTJVAaS2kOcr6UX6UkqZZMWnSC-LPqj3uXZKldHbxbK0Cbbg94jgyz6n85uxjx_Mzr4bPUmEdhIV7mHVLvT2AkTNkDL_3obzTgHRNgVApGBc3b323Kv7bXe6itvEWTWsP6Gp69lUHNFblGoeDq_iuFHlggY6d6zhLTaMe7-4',
-    hinhanh: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA3MpoRa8vonRP0ObwAZVtIbO_JypMw-L6cOs0r74bzyQACVYj6TdOKtdJX-P9BX_HKTJVAaS2kOcr6UX6UkqZZMWnSC-LPqj3uXZKldHbxbK0Cbbg94jgyz6n85uxjx_Mzr4bPUmEdhIV7mHVLvT2AkTNkDL_3obzTgHRNgVApGBc3b323Kv7bXe6itvEWTWsP6Gp69lUHNFblGoeDq_iuFHlggY6d6zhLTaMe7-4',
-    badgeText: 'CYBER SEC',
-    version: 'v3.0',
-    badgeColor: '#e22718'
-  }
-];
+const INITIAL_CART = [];
 
 const INITIAL_READERS = [
   {
@@ -422,40 +358,125 @@ const INITIAL_BORROW = [
 
 export const INITIAL_FINES = [
   {
-    maPhieuPhat: 'PP-0001',
-    maPhieuMuon: 'PM-8790',
+    maPhieuPhat: 'PP-20261125-0089',
+    maPhieuMuon: 'PM-20261105-012',
     tenDocGia: 'Nguyễn Văn An',
     emailDocGia: 'an.nguyen@email.com',
-    sdtDocGia: '0912 345 678',
-    ngayMuon: '2024-05-18',
-    ngayTra: '2024-06-01',
-    ngayLap: '2026-11-20',
-    ngayLapFormatted: '20/11/2026 (14:35:10)',
-    tenNV: 'Trần Minh Quân',
-    trangThai: 'CHUA_NOP',
-    ghiChu: 'Độc giả mang sách trả trễ hạn. Sách "Kỹ thuật lập trình hệ thống C/C++" bị rách bìa trước mép ngoài 12cm.',
-    soLuongViPham: 2,
-    tienPhatTre: 30000,
-    tienPhatHong: 45000,
+    tenSachChinh: 'Thiết Kế Hệ Thống Phân Tán',
+    lyDoTomTat: 'Trả trễ 06 ngày | Rách bìa ngoài',
+    soMuc: 2,
+    ngayLap: '2026-11-25T09:30:00',
+    ngayLapFormatted: '25/11/2026 09:30',
     tongTienPhat: 75000,
-    chiTiet: [
-      {
-        maSach: 'CS-0205',
-        tenSach: 'Hệ điều hành & Kiến trúc máy tính',
-        lyDo: 'TRẢ QUÁ HẠN (06 NGÀY x 5.000 VNĐ/NGÀY)',
-        loaiViPham: 'late',
-        tienPhat: 30000,
-        ghiChu: 'Định mức: 5.000 VNĐ / ngày trễ'
-      },
-      {
-        maSach: 'BK-CNTT-0812',
-        tenSach: 'Kỹ thuật lập trình hệ thống C/C++',
-        lyDo: 'LÀM HỎNG TRANG BÌA (30% GIÁ TRỊ SÁCH)',
-        loaiViPham: 'damage',
-        tienPhat: 45000,
-        ghiChu: 'Biên bản thẩm định trang bìa rách 12cm'
-      }
-    ]
+    chiTietTien: 'Trễ: 30k / Rách bìa: 45k',
+    tenNV: 'Trần Văn B',
+    maNV: 'NV0012',
+    trangThai: 'CHUA_NOP',
+    ghiChu: 'Trả trễ 06 ngày, rách bìa trước mép ngoài.'
+  },
+  {
+    maPhieuPhat: 'PP-20261124-0088',
+    maPhieuMuon: 'PM-20261102-045',
+    tenDocGia: 'Lê Hoàng Long',
+    emailDocGia: 'long.le@email.com',
+    tenSachChinh: 'An Toàn Thông Tin & Mạng Máy Tính',
+    lyDoTomTat: 'Trả quá hạn 02 ngày',
+    soMuc: 1,
+    ngayLap: '2026-11-24T14:15:00',
+    ngayLapFormatted: '24/11/2026 14:15',
+    tongTienPhat: 10000,
+    chiTietTien: 'Trễ hạn 02 ngày x 5.000',
+    tenNV: 'Trần Văn B',
+    maNV: 'NV0012',
+    trangThai: 'CHUA_NOP',
+    ghiChu: 'Trả trễ 02 ngày so với hạn cam kết.'
+  },
+  {
+    maPhieuPhat: 'PP-20261118-0086',
+    maPhieuMuon: 'PM-20261015-034',
+    tenDocGia: 'Phạm Hoàng Nam',
+    emailDocGia: 'nam.pham@email.com',
+    tenSachChinh: 'Trí Tuệ Nhân Tạo & Deep Learning',
+    lyDoTomTat: 'Bồi thường mất tài liệu (100% giá sách)',
+    soMuc: 1,
+    ngayLap: '2026-11-18T10:20:00',
+    ngayLapFormatted: '18/11/2026 10:20',
+    quaHanText: '(Quá hạn 07 ngày)',
+    tongTienPhat: 220000,
+    chiTietTien: 'Đền bù tài liệu gốc',
+    tenNV: 'Nguyễn Thùy Linh',
+    maNV: 'NV0089',
+    trangThai: 'QUA_HAN',
+    ghiChu: 'Làm mất sách trong quá trình mượn học tập.'
+  },
+  {
+    maPhieuPhat: 'PP-20261115-0085',
+    maPhieuMuon: 'PM-20261010-091',
+    tenDocGia: 'Hoàng Yến Nhi',
+    emailDocGia: 'nhi.hoang@email.com',
+    tenSachChinh: 'Cấu Trúc Dữ Liệu & Giải Thuật',
+    lyDoTomTat: 'Trả trễ 12 ngày | Gấp nếp gãy gáy',
+    soMuc: 2,
+    ngayLap: '2026-11-15T16:45:00',
+    ngayLapFormatted: '15/11/2026 16:45',
+    quaHanText: '(Quá hạn 10 ngày)',
+    tongTienPhat: 90000,
+    chiTietTien: 'Trễ: 60k / Hỏng gáy: 30k',
+    tenNV: 'Trần Văn B',
+    maNV: 'NV0012',
+    trangThai: 'QUA_HAN',
+    ghiChu: 'Trễ hạn 12 ngày và gáy sách bị gấp nếp nứt keo.'
+  },
+  {
+    maPhieuPhat: 'PP-20261120-0087',
+    maPhieuMuon: 'PM-20261028-089',
+    tenDocGia: 'Trần Thị Mai',
+    emailDocGia: 'mai.tran@email.com',
+    tenSachChinh: 'Kỹ Thuật Lập Trình C/C++',
+    lyDoTomTat: 'Làm hỏng trang bìa (30% giá sách)',
+    soMuc: 1,
+    ngayLap: '2026-11-20T11:00:00',
+    ngayLapFormatted: '20/11/2026 11:00',
+    tongTienPhat: 45000,
+    chiTietTien: 'Thu tiền mặt tại quầy',
+    tenNV: 'Trần Văn B',
+    maNV: 'NV0012',
+    trangThai: 'DA_THU',
+    ghiChu: 'Đã thu trực tiếp tiền mặt 45.000 VNĐ.'
+  },
+  {
+    maPhieuPhat: 'PP-20261112-0084',
+    maPhieuMuon: 'PM-20261020-061',
+    tenDocGia: 'Vũ Quốc Huy',
+    emailDocGia: 'huy.vu@email.com',
+    tenSachChinh: 'Hệ Điều Hành & Kiến Trúc Máy Tính',
+    lyDoTomTat: 'Trả quá hạn 04 ngày',
+    soMuc: 1,
+    ngayLap: '2026-11-12T08:30:00',
+    ngayLapFormatted: '12/11/2026 08:30',
+    tongTienPhat: 20000,
+    chiTietTien: 'Thu tiền mặt tại quầy',
+    tenNV: 'Nguyễn Thùy Linh',
+    maNV: 'NV0089',
+    trangThai: 'DA_THU',
+    ghiChu: 'Đã thanh toán tiền phạt trễ hạn.'
+  },
+  {
+    maPhieuPhat: 'PP-20261108-0082',
+    maPhieuMuon: 'PM-20261018-055',
+    tenDocGia: 'Đỗ Thị Mai',
+    emailDocGia: 'mai.do@email.com',
+    tenSachChinh: 'Cơ Sở Dữ Liệu Nâng Cao',
+    lyDoTomTat: 'Rách trang phụ lục',
+    soMuc: 1,
+    ngayLap: '2026-11-08T15:10:00',
+    ngayLapFormatted: '08/11/2026 15:10',
+    tongTienPhat: 15000,
+    chiTietTien: 'Đã thanh toán đủ',
+    tenNV: 'Trần Văn B',
+    maNV: 'NV0012',
+    trangThai: 'DA_THU',
+    ghiChu: 'Rách trang phụ lục cuối sách, đã nộp phạt.'
   }
 ];
 
@@ -493,7 +514,7 @@ export const LibraryStore = {
   },
 
   getCart() {
-    const raw = this.get(STORAGE_KEYS.CART, INITIAL_CART);
+    const raw = this.get(STORAGE_KEYS.CART, []);
     const allBooks = this.getBooks();
     return (raw || []).map(item => {
       const id = item.maSach || item.masach;
@@ -526,6 +547,9 @@ export const LibraryStore = {
   },
 
   getCartCount() {
+    if (typeof localStorage !== 'undefined' && !localStorage.getItem('token')) {
+      return 0;
+    }
     const cart = this.getCart();
     return cart.reduce((total, item) => total + (item.soLuong || item.soluong || 1), 0);
   },
@@ -803,19 +827,19 @@ export const LibraryStore = {
     return { success: true, fine: newFine };
   },
 
+  updateFineStatus(maPhieuPhat, newStatus) {
+    const fines = this.getFines();
+    const idx = fines.findIndex(f => f.maPhieuPhat === maPhieuPhat);
+    if (idx !== -1) {
+      fines[idx].trangThai = newStatus;
+      this.saveFines(fines);
+      return { success: true, fine: fines[idx] };
+    }
+    return { success: false };
+  },
+
   getCurrentUser() {
-    return this.get(STORAGE_KEYS.CURRENT_USER, {
-      id: 'DG-0842',
-      name: 'Nguyễn Văn An',
-      holot: 'Nguyễn Văn',
-      ten: 'An',
-      ngaysinh: '15/08/1998',
-      phai: 'Nam',
-      email: 'nguyenvanan.dev@gmail.com',
-      dienthoai: '0912 345 678',
-      diachi: 'Số 1 Đại Cồ Việt, Bách Khoa, Hai Bà Trưng, Hà Nội',
-      role: 'DOCGIA'
-    });
+    return this.get(STORAGE_KEYS.CURRENT_USER, null);
   },
 
   setCurrentUser(user) {

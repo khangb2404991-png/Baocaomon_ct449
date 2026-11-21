@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html class="dark" lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Quản Lý Nhà Xuất Bản - BOOK LENDING SYSTEM</title>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,300..900;1,300..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  
+  <!-- Tailwind CSS Engine -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            background: "#000000",
+            surface: "#080808",
+            panel: "#111111",
+            "panel-border": "#262626",
+            primary: "#ffffff",
+            outline: "#8e9192"
+          },
+          fontFamily: {
+            mono: ["JetBrains Mono", "monospace"],
+            heading: ["Space Grotesk", "sans-serif"],
+            body: ["Chivo", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        background-color: #000000;
+        color: #e2e2e2;
+        font-family: 'JetBrains Mono', monospace;
+      }
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0d0d0d;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #262626;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #444748;
+    }
+    .modal-backdrop {
+      background-color: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(2px);
+    }
+  </style>
+</head>
+<body class="bg-[#000000] text-[#e2e2e2] antialiased selection:bg-[#353535] selection:text-white min-h-screen">
+
+  <!-- ============================================================== -->
+  <!-- 1. FIXED LEFT SIDEBAR (#050505, border-r 1px solid #222222)   -->
+  <!-- ============================================================== -->
+  <aside class="fixed left-0 top-0 h-full w-[260px] bg-[#050505] border-r border-[#222222] z-50 flex flex-col justify-between rounded-none select-none">
+    <div class="flex flex-col">
+      <!-- Top Header Block with Thin Red Accent Underline -->
+      <div class="p-5 border-b border-[#222222] bg-[#050505]">
+        <div class="flex items-center justify-between">
+          <h1 class="font-heading text-[18px] font-bold tracking-wider text-white uppercase leading-none">
+            KHU VỰC QUẢN TRỊ
+          </h1>
+        </div>
+        <!-- Thin Red Accent Underline -->
+        <div class="w-12 h-[2px] bg-[#EF4444] mt-3"></div>
+      </div>
+
+      <!-- Navigation Menu Items (Stacked Uppercase Monospace, same hierarchy) -->
+      <div class="px-5 py-3">
+        <span class="font-mono text-[11px] text-[#666666] uppercase tracking-wider">DANH MỤC ĐIỀU HÀNH</span>
+      </div>
+      <nav class="flex flex-col py-1">
+        <!-- QUẢN LÝ SÁCH -->
+        <a href="#/admin/books" class="flex items-center px-5 py-3 font-mono text-[13px] uppercase tracking-wider text-[#8e9192] hover:bg-[#111111] hover:text-white transition-colors border-l-2 border-transparent no-underline">
+          <span class="w-2 h-2 mr-3 bg-[#333333]"></span>QUẢN LÝ SÁCH
+        </a>
+
+        <!-- QUẢN LÝ NHÀ XUẤT BẢN (ACTIVE) -->
+        <a href="#/admin/publishers" class="flex items-center px-5 py-3 font-mono text-[13px] uppercase tracking-wider bg-[#141414] text-white border-l-2 border-white font-bold transition-colors no-underline">
+          <span class="w-2 h-2 mr-3 bg-white"></span>QUẢN LÝ NHÀ XUẤT BẢN
+        </a>
+
+        <!-- QUẢN LÝ TÁC GIẢ -->
+        <a href="#/admin/authors" class="flex items-center px-5 py-3 font-mono text-[13px] uppercase tracking-wider text-[#8e9192] hover:bg-[#111111] hover:text-white transition-colors border-l-2 border-transparent no-underline">
+          <span class="w-2 h-2 mr-3 bg-[#333333]"></span>QUẢN LÝ TÁC GIẢ
+        </a>
+
+        <!-- QUẢN LÝ TÀI KHOẢN -->
+        <a href="#/admin/readers" class="flex items-center px-5 py-3 font-mono text-[13px] uppercase tracking-wider text-[#8e9192] hover:bg-[#111111] hover:text-white transition-colors border-l-2 border-transparent no-underline">
+          <span class="w-2 h-2 mr-3 bg-[#333333]"></span>QUẢN LÝ TÀI KHOẢN
+        </a>
+
+        <!-- QUẢN LÝ MƯỢN TRẢ -->
+        <a href="#/admin/borrows" class="flex items-center px-5 py-3 font-mono text-[13px] uppercase tracking-wider text-[#8e9192] hover:bg-[#111111] hover:text-white transition-colors border-l-2 border-transparent no-underline">
+          <span class="w-2 h-2 mr-3 bg-[#333333]"></span>QUẢN LÝ MƯỢN TRẢ
+        </a>
+
+        <!-- QUẢN LÝ PHIẾU PHẠT -->
+        <a href="#/admin/fines" class="flex items-center px-5 py-3 font-mono text-[13px] uppercase tracking-wider text-[#8e9192] hover:bg-[#111111] hover:text-white transition-colors border-l-2 border-transparent no-underline">
+          <span class="w-2 h-2 mr-3 bg-[#333333]"></span>QUẢN LÝ PHIẾU PHẠT
+        </a>
+      </nav>
+    </div>
+
+    <!-- Bottom Pinned Staff Footer -->
+    <div class="p-5 border-t border-[#222222] bg-[#080808]">
+      <div class="font-mono text-[13px] text-white font-bold leading-tight">
+        NHÂN VIÊN: Trần Văn B
+      </div>
+      <div class="font-mono text-[12px] text-[#8e9192] mt-1">
+        CHỨC VỤ: Thủ thư
+      </div>
+      <div class="mt-4 pt-3 border-t border-[#1a1a1a]">
+        <button onclick="handleLogout()" type="button" class="flex items-center justify-center w-full h-9 bg-[#141414] border border-[#333333] text-white hover:bg-[#2A0A0A] hover:text-[#EF4444] hover:border-[#7F1D1D] font-mono text-[12px] tracking-widest uppercase transition-colors rounded-none cursor-pointer">
+          <span class="material-symbols-outlined text-[16px] mr-1.5">logout</span>[-&gt; ĐĂNG XUẤT]
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============================================================== -->
+  <!-- MAIN WORKSPACE CONTAINER (Left margin for fixed sidebar)      -->
+  <!-- ============================================================== -->
+  <div class="pl-[260px] flex flex-col min-h-screen bg-[#000000]">
+
+    <!-- ============================================================ -->
+    <!-- 2. TOP BAR & PAGE TITLE                                      -->
+    <!-- ============================================================ -->
+    <!-- Top Slim Bar -->
+    <header class="fixed top-0 left-[260px] right-0 h-14 bg-[#000000] border-b border-[#222222] z-40 flex items-center justify-between px-8">
+      <div class="flex items-center gap-3">
+        <div class="w-6 h-6 bg-white text-black flex items-center justify-center font-bold font-mono text-xs">
+          <span class="material-symbols-outlined text-[16px]">menu_book</span>
+        </div>
+        <span class="font-mono text-[13px] font-bold tracking-wider text-white uppercase leading-none">
+          BOOK LENDING SYSTEM
+        </span>
+      </div>
+      <div class="flex items-center gap-4">
+        <span class="font-mono text-[11px] text-[#666666] uppercase">BẢNG ĐIỀU KHIỂN HỆ THỐNG</span>
+        <span class="w-1.5 h-1.5 bg-[#10B981]"></span>
+      </div>
+    </header>
+
+    <!-- Main Viewport -->
+    <main class="relative pt-14 bg-[#000000] min-h-screen flex flex-col justify-between">
+      <div class="flex flex-col w-full p-8 gap-6">
+
+        <!-- Main Title Below Slim Bar + Full-width Horizontal Divider (NO breadcrumb) -->
+        <div class="flex flex-col gap-3 pb-2 border-b border-[#262626]">
+          <h1 class="font-heading text-[28px] font-bold text-white tracking-tight uppercase leading-none">
+            QUẢN LÝ NHÀ XUẤT BẢN
+          </h1>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 3. 4-COLUMN KPI ROW (Exact card structure as reference)      -->
+        <!-- ============================================================ -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Card 1: Amber left bar + top-right dot -->
+          <div class="bg-[#111111] border border-[#262626] border-l-[3px] border-l-[#F59E0B] p-4 flex flex-col justify-between h-[108px] rounded-none relative">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-[11px] text-[#8e9192] uppercase tracking-wider font-semibold">TỔNG NHÀ XUẤT BẢN</span>
+              <span class="w-2 h-2 bg-[#F59E0B]"></span>
+            </div>
+            <div class="flex items-baseline justify-between mt-auto">
+              <span class="font-mono text-[28px] text-white font-bold leading-none" id="kpi-total">04</span>
+              <span class="font-mono text-[11px] text-[#F59E0B] font-medium tracking-wider">ĐANG HOẠT ĐỘNG</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Blue left bar + top-right dot -->
+          <div class="bg-[#111111] border border-[#262626] border-l-[3px] border-l-[#3B82F6] p-4 flex flex-col justify-between h-[108px] rounded-none relative">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-[11px] text-[#8e9192] uppercase tracking-wider font-semibold">ĐẦU SÁCH LIÊN KẾT</span>
+              <span class="w-2 h-2 bg-[#3B82F6]"></span>
+            </div>
+            <div class="flex items-baseline justify-between mt-auto">
+              <span class="font-mono text-[28px] text-white font-bold leading-none" id="kpi-books">40</span>
+              <span class="font-mono text-[11px] text-[#3B82F6] font-medium tracking-wider">TRONG KHO</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Green left bar + top-right dot -->
+          <div class="bg-[#111111] border border-[#262626] border-l-[3px] border-l-[#10B981] p-4 flex flex-col justify-between h-[108px] rounded-none relative">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-[11px] text-[#8e9192] uppercase tracking-wider font-semibold">ĐÃ CÓ SÁCH</span>
+              <span class="w-2 h-2 bg-[#10B981]"></span>
+            </div>
+            <div class="flex items-baseline justify-between mt-auto">
+              <span class="font-mono text-[28px] text-white font-bold leading-none" id="kpi-linked">04</span>
+              <span class="font-mono text-[11px] text-[#10B981] font-medium tracking-wider">SẴN SÀNG</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Red left bar + top-right dot -->
+          <div class="bg-[#111111] border border-[#262626] border-l-[3px] border-l-[#EF4444] p-4 flex flex-col justify-between h-[108px] rounded-none relative">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-[11px] text-[#8e9192] uppercase tracking-wider font-semibold">CHƯA CÓ SÁCH</span>
+              <span class="w-2 h-2 bg-[#EF4444]"></span>
+            </div>
+            <div class="flex items-baseline justify-between mt-auto">
+              <span class="font-mono text-[28px] text-white font-bold leading-none" id="kpi-empty">00</span>
+              <span class="font-mono text-[11px] text-[#EF4444] font-medium tracking-wider">CẦN CẬP NHẬT</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 4. FILTER & ACTION BOX (2-row dark bordered container)       -->
+        <!-- ============================================================ -->
+        <div class="flex flex-col bg-[#111111] border border-[#262626]">
+          <!-- Top Row: Search, Region Dropdown & Action Buttons -->
+          <div class="p-4 grid grid-cols-1 lg:grid-cols-12 gap-4 items-end border-b border-[#1f1f1f]">
+            <!-- Input 1: Search -->
+            <div class="lg:col-span-5 flex flex-col gap-1.5">
+              <label class="font-mono text-[11px] text-[#8e9192] uppercase tracking-wider">TÌM KIẾM NHÀ XUẤT BẢN / ĐỊA CHỈ</label>
+              <div class="relative flex items-center">
+                <span class="material-symbols-outlined text-[18px] text-[#8e9192] absolute left-3 pointer-events-none">search</span>
+                <input 
+                  id="searchPublisherInput" 
+                  oninput="handleSearch(this.value)"
+                  class="w-full h-11 bg-[#141414] border border-[#262626] pl-10 pr-3 font-mono text-[13px] text-white placeholder-[#666666] focus:outline-none focus:border-white rounded-none transition-colors" 
+                  placeholder="Tìm theo Tên nhà xuất bản, địa chỉ..." 
+                  type="text">
+              </div>
+            </div>
+
+            <!-- Input 2: Region Dropdown -->
+            <div class="lg:col-span-3 flex flex-col gap-1.5">
+              <label class="font-mono text-[11px] text-[#8e9192] uppercase tracking-wider">KHU VỰC</label>
+              <div class="relative flex items-center">
+                <select 
+                  id="regionFilter" 
+                  onchange="handleRegionFilter(this.value)"
+                  class="w-full h-11 bg-[#141414] border border-[#262626] px-3 font-mono text-[13px] text-white focus:outline-none focus:border-white rounded-none appearance-none cursor-pointer">
+                  <option value="ALL">Tất cả khu vực</option>
+                  <option value="Hà Nội">Hà Nội</option>
+                  <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
+                  <option value="Miền Bắc">Miền Bắc</option>
+                  <option value="Miền Nam">Miền Nam</option>
+                </select>
+                <span class="material-symbols-outlined text-[18px] text-[#8e9192] absolute right-3 pointer-events-none">expand_more</span>
+              </div>
+            </div>
+
+            <!-- Right Action Buttons -->
+            <div class="lg:col-span-4 flex items-center justify-end gap-2.5">
+              <!-- Solid White Primary CTA Button -->
+              <button 
+                onclick="openAddModal()" 
+                type="button" 
+                class="h-11 px-5 bg-white text-black font-mono text-[12px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 hover:bg-[#cccccc] border border-white transition-colors rounded-none cursor-pointer select-none">
+                <span class="material-symbols-outlined text-[18px] font-bold">add</span>
+                <span>+ THÊM NHÀ XUẤT BẢN</span>
+              </button>
+
+              <!-- Secondary Dark Bordered Button -->
+              <button 
+                onclick="exportCSV()" 
+                type="button" 
+                class="h-11 px-4 bg-[#141414] text-white border border-[#333333] hover:bg-[#262626] hover:border-white font-mono text-[12px] uppercase flex items-center gap-1.5 transition-colors rounded-none cursor-pointer select-none" 
+                title="Xuất danh sách ra tệp CSV">
+                <span class="material-symbols-outlined text-[18px]">download</span>
+                <span>↓ CSV</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Bottom Row: Filter Tabs Strip -->
+          <div class="px-4 py-2 flex items-center gap-2 overflow-x-auto bg-[#0a0a0a]">
+            <!-- Tab Tất Cả -->
+            <button 
+              id="tab-all" 
+              onclick="setFilterTab('ALL')" 
+              type="button" 
+              class="px-4 py-2 font-mono text-[11px] uppercase tracking-wider text-white border-b-2 border-white font-bold cursor-pointer transition-colors bg-[#141414]">
+              TẤT CẢ (<span id="tab-count-all">04</span>)
+            </button>
+
+            <!-- Tab Đang Liên Kết -->
+            <button 
+              id="tab-linked" 
+              onclick="setFilterTab('LINKED')" 
+              type="button" 
+              class="px-4 py-2 font-mono text-[11px] uppercase tracking-wider text-[#8e9192] hover:text-white hover:bg-[#141414] border-b-2 border-transparent cursor-pointer transition-colors">
+              ĐANG LIÊN KẾT (<span id="tab-count-linked">04</span>)
+            </button>
+
+            <!-- Tab Chưa Có Sách -->
+            <button 
+              id="tab-empty" 
+              onclick="setFilterTab('EMPTY')" 
+              type="button" 
+              class="px-4 py-2 font-mono text-[11px] uppercase tracking-wider text-[#8e9192] hover:text-white hover:bg-[#141414] border-b-2 border-transparent cursor-pointer transition-colors">
+              CHƯA CÓ SÁCH (<span id="tab-count-empty">00</span>)
+            </button>
+          </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 5. MAIN DATA TABLE & PAGINATION                              -->
+        <!-- ============================================================ -->
+        <div class="border border-[#262626] bg-[#111111] rounded-none overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full border-collapse text-left font-mono">
+              <!-- Dark Table Header (#141414) -->
+              <thead>
+                <tr class="bg-[#141414] border-b border-[#262626]">
+                  <th class="p-3.5 text-[11px] text-[#8e9192] uppercase tracking-wider font-semibold w-16 text-center">STT</th>
+                  <th class="p-3.5 text-[11px] text-[#8e9192] uppercase tracking-wider font-semibold">TÊN NHÀ XUẤT BẢN</th>
+                  <th class="p-3.5 text-[11px] text-[#8e9192] uppercase tracking-wider font-semibold">ĐỊA CHỈ TRỤ SỞ</th>
+                  <th class="p-3.5 text-[11px] text-[#8e9192] uppercase tracking-wider font-semibold text-center w-32">SỐ ĐẦU SÁCH</th>
+                  <th class="p-3.5 text-[11px] text-[#8e9192] uppercase tracking-wider font-semibold text-center w-32">CẬP NHẬT</th>
+                  <th class="p-3.5 text-[11px] text-[#8e9192] uppercase tracking-wider font-semibold text-center w-40">TRẠNG THÁI</th>
+                  <th class="p-3.5 text-[11px] text-[#8e9192] uppercase tracking-wider font-semibold text-right w-48">THAO TÁC XỬ LÝ</th>
+                </tr>
+              </thead>
+              <tbody id="publisherTableBody" class="divide-y divide-[#1f1f1f]">
+                <!-- Rows injected dynamically via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Bar at Bottom of Table -->
+          <div class="p-3.5 bg-[#0a0a0a] border-t border-[#262626] flex flex-col md:flex-row items-center justify-between gap-3 font-mono text-[12px]">
+            <div class="text-[#8e9192]" id="paginationInfo">
+              Hiển thị <span class="text-white font-bold">1 - 4</span> trên tổng số <span class="text-white font-bold">4</span> bản ghi
+            </div>
+            <div class="flex items-center gap-1">
+              <button onclick="goToPage('first')" class="w-8 h-8 flex items-center justify-center bg-[#141414] border border-[#333333] text-white hover:border-white rounded-none cursor-pointer" type="button" title="Trang đầu">&lt;&lt;</button>
+              <button onclick="goToPage('prev')" class="w-8 h-8 flex items-center justify-center bg-[#141414] border border-[#333333] text-white hover:border-white rounded-none cursor-pointer" type="button" title="Trang trước">&lt;</button>
+              <button class="w-8 h-8 flex items-center justify-center bg-white border border-white text-black font-bold rounded-none cursor-pointer" type="button">1</button>
+              <button onclick="goToPage('next')" class="w-8 h-8 flex items-center justify-center bg-[#141414] border border-[#333333] text-[#666666] border-[#222222] rounded-none cursor-not-allowed" disabled type="button" title="Trang sau">&gt;</button>
+              <button onclick="goToPage('last')" class="w-8 h-8 flex items-center justify-center bg-[#141414] border border-[#333333] text-[#666666] border-[#222222] rounded-none cursor-not-allowed" disabled type="button" title="Trang cuối">&gt;&gt;</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ============================================================ -->
+      <!-- 6. BOTTOM GLOBAL FOOTER (Identical to reference)             -->
+      <!-- ============================================================ -->
+      <footer class="w-full border-t border-[#262626] bg-[#000000] py-6 px-8 flex flex-col sm:flex-row justify-between items-start gap-4 rounded-none mt-auto select-none">
+        <div class="flex flex-col gap-2 text-left font-mono text-xs text-[#8e9192]">
+          <div class="leading-relaxed">
+            <strong class="font-bold text-white uppercase">LIÊN HỆ QUẢN LÝ THƯ VIỆN:</strong> 
+            quanly@thuvien.edu.vn | (0292) 3831 567
+          </div>
+          <div class="leading-relaxed">
+            <strong class="font-bold text-white uppercase">LIÊN HỆ HỖ TRỢ KỸ THUẬT:</strong> 
+            hotro@thuvien.edu.vn
+          </div>
+        </div>
+        <div class="flex flex-col items-start sm:items-end text-left sm:text-right text-xs">
+          <a class="font-heading text-white font-bold uppercase tracking-wider hover:underline transition-colors no-underline" href="#">
+            QUY CHẾ THƯ VIỆN
+          </a>
+          <span class="font-body text-[#8e9192] mt-1">
+            Quy định mượn trả sách &amp; Bảo quản tài liệu
+          </span>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODAL: THÊM / CẬP NHẬT NHÀ XUẤT BẢN                           -->
+  <!-- ============================================================== -->
+  <div id="publisherModal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-4">
+    <div class="bg-[#111111] border border-[#262626] w-full max-w-lg p-6 flex flex-col gap-5 rounded-none shadow-2xl">
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between pb-3 border-b border-[#262626]">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 bg-white"></span>
+          <h2 id="modalTitle" class="font-heading text-[18px] font-bold text-white uppercase tracking-wider">
+            THÊM NHÀ XUẤT BẢN MỚI
+          </h2>
+        </div>
+        <button onclick="closeModal()" class="text-[#8e9192] hover:text-white transition-colors cursor-pointer" type="button">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <!-- Form Inputs -->
+      <div class="flex flex-col gap-4 font-mono text-[13px]">
+        <input type="hidden" id="modalPublisherIndex" value="">
+
+        <div class="flex flex-col gap-1.5">
+          <label class="text-[11px] text-[#8e9192] uppercase tracking-wider">TÊN NHÀ XUẤT BẢN <span class="text-[#EF4444]">*</span></label>
+          <input 
+            id="modalTenNXB" 
+            type="text" 
+            placeholder="Nhập tên đầy đủ của nhà xuất bản..."
+            class="h-11 bg-[#141414] border border-[#262626] px-3 text-white focus:outline-none focus:border-white transition-colors rounded-none placeholder-[#666666]">
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <label class="text-[11px] text-[#8e9192] uppercase tracking-wider">ĐỊA CHỈ TRỤ SỞ <span class="text-[#EF4444]">*</span></label>
+          <textarea 
+            id="modalDiaChi" 
+            rows="3" 
+            placeholder="Số nhà, tên đường, quận/huyện, tỉnh/thành phố..."
+            class="bg-[#141414] border border-[#262626] p-3 text-white focus:outline-none focus:border-white transition-colors rounded-none placeholder-[#666666] resize-none"></textarea>
+        </div>
+      </div>
+
+      <!-- Modal Actions -->
+      <div class="flex items-center justify-end gap-3 pt-3 border-t border-[#262626]">
+        <button 
+          onclick="closeModal()" 
+          type="button" 
+          class="h-10 px-5 bg-[#141414] text-white border border-[#333333] hover:bg-[#262626] hover:border-white font-mono text-[12px] uppercase transition-colors rounded-none cursor-pointer">
+          HỦY BỎ
+        </button>
+        <button 
+          onclick="savePublisher()" 
+          type="button" 
+          class="h-10 px-6 bg-white text-black font-mono text-[12px] font-bold uppercase hover:bg-[#cccccc] transition-colors rounded-none cursor-pointer flex items-center gap-1.5">
+          <span>LƯU DỮ LIỆU</span>
+          <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- TOAST NOTIFICATION                                             -->
+  <!-- ============================================================== -->
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 hidden items-center gap-3 px-4 py-3 bg-[#111111] border border-[#262626] font-mono text-[13px] shadow-2xl">
+    <span id="toastIcon" class="material-symbols-outlined text-[18px]">info</span>
+    <span id="toastMessage" class="text-white">Thông báo</span>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- JAVASCRIPT LOGIC (Matching exact reference behavior & data)    -->
+  <!-- ============================================================== -->
+  <script>
+    // 4 Sample Rows matching specification & CDM: TenNXB, DiaChi, soDauSach
+    let publishers = [
+      {
+        stt: "01",
+        tenNXB: "NXB Bách Khoa Hà Nội",
+        diaChi: "Số 1 Đại Cồ Việt, Hai Bà Trưng, Hà Nội",
+        soDauSach: 10,
+        capNhat: "20/11/2026",
+        trangThai: "ĐANG LIÊN KẾT"
+      },
+      {
+        stt: "02",
+        tenNXB: "NXB Thông Tin & Truyền Thông",
+        diaChi: "115 Trần Duy Hưng, Cầu Giấy, Hà Nội",
+        soDauSach: 8,
+        capNhat: "20/11/2026",
+        trangThai: "ĐANG LIÊN KẾT"
+      },
+      {
+        stt: "03",
+        tenNXB: "NXB Trẻ",
+        diaChi: "161B Lý Chính Thắng, Quận 3, TP. Hồ Chí Minh",
+        soDauSach: 14,
+        capNhat: "20/11/2026",
+        trangThai: "ĐANG LIÊN KẾT"
+      },
+      {
+        stt: "04",
+        tenNXB: "NXB Đại Học Quốc Gia",
+        diaChi: "16 Hàng Chuối, Hai Bà Trưng, Hà Nội",
+        soDauSach: 8,
+        capNhat: "20/11/2026",
+        trangThai: "ĐANG LIÊN KẾT"
+      }
+    ];
+
+    let currentFilterTab = "ALL";
+    let searchQuery = "";
+    let selectedRegion = "ALL";
+
+    function updateKPIs() {
+      const total = publishers.length;
+      const totalBooks = publishers.reduce((sum, p) => sum + (p.soDauSach || 0), 0);
+      const linked = publishers.filter(p => (p.soDauSach || 0) > 0).length;
+      const empty = publishers.filter(p => (p.soDauSach || 0) === 0).length;
+
+      document.getElementById('kpi-total').textContent = String(total).padStart(2, '0');
+      document.getElementById('kpi-books').textContent = String(totalBooks).padStart(2, '0');
+      document.getElementById('kpi-linked').textContent = String(linked).padStart(2, '0');
+      document.getElementById('kpi-empty').textContent = String(empty).padStart(2, '0');
+
+      document.getElementById('tab-count-all').textContent = String(total).padStart(2, '0');
+      document.getElementById('tab-count-linked').textContent = String(linked).padStart(2, '0');
+      document.getElementById('tab-count-empty').textContent = String(empty).padStart(2, '0');
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('publisherTableBody');
+      tbody.innerHTML = '';
+
+      let filtered = publishers.filter(p => {
+        // Filter by tab
+        if (currentFilterTab === 'LINKED' && (p.soDauSach || 0) <= 0) return false;
+        if (currentFilterTab === 'EMPTY' && (p.soDauSach || 0) > 0) return false;
+
+        // Filter by search
+        if (searchQuery) {
+          const matchName = p.tenNXB.toLowerCase().includes(searchQuery);
+          const matchAddress = p.diaChi.toLowerCase().includes(searchQuery);
+          if (!matchName && !matchAddress) return false;
+        }
+
+        // Filter by region
+        if (selectedRegion !== 'ALL') {
+          if (!p.diaChi.includes(selectedRegion)) return false;
+        }
+
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" class="p-8 text-center text-[#8e9192] font-mono text-[13px]">
+              Không tìm thấy nhà xuất bản nào phù hợp với bộ lọc hiện tại.
+            </td>
+          </tr>
+        `;
+        document.getElementById('paginationInfo').innerHTML = `Hiển thị <span class="text-white font-bold">0</span> bản ghi`;
+        return;
+      }
+
+      filtered.forEach((p, index) => {
+        const seq = String(index + 1).padStart(2, '0');
+        const hasBooks = (p.soDauSach || 0) > 0;
+        const statusBadge = hasBooks
+          ? `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#10B981]/10 border border-[#10B981] text-[#10B981] text-[11px] font-bold uppercase rounded-none">
+              <span class="w-1.5 h-1.5 bg-[#10B981]"></span>
+              [• ĐANG LIÊN KẾT]
+            </span>`
+          : `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-black border border-[#8e9192] text-[#8e9192] text-[11px] uppercase rounded-none">
+              <span class="w-1.5 h-1.5 bg-[#8e9192]"></span>
+              [• CHƯA CÓ SÁCH]
+            </span>`;
+
+        const row = document.createElement('tr');
+        row.className = index % 2 === 0 ? 'bg-[#0d0d0d] hover:bg-[#1a1a1a] transition-colors' : 'bg-[#111111] hover:bg-[#1a1a1a] transition-colors';
+        row.innerHTML = `
+          <!-- STT (Strict CDM Data Rule: No raw IDs on UI) -->
+          <td class="p-3.5 text-center text-[#8e9192] font-mono text-[13px] font-bold">${seq}</td>
+
+          <!-- TÊN NHÀ XUẤT BẢN -->
+          <td class="p-3.5 text-white font-heading font-bold text-[14px]">
+            ${p.tenNXB}
+          </td>
+
+          <!-- ĐỊA CHỈ TRỤ SỞ -->
+          <td class="p-3.5 text-[#c4c7c8] font-mono text-[12px]">
+            ${p.diaChi}
+          </td>
+
+          <!-- SỐ ĐẦU SÁCH -->
+          <td class="p-3.5 text-center font-mono text-[14px] font-bold text-white">
+            ${String(p.soDauSach).padStart(2, '0')}
+          </td>
+
+          <!-- CẬP NHẬT -->
+          <td class="p-3.5 text-center font-mono text-[12px] text-[#8e9192]">
+            ${p.capNhat}
+          </td>
+
+          <!-- TRẠNG THÁI -->
+          <td class="p-3.5 text-center">
+            ${statusBadge}
+          </td>
+
+          <!-- THAO TÁC XỬ LÝ -->
+          <td class="p-3.5 text-right">
+            <div class="flex items-center justify-end gap-2">
+              <button 
+                onclick="openEditModal(${index})"
+                class="h-8 px-3 bg-white text-black font-mono text-[11px] font-bold hover:bg-[#cccccc] border border-white transition-colors rounded-none cursor-pointer" 
+                type="button">
+                [SỬA →]
+              </button>
+              <button 
+                onclick="deletePublisher(${index})"
+                class="h-8 px-3 bg-[#2A0A0A] text-[#EF4444] border border-[#7F1D1D] hover:bg-[#EF4444] hover:text-white font-mono text-[11px] font-bold transition-colors rounded-none cursor-pointer" 
+                type="button">
+                [XÓA]
+              </button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+
+      document.getElementById('paginationInfo').innerHTML = `Hiển thị <span class="text-white font-bold">1 - ${filtered.length}</span> trên tổng số <span class="text-white font-bold">${filtered.length}</span> bản ghi`;
+    }
+
+    function setFilterTab(tab) {
+      currentFilterTab = tab;
+      const tabs = [
+        { id: 'tab-all', key: 'ALL' },
+        { id: 'tab-linked', key: 'LINKED' },
+        { id: 'tab-empty', key: 'EMPTY' }
+      ];
+
+      tabs.forEach(t => {
+        const el = document.getElementById(t.id);
+        if (t.key === tab) {
+          el.className = 'px-4 py-2 font-mono text-[11px] uppercase tracking-wider text-white border-b-2 border-white font-bold cursor-pointer transition-colors bg-[#141414]';
+        } else {
+          el.className = 'px-4 py-2 font-mono text-[11px] uppercase tracking-wider text-[#8e9192] hover:text-white hover:bg-[#141414] border-b-2 border-transparent cursor-pointer transition-colors';
+        }
+      });
+
+      renderTable();
+    }
+
+    function handleSearch(val) {
+      searchQuery = val.trim().toLowerCase();
+      renderTable();
+    }
+
+    function handleRegionFilter(val) {
+      selectedRegion = val;
+      renderTable();
+    }
+
+    function openAddModal() {
+      document.getElementById('modalTitle').textContent = 'THÊM NHÀ XUẤT BẢN MỚI';
+      document.getElementById('modalPublisherIndex').value = '';
+      document.getElementById('modalTenNXB').value = '';
+      document.getElementById('modalDiaChi').value = '';
+      const modal = document.getElementById('publisherModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.getElementById('modalTenNXB').focus();
+    }
+
+    function openEditModal(index) {
+      const p = publishers[index];
+      if (!p) return;
+      document.getElementById('modalTitle').textContent = 'CẬP NHẬT NHÀ XUẤT BẢN';
+      document.getElementById('modalPublisherIndex').value = index;
+      document.getElementById('modalTenNXB').value = p.tenNXB;
+      document.getElementById('modalDiaChi').value = p.diaChi;
+      const modal = document.getElementById('publisherModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.getElementById('modalTenNXB').focus();
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('publisherModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function savePublisher() {
+      const idxStr = document.getElementById('modalPublisherIndex').value;
+      const ten = document.getElementById('modalTenNXB').value.trim();
+      const diaChi = document.getElementById('modalDiaChi').value.trim();
+
+      if (!ten) {
+        showToast('Vui lòng nhập tên nhà xuất bản!', 'warning');
+        return;
+      }
+      if (!diaChi) {
+        showToast('Vui lòng nhập địa chỉ trụ sở!', 'warning');
+        return;
+      }
+
+      if (idxStr === '') {
+        // Add new
+        publishers.unshift({
+          stt: String(publishers.length + 1).padStart(2, '0'),
+          tenNXB: ten,
+          diaChi: diaChi,
+          soDauSach: 0,
+          capNhat: '21/11/2026',
+          trangThai: 'CHƯA CÓ SÁCH'
+        });
+        showToast(`Đã thêm mới nhà xuất bản "${ten}" thành công!`, 'success');
+      } else {
+        // Edit existing
+        const idx = parseInt(idxStr, 10);
+        publishers[idx].tenNXB = ten;
+        publishers[idx].diaChi = diaChi;
+        publishers[idx].capNhat = '21/11/2026';
+        showToast(`Đã cập nhật thông tin nhà xuất bản "${ten}"!`, 'success');
+      }
+
+      closeModal();
+      updateKPIs();
+      renderTable();
+    }
+
+    function deletePublisher(index) {
+      const p = publishers[index];
+      if (!p) return;
+
+      // Backend Constraint Check: Cannot delete NXB if linked books > 0
+      if ((p.soDauSach || 0) > 0) {
+        showToast(`RÀNG BUỘC CDM: Không thể xóa "${p.tenNXB}" vì còn ${p.soDauSach} đầu sách liên kết!`, 'error');
+        return;
+      }
+
+      if (confirm(`Bạn có chắc chắn muốn xóa vĩnh viễn nhà xuất bản "${p.tenNXB}"?`)) {
+        publishers.splice(index, 1);
+        showToast(`Đã xóa nhà xuất bản thành công!`, 'success');
+        updateKPIs();
+        renderTable();
+      }
+    }
+
+    function exportCSV() {
+      let csv = "\uFEFFSTT,TÊN NHÀ XUẤT BẢN,ĐỊA CHỈ TRỤ SỞ,SỐ ĐẦU SÁCH,CẬP NHẬT,TRẠNG THÁI\n";
+      publishers.forEach((p, idx) => {
+        csv += `"${idx + 1}","${p.tenNXB}","${p.diaChi}","${p.soDauSach}","${p.capNhat}","${p.trangThai}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      link.setAttribute("href", url);
+      link.setAttribute("download", `DANH_SACH_NXB_${Date.now()}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('Đã xuất danh sách Nhà xuất bản ra file CSV thành công!', 'success');
+    }
+
+    function showToast(msg, type = 'info') {
+      const toast = document.getElementById('toastNotification');
+      const text = document.getElementById('toastMessage');
+      const icon = document.getElementById('toastIcon');
+
+      text.textContent = msg;
+      if (type === 'error') {
+        toast.className = 'fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 bg-[#2A0A0A] border border-[#EF4444] text-[#EF4444] font-mono text-[13px] shadow-2xl';
+        icon.textContent = 'error';
+      } else if (type === 'success') {
+        toast.className = 'fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 bg-[#0a1a0f] border border-[#10B981] text-[#10B981] font-mono text-[13px] shadow-2xl';
+        icon.textContent = 'check_circle';
+      } else if (type === 'warning') {
+        toast.className = 'fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 bg-[#1f1600] border border-[#F59E0B] text-[#F59E0B] font-mono text-[13px] shadow-2xl';
+        icon.textContent = 'warning';
+      } else {
+        toast.className = 'fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 bg-[#111111] border border-[#262626] text-white font-mono text-[13px] shadow-2xl';
+        icon.textContent = 'info';
+      }
+
+      setTimeout(() => {
+        toast.classList.add('hidden');
+        toast.classList.remove('flex');
+      }, 3500);
+    }
+
+    function handleLogout() {
+      if (confirm('Xác nhận đăng xuất khỏi hệ thống quản trị?')) {
+        window.location.hash = '#/login';
+      }
+    }
+
+    function goToPage(dir) {
+      showToast(`Chuyển trang điều hướng: ${dir}`, 'info');
+    }
+
+    // Initial setup on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      updateKPIs();
+      renderTable();
+    });
+  </script>
+</body>
+</html>

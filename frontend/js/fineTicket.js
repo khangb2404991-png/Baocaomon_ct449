@@ -1,9 +1,9 @@
 /**
  * BOOK LENDING SYSTEM - FINE TICKET CONTROLLER (fineTicket.js)
- * Separated JavaScript logic for FineTicket.vue
- * Strictly adheres to Stitch AI design (design/phieuphat.html) and CDM schema
+ * Separated JavaScript logic for FineTicket.vue connected to MEVN Backend API
  */
 
+import { phieuPhatApi, phieuMuonApi } from './api.js';
 import { LibraryStore, showToast, showPopup, showConfirm } from './common.js';
 
 export default {
@@ -71,23 +71,53 @@ export default {
       this.ticketData.currentTimestamp = `${dd}/${mm}/${yyyy} (${hh}:${min}:${ss})`;
 
       // Current staff name from store
-      const currentStaff = LibraryStore.getCurrentStaff();
-      if (currentStaff && currentStaff.name) {
-        this.ticketData.staffName = currentStaff.name;
-        this.ticketData.staffRole = currentStaff.title || currentStaff.role || 'Thủ thư';
+      let staff = null;
+      if (typeof localStorage !== 'undefined') {
+        try {
+          const u = localStorage.getItem('user');
+          if (u) staff = JSON.parse(u);
+        } catch (e) {}
+      }
+      if (staff && (staff.tenNV || staff.name)) {
+        this.ticketData.staffName = staff.tenNV || staff.name;
+        this.ticketData.staffRole = staff.chucVuNV || staff.role || 'Thủ thư';
       }
     },
 
-    loadBorrowData() {
-      this.borrowRecords = LibraryStore.getBorrowRecords();
+    async loadBorrowData() {
       const queryId = this.$route.query.borrowId;
+      try {
+        const res = await phieuMuonApi.getAll();
+        if (res && res.data) {
+          this.borrowRecords = res.data.map(r => ({
+            maPhieuMuon: r.maPM,
+            maPM: r.maPM,
+            maDocGia: r.maDG,
+            maDG: r.maDG,
+            tenDocGia: r.tenDG || 'Độc giả',
+            email: r.emailDG || '',
+            sdt: r.dienThoai || '0912 345 678',
+            ngayMuon: r.ngayMuon ? new Date(r.ngayMuon).toLocaleDateString('vi-VN') : '',
+            ngayTra: r.hanTra ? new Date(r.hanTra).toLocaleDateString('vi-VN') : '',
+            rawHanTra: r.hanTra,
+            trangThai: r.trangThaiPM,
+            items: (r.chiTiet || []).map(i => ({
+              maSach: i.maSach,
+              tenSach: i.tenSach || 'Tài liệu mượn',
+              soLuong: i.soLuongMuon || 1,
+              thanhTien: i.thanhTien
+            }))
+          }));
+        }
+      } catch (e) {
+        this.borrowRecords = LibraryStore.getBorrowRecords();
+      }
 
       let target = null;
       if (queryId) {
-        target = this.borrowRecords.find(r => r.maPhieuMuon === queryId || r.slipId === queryId);
+        target = this.borrowRecords.find(r => r.maPhieuMuon === queryId || r.maPM === queryId);
       }
       if (!target) {
-        // Fallback: Ưu tiên tìm phiếu quá hạn hoặc đang mượn
         target = this.borrowRecords.find(r => r.trangThai === 'QUA_HAN') ||
                  this.borrowRecords.find(r => r.trangThai === 'DANG_MUON') ||
                  this.borrowRecords[0];
@@ -95,27 +125,12 @@ export default {
 
       if (target) {
         this.borrowRecord = { ...target };
-        this.selectedBorrowId = target.maPhieuMuon || target.slipId;
-
-        // Lookup reader email
-        const readers = LibraryStore.getReaders();
-        const reader = readers.find(rd => rd.maDocGia === target.maDocGia || rd.id === target.readerId);
-        if (reader && reader.email) {
-          this.readerEmail = reader.email;
-        } else if (target.email) {
-          this.readerEmail = target.email;
-        } else {
-          const cleanName = (target.tenDocGia || 'docgia')
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .toLowerCase()
-            .replace(/\s+/g, '.');
-          this.readerEmail = `${cleanName}@email.com`;
-        }
+        this.selectedBorrowId = target.maPhieuMuon || target.maPM;
+        this.readerEmail = target.email || 'user@email.com';
 
         // Calculate overdue days
-        if (target.ngayTra) {
-          const due = new Date(target.ngayTra);
+        if (target.rawHanTra || target.ngayTra) {
+          const due = new Date(target.rawHanTra || target.ngayTra);
           const now = new Date();
           const diffDays = Math.ceil((now - due) / (1000 * 60 * 60 * 24));
           this.overdueDays = diffDays > 0 ? diffDays : (target.trangThai === 'QUA_HAN' ? 6 : 0);
@@ -129,14 +144,15 @@ export default {
           this.newBookTitle = books[0];
         }
 
-        // Initialize default violations strictly based on target's borrowed books
         this.violations = [];
         const primaryBook = books[0] || (target.items && target.items[0] ? target.items[0].tenSach : 'Tài liệu mượn');
+        const primaryCode = target.items && target.items[0] ? target.items[0].maSach : 'BK-01';
 
         if (this.overdueDays > 0) {
           const lateDaysPad = String(this.overdueDays).padStart(2, '0');
           this.violations.push({
             id: 1,
+            maSach: primaryCode,
             bookTitle: primaryBook,
             reason: `TRẢ QUÁ HẠN (${lateDaysPad} NGÀY x 5.000 VNĐ/NGÀY)`,
             reasonType: 'late',
@@ -146,9 +162,12 @@ export default {
         }
 
         if (books.length > 1) {
+          const secondBook = books[1];
+          const secondCode = target.items && target.items[1] ? target.items[1].maSach : 'BK-02';
           this.violations.push({
             id: 2,
-            bookTitle: books[1],
+            maSach: secondCode,
+            bookTitle: secondBook,
             reason: 'LÀM HỎNG TRANG BÌA (30% GIÁ TRỊ SÁCH)',
             reasonType: 'damage',
             amount: 45000,
@@ -157,6 +176,7 @@ export default {
         } else if (this.overdueDays === 0) {
           this.violations.push({
             id: 1,
+            maSach: primaryCode,
             bookTitle: primaryBook,
             reason: 'LÀM HỎNG TRANG BÌA (30% GIÁ TRỊ SÁCH)',
             reasonType: 'damage',
@@ -195,9 +215,15 @@ export default {
         return;
       }
 
+      const matchedItem = this.borrowRecord && this.borrowRecord.items 
+        ? this.borrowRecord.items.find(i => i.tenSach === this.newBookTitle)
+        : null;
+      const maSach = matchedItem ? matchedItem.maSach : 'BK-01';
+
       const isLate = this.newReason.toLowerCase().includes('trễ') || this.newReason.toLowerCase().includes('hạn');
       this.violations.push({
         id: Date.now(),
+        maSach: maSach,
         bookTitle: this.newBookTitle,
         reason: this.newReason.toUpperCase(),
         reasonType: isLate ? 'late' : 'damage',
@@ -212,7 +238,7 @@ export default {
       this.violations.splice(index, 1);
     },
 
-    submitFine() {
+    async submitFine() {
       if (!this.borrowRecord) {
         showToast('Không có thông tin phiếu mượn để lập phạt!', 'error');
         return;
@@ -222,43 +248,51 @@ export default {
         return;
       }
 
-      const fineData = {
-        maPhieuMuon: this.borrowRecord.maPhieuMuon || this.borrowRecord.slipId,
-        tenDocGia: this.borrowRecord.tenDocGia || this.borrowRecord.readerName,
+      const maPM = this.borrowRecord.maPM || this.borrowRecord.maPhieuMuon;
+      const maDG = this.borrowRecord.maDG || this.borrowRecord.maDocGia || 'DG-0001';
+      const tenDocGia = this.borrowRecord.tenDocGia || 'Độc giả';
+
+      const payload = {
+        maPM,
+        maDG,
+        tenDocGia,
         emailDocGia: this.readerEmail,
-        sdtDocGia: this.borrowRecord.sdt || this.borrowRecord.readerPhone || '',
-        ngayMuon: this.borrowRecord.ngayMuon,
-        ngayTra: this.borrowRecord.ngayTra,
-        ngayLap: new Date().toISOString(),
-        ngayLapFormatted: this.ticketData.currentTimestamp,
-        tenNV: this.ticketData.staffName,
-        trangThai: this.ticketData.trangThai,
-        ghiChu: this.ticketData.ghiChu,
-        soLuongViPham: this.violations.length,
-        tienPhatTre: this.summaryLateFee,
-        tienPhatHong: this.summaryDamageFee,
         tongTienPhat: this.grandTotal,
-        chiTiet: this.violations
+        ghiChu: this.ticketData.ghiChu,
+        chiTiet: this.violations.map((v, idx) => ({
+          maCTPP: `CTPP-${Date.now()}-${idx + 1}`,
+          maSach: v.maSach || 'BK-01',
+          tenSach: v.bookTitle,
+          tienPhat: v.amount,
+          lyDo: v.reason,
+          soNgayTre: v.reasonType === 'late' ? this.overdueDays : 0,
+          ghiChu: v.note
+        }))
       };
 
-      const res = LibraryStore.createFine(fineData);
+      try {
+        const res = await phieuPhatApi.create(payload);
 
-      if (res.success) {
         showPopup({
           title: 'LẬP PHIẾU PHẠT THÀNH CÔNG',
-          message: `Đã phát hành biên bản phiếu phạt cho độc giả <strong>${fineData.tenDocGia}</strong>.<br><br>` +
-                   `<span class="text-[#8e9192]">Tổng số mục vi phạm:</span> <strong class="text-white">${fineData.soLuongViPham} mục</strong><br>` +
+          message: `Đã phát hành biên bản phiếu phạt cho độc giả <strong>${tenDocGia}</strong>.<br><br>` +
+                   `<span class="text-[#8e9192]">Tổng số mục vi phạm:</span> <strong class="text-white">${this.violations.length} mục</strong><br>` +
                    `<span class="text-[#8e9192]">Tổng tiền phạt:</span> <strong class="text-[#e22718] font-bold text-[16px]">${this.formatVND(this.grandTotal)} VNĐ</strong><br>` +
                    `<span class="text-[#8e9192]">Trạng thái:</span> <strong class="text-white">${this.ticketData.trangThai === 'DA_THU' ? 'ĐÃ THU TIỀN TẠI QUẦY' : 'CHƯA NỘP (GHI NỢ HỆ THỐNG)'}</strong>`,
           type: 'success',
           icon: 'gavel',
-          confirmText: 'VỀ QUẢN LÝ MƯỢN TRẢ',
+          confirmText: 'VỀ QUẢN LÝ PHIẾU PHẠT',
           onConfirm: () => {
-            this.$router.push('/admin/borrows');
+            this.$router.push('/admin/fines');
           }
         });
-      } else {
-        showToast('Có lỗi xảy ra khi lưu phiếu phạt!', 'error');
+      } catch (err) {
+        showPopup({
+          title: 'LẬP PHIẾU PHẠT THẤT BẠI',
+          message: err.message || 'Không thể lưu phiếu phạt lên máy chủ!',
+          type: 'error',
+          confirmText: 'THỬ LẠI'
+        });
       }
     },
 

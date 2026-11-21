@@ -1,0 +1,50 @@
+/* ==========================================================================
+   Fine Management Specific Styles (fineManagement.css)
+   Harmonized with Stitch AI Technical Cockpit Theme & Global Design Tokens
+   ========================================================================== */
+
+.font-sans-heading {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* Fine ticket data table styles */
+.fine-table th {
+  padding: 0.75rem 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #8e9192;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.fine-table td {
+  padding: 0.75rem 1rem;
+  vertical-align: top;
+}
+
+/* Metric boxes for 4 KPI summary cards */
+.metric-box {
+  background-color: #1b1b1b;
+  border: 1px solid rgba(68, 71, 72, 0.4);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 104px;
+  border-radius: 0;
+  position: relative;
+}
+
+/* Subtle transitions for interactive buttons */
+button, input, select {
+  border-radius: 0 !important;
+}
+
+/* Custom scrollbar hiding for clean technical UI */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

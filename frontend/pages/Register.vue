@@ -48,7 +48,7 @@
               <!-- Họ và tên (Bắt buộc *) -->
               <div>
                 <label class="font-mono-data-md text-[11px] text-[#bbbbbb] tracking-wider uppercase block mb-1.5 font-bold" for="hoten">
-                  HỌ VÀ TÊN (HOTEN) *
+                  HỌ VÀ TÊN *
                 </label>
                 <input 
                   v-model="form.hoTen"
@@ -63,7 +63,7 @@
               <div class="grid grid-cols-2 gap-4">
                 <div>
                   <label class="font-mono-data-md text-[11px] text-[#bbbbbb] tracking-wider uppercase block mb-1.5 font-bold" for="ngaysinh">
-                    NGÀY SINH (NGAYSINH)
+                    NGÀY SINH
                   </label>
                   <input 
                     v-model="form.ngaysinh"
@@ -73,7 +73,7 @@
                 </div>
                 <div>
                   <label class="font-mono-data-md text-[11px] text-[#bbbbbb] tracking-wider uppercase block mb-1.5 font-bold" for="phai">
-                    GIỚI TÍNH (PHAI)
+                    GIỚI TÍNH
                   </label>
                   <div class="relative">
                     <select 
@@ -95,7 +95,7 @@
               <div class="grid grid-cols-2 gap-4">
                 <div>
                   <label class="font-mono-data-md text-[11px] text-[#bbbbbb] tracking-wider uppercase block mb-1.5 font-bold" for="dienthoai">
-                    SỐ ĐIỆN THOẠI (DIENTHOAI) *
+                    SỐ ĐIỆN THOẠI *
                   </label>
                   <input 
                     v-model="form.dienthoai"
@@ -107,7 +107,7 @@
                 </div>
                 <div>
                   <label class="font-mono-data-md text-[11px] text-[#bbbbbb] tracking-wider uppercase block mb-1.5 font-bold" for="email">
-                    EMAIL (EMAIL)
+                    ĐỊA CHỈ EMAIL
                   </label>
                   <input 
                     v-model="form.email"
@@ -121,7 +121,7 @@
               <!-- Address -->
               <div>
                 <label class="font-mono-data-md text-[11px] text-[#bbbbbb] tracking-wider uppercase block mb-1.5 font-bold" for="diachi">
-                  ĐỊA CHỈ LIÊN HỆ (DIACHI)
+                  ĐỊA CHỈ LIÊN HỆ
                 </label>
                 <input 
                   v-model="form.diachi"
@@ -134,7 +134,7 @@
               <!-- Password -->
               <div>
                 <label class="font-mono-data-md text-[11px] text-[#bbbbbb] tracking-wider uppercase block mb-1.5 font-bold" for="password">
-                  MẬT KHẨU KHỞI TẠO (PASSWORD) *
+                  MẬT KHẨU KHỞI TẠO *
                 </label>
                 <div class="relative w-full">
                   <input 

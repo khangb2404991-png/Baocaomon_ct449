@@ -16,17 +16,27 @@ import { LibraryStore } from './common.js';
  * @returns {string} Chuỗi HTML Header
  */
 export function getHeader(activeTab = 'home', options = {}) {
+  const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
   let currentUser = options.currentUser;
+  if (!currentUser && typeof localStorage !== 'undefined') {
+    try {
+      const u = localStorage.getItem('user');
+      if (u) currentUser = JSON.parse(u);
+    } catch (e) {}
+  }
   if (!currentUser && typeof window !== 'undefined' && window.LibraryStore) {
     currentUser = window.LibraryStore.getCurrentUser();
   }
-  const userName = options.userName || (currentUser ? (currentUser.name || currentUser.ten || 'Nguyễn Văn An') : 'Nguyễn Văn An');
+  const isLoggedIn = !!(token && currentUser);
+  const userName = options.userName || (currentUser ? (currentUser.tenDG || currentUser.ten || currentUser.name || 'Độc giả') : 'Độc giả');
 
   let cartCount = options.cartCount;
-  if (cartCount === undefined && typeof window !== 'undefined' && window.LibraryStore) {
+  if (!isLoggedIn) {
+    cartCount = 0;
+  } else if (cartCount === undefined && typeof window !== 'undefined' && window.LibraryStore) {
     cartCount = window.LibraryStore.getCartCount();
   }
-  const cartFormatted = String(cartCount !== undefined ? cartCount : 3).padStart(2, '0');
+  const cartFormatted = String(cartCount !== undefined ? cartCount : 0).padStart(2, '0');
 
   const isHome = activeTab === 'home';
   const isCart = activeTab === 'cart';
@@ -54,12 +64,19 @@ export function getHeader(activeTab = 'home', options = {}) {
         <a class="${cartClass}" href="#/cart" id="header-cart-link">GIỎ HÀNG (<span id="header-cart-badge">${cartFormatted}</span>)</a>
       </nav>
       <div class="flex items-center gap-space-sm shrink-0">
+        ${isLoggedIn ? `
         <a href="#/profile" id="user-avatar-badge" onclick="window.location.hash='#/profile'" class="inline-flex items-center gap-3 px-3.5 py-1.5 bg-[#141414] border border-[#2A2A2A] text-inherit no-underline hover:border-primary hover:bg-[#1f1f1f] transition-colors cursor-pointer select-none">
           <div class="w-6 h-6 bg-[#262626] flex items-center justify-center shrink-0">
             <span class="material-symbols-outlined text-primary text-[16px]">person</span>
           </div>
           <span class="font-body-md text-body-md text-primary font-medium">${userName}</span>
         </a>
+        ` : `
+        <a href="#/login" id="header-login-btn" onclick="window.location.hash='#/login'" class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#141414] border border-[#2A2A2A] text-inherit no-underline hover:border-primary hover:bg-[#1f1f1f] transition-colors cursor-pointer select-none">
+          <span class="material-symbols-outlined text-primary text-[16px]">login</span>
+          <span class="font-body-md text-body-md text-primary font-medium">ĐĂNG NHẬP</span>
+        </a>
+        `}
       </div>
     </header>
   `;
@@ -126,12 +143,30 @@ export function getAuthHeader() {
  */
 export function getAdminSidebar(activeTab = 'books', staffInfo = {}) {
   const isBooks = activeTab === 'books';
+  const isPublishers = activeTab === 'publishers';
+  const isAuthors = activeTab === 'authors';
   const isBorrow = activeTab === 'borrow';
   const isFines = activeTab === 'fines';
   const isReaders = activeTab === 'readers';
 
-  const staffName = staffInfo.name || staffInfo.hoten || 'Trần Minh Quang';
-  const staffRole = staffInfo.role || staffInfo.chucvu || 'THỦ THƯ TRƯỞNG';
+  const publishersClass = isPublishers
+    ? "flex items-center px-space-md py-space-sm transition-colors bg-[#2a2a2a] text-white border-l-2 border-white font-semibold no-underline"
+    : "flex items-center px-space-md py-space-sm text-[#c4c7c8] hover:bg-[#1b1b1b] hover:text-white transition-colors font-mono-data-md text-mono-data-md no-underline";
+
+  const authorsClass = isAuthors
+    ? "flex items-center px-space-md py-space-sm transition-colors bg-[#2a2a2a] text-white border-l-2 border-white font-semibold no-underline"
+    : "flex items-center px-space-md py-space-sm text-[#c4c7c8] hover:bg-[#1b1b1b] hover:text-white transition-colors font-mono-data-md text-mono-data-md no-underline";
+
+  let currentStaff = staffInfo;
+  if (!currentStaff.name && !currentStaff.tenNV && typeof localStorage !== 'undefined') {
+    try {
+      const u = localStorage.getItem('user');
+      if (u) currentStaff = JSON.parse(u);
+    } catch (e) {}
+  }
+
+  const staffName = currentStaff.tenNV || currentStaff.name || currentStaff.hoten || 'Cán bộ thủ thư';
+  const staffRole = currentStaff.chucVuNV || currentStaff.role || currentStaff.chucvu || 'THỦ THƯ TRƯỞNG';
 
   const booksClass = isBooks
     ? "flex items-center px-space-md py-space-sm transition-colors bg-[#2a2a2a] text-white border-l-2 border-white font-semibold no-underline"
@@ -169,10 +204,16 @@ export function getAdminSidebar(activeTab = 'books', staffInfo = {}) {
           <a class="${booksClass}" href="#/admin/books">
             <span class="w-2 h-2 mr-3 bg-[#444748]"></span>QUẢN LÝ SÁCH
           </a>
+          <a class="${publishersClass}" href="#/admin/publishers">
+            <span class="w-2 h-2 mr-3 bg-[#444748]"></span>QUẢN LÝ NHÀ XUẤT BẢN
+          </a>
+          <a class="${authorsClass}" href="#/admin/authors">
+            <span class="w-2 h-2 mr-3 bg-[#444748]"></span>QUẢN LÝ TÁC GIẢ
+          </a>
           <a class="${borrowClass}" href="#/admin/borrows">
             <span class="w-2 h-2 mr-3 bg-[#444748]"></span>QUẢN LÝ MƯỢN/TRẢ
           </a>
-          <a class="${finesClass}" href="#/admin/fine-ticket">
+          <a class="${finesClass}" href="#/admin/fines">
             <span class="w-2 h-2 mr-3 bg-[#444748]"></span>QUẢN LÝ PHIẾU PHẠT
           </a>
           <a class="${readersClass}" href="#/admin/readers">
@@ -190,7 +231,7 @@ export function getAdminSidebar(activeTab = 'books', staffInfo = {}) {
             <span class="material-symbols-outlined text-[#2f3131] text-[18px]">person</span>
           </div>
         </div>
-        <a href="#/login" class="flex items-center justify-center w-full h-8 bg-[#1f1f1f] border border-[#3c3c3c] text-white hover:bg-[#e22718] hover:text-white font-label-caps text-[11px] tracking-widest uppercase transition-colors no-underline">
+        <a href="#/login" onclick="localStorage.removeItem('token');localStorage.removeItem('user');localStorage.removeItem('role');" class="flex items-center justify-center w-full h-8 bg-[#1f1f1f] border border-[#3c3c3c] text-white hover:bg-[#e22718] hover:text-white font-label-caps text-[11px] tracking-widest uppercase transition-colors no-underline">
           <span class="material-symbols-outlined text-[16px] mr-1">logout</span>ĐĂNG XUẤT
         </a>
       </div>

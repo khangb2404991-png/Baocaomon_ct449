@@ -58,23 +58,6 @@
             <!-- TAB 1: LOGIN MODULE -->
             <section v-if="activeTab === 'login'" aria-labelledby="tab-btn-login" class="flex flex-col space-y-space-md">
               <form class="space-y-space-md" @submit.prevent="handleLogin">
-                <!-- Role Selector Switch -->
-                <div class="p-space-sm bg-surface-container-lowest border border-outline-variant flex items-center justify-between">
-                  <div class="flex flex-col">
-                    <span class="font-label-caps text-label-caps uppercase text-primary font-bold">CHẾ ĐỘ TRUY CẬP</span>
-                    <span class="font-mono-data-md text-body-sm" :class="isStaff ? 'text-primary' : 'text-on-surface-variant'">
-                      {{ roleStatusDesc }}
-                    </span>
-                  </div>
-                  <label class="flex items-center gap-2 cursor-pointer select-none">
-                    <input 
-                      type="checkbox" 
-                      v-model="isStaff"
-                      class="w-4 h-4 rounded-none bg-surface-container-lowest border border-outline-variant text-primary focus:ring-0 cursor-pointer accent-primary">
-                    <span class="font-label-caps text-label-caps uppercase text-on-surface-variant">NHÂN VIÊN / THỦ THƯ</span>
-                  </label>
-                </div>
-
                 <!-- Identifier Input -->
                 <div class="flex flex-col space-y-1.5">
                   <label class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider" for="login-identifier">
@@ -142,59 +125,6 @@
                   <span>ĐĂNG NHẬP</span>
                   <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
                 </button>
-
-                <!-- Demo Accounts Panel (Tài khoản mẫu User & Admin từ accounts.json) -->
-                <div class="p-3 bg-[#131313] border border-[#3c3c3c] mt-4 space-y-2.5">
-                  <div class="flex items-center justify-between text-[11px] font-mono-data-md text-[#8e9192]">
-                    <span class="uppercase font-bold text-white flex items-center gap-1.5">
-                      <span class="material-symbols-outlined text-[15px] text-[#1c69d4]">key</span>
-                      TÀI KHOẢN MẪU HỆ THỐNG (JSON)
-                    </span>
-                    <span class="text-[10px] text-[#8e9192]">BẤM ĐỂ ĐIỀN NHANH</span>
-                  </div>
-
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[12px] font-mono-data-md">
-                    <!-- User Account -->
-                    <button 
-                      type="button" 
-                      @click="quickLogin('user')" 
-                      class="p-2.5 bg-[#1b1b1b] border border-[#444748] hover:border-white text-left transition-colors flex flex-col gap-1 cursor-pointer">
-                      <div class="flex items-center justify-between">
-                        <span class="text-white font-bold text-[12px]">1. ĐỘC GIẢ (USER)</span>
-                        <span class="text-[10px] text-[#0fa336] bg-[#0fa336]/15 px-1 font-bold">USER</span>
-                      </div>
-                      <div class="flex justify-between text-[11px] text-[#8e9192]">
-                        <span>Tài khoản:</span>
-                        <strong class="text-white">user</strong>
-                      </div>
-                      <div class="flex justify-between text-[11px] text-[#8e9192]">
-                        <span>Mật khẩu:</span>
-                        <strong class="text-white">123456</strong>
-                      </div>
-                      <span class="text-[#1c69d4] text-[10px] mt-0.5">▶ Đăng nhập độc giả</span>
-                    </button>
-
-                    <!-- Admin Account -->
-                    <button 
-                      type="button" 
-                      @click="quickLogin('admin')" 
-                      class="p-2.5 bg-[#1b1b1b] border border-[#444748] hover:border-white text-left transition-colors flex flex-col gap-1 cursor-pointer">
-                      <div class="flex items-center justify-between">
-                        <span class="text-white font-bold text-[12px]">2. THỦ THƯ (ADMIN)</span>
-                        <span class="text-[10px] text-[#e22718] bg-[#e22718]/15 px-1 font-bold">ADMIN</span>
-                      </div>
-                      <div class="flex justify-between text-[11px] text-[#8e9192]">
-                        <span>Tài khoản:</span>
-                        <strong class="text-white">admin</strong>
-                      </div>
-                      <div class="flex justify-between text-[11px] text-[#8e9192]">
-                        <span>Mật khẩu:</span>
-                        <strong class="text-white">admin123</strong>
-                      </div>
-                      <span class="text-[#1c69d4] text-[10px] mt-0.5">▶ Đăng nhập quản trị</span>
-                    </button>
-                  </div>
-                </div>
               </form>
             </section>
 
@@ -204,7 +134,7 @@
                 <!-- Họ và tên (Bắt buộc *) -->
                 <div class="flex flex-col space-y-1.5">
                   <label class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider" for="reg-hoten">
-                    HỌ VÀ TÊN (HOTEN) *
+                    HỌ VÀ TÊN *
                   </label>
                   <input 
                     id="reg-hoten" 
@@ -219,7 +149,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
                   <div class="flex flex-col space-y-1.5">
                     <label class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider" for="reg-ngaysinh">
-                      NGÀY SINH (NGAYSINH)
+                      NGÀY SINH
                     </label>
                     <input 
                       id="reg-ngaysinh" 
@@ -229,7 +159,7 @@
                   </div>
                   <div class="flex flex-col space-y-1.5">
                     <label class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider" for="reg-phai">
-                      GIỚI TÍNH (PHAI)
+                      GIỚI TÍNH
                     </label>
                     <select 
                       id="reg-phai" 
@@ -245,7 +175,7 @@
                 <!-- Phone Number (Bắt buộc *) -->
                 <div class="flex flex-col space-y-1.5">
                   <label class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider" for="reg-dienthoai">
-                    SỐ ĐIỆN THOẠI (DIENTHOAI) *
+                    SỐ ĐIỆN THOẠI *
                   </label>
                   <input 
                     id="reg-dienthoai" 
@@ -259,7 +189,7 @@
                 <!-- Email Address (Tùy chọn) -->
                 <div class="flex flex-col space-y-1.5">
                   <label class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider" for="reg-email">
-                    ĐỊA CHỈ EMAIL (EMAIL)
+                    ĐỊA CHỈ EMAIL
                   </label>
                   <input 
                     id="reg-email" 
@@ -272,7 +202,7 @@
                 <!-- Address (Tùy chọn) -->
                 <div class="flex flex-col space-y-1.5">
                   <label class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider" for="reg-diachi">
-                    ĐỊA CHỈ THƯỜNG TRÚ (DIACHI)
+                    ĐỊA CHỈ THƯỜNG TRÚ
                   </label>
                   <input 
                     id="reg-diachi" 
@@ -285,7 +215,7 @@
                 <!-- Password Setup (Bắt buộc *) -->
                 <div class="flex flex-col space-y-1.5">
                   <label class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider" for="reg-password">
-                    MẬT KHẨU BẢO MẬT (PASSWORD) *
+                    MẬT KHẨU BẢO MẬT *
                   </label>
                   <div class="relative">
                     <input 

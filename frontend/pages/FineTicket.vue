@@ -207,7 +207,7 @@
 
                     <div class="md:col-span-4 space-y-1.5">
                       <label class="block font-label-caps text-[11px] text-[#8e9192] uppercase">
-                        LÝ DO VI PHẠM (LYDO)
+                        LÝ DO VI PHẠM
                       </label>
                       <select 
                         v-model="newReason"
@@ -254,7 +254,7 @@
               <div class="bg-[#111111] border border-[#262626] p-6 space-y-5">
                 <div class="flex items-center justify-between pb-3 border-b border-[#262626]">
                   <h2 class="font-mono-data-md text-[11px] tracking-wider text-[#8e9192] uppercase font-semibold">
-                    03. THIẾT LẬP PHIẾU PHẠT (PHIEUPHAT)
+                    03. THIẾT LẬP BIÊN BẢN PHIẾU PHẠT
                   </h2>
                   <span class="w-2 h-2 bg-[#1c69d4]"></span>
                 </div>
@@ -263,7 +263,7 @@
                   <!-- Ngày Lập Phiếu -->
                   <div class="space-y-1.5">
                     <label class="block font-label-caps text-[11px] text-[#8e9192] uppercase">
-                      NGÀY LẬP PHIẾU (NgayLap)
+                      NGÀY LẬP PHIẾU
                     </label>
                     <div class="bg-[#0a0a0a] border border-[#262626] px-3.5 py-2 font-mono-data-md text-[13px] text-neutral-300 flex items-center justify-between">
                       <span>{{ ticketData.currentTimestamp }}</span>
@@ -274,7 +274,7 @@
                   <!-- Nhân Viên Lập -->
                   <div class="space-y-1.5">
                     <label class="block font-label-caps text-[11px] text-[#8e9192] uppercase">
-                      NHÂN VIÊN LẬP (MaNV / TenNV)
+                      CÁN BỘ LẬP BIÊN BẢN
                     </label>
                     <div class="bg-[#0a0a0a] border border-[#262626] px-3.5 py-2 font-mono-data-md text-[13px] text-neutral-200 flex items-center justify-between">
                       <span>{{ ticketData.staffName }}</span>
@@ -285,7 +285,7 @@
                   <!-- Trạng Thái Thu Phạt -->
                   <div class="space-y-1.5">
                     <label class="block font-label-caps text-[11px] text-[#8e9192] uppercase">
-                      TRẠNG THÁI THU PHẠT (TrangThai)
+                      TRẠNG THÁI THU PHẠT
                     </label>
                     <select 
                       v-model="ticketData.trangThai"
@@ -298,7 +298,7 @@
                   <!-- Ghi Chú Vi Phạm -->
                   <div class="space-y-1.5">
                     <label class="block font-label-caps text-[11px] text-[#8e9192] uppercase">
-                      GHI CHÚ / BIÊN BẢN VI PHẠM (GhiChu)
+                      GHI CHÚ / NỘI DUNG VI PHẠM
                     </label>
                     <textarea 
                       v-model="ticketData.ghiChu"
@@ -333,7 +333,7 @@
                   </div>
                   <div class="border-t border-[#262626] pt-4">
                     <div class="font-label-caps text-[11px] text-[#8e9192] uppercase tracking-wider">
-                      TỔNG TIỀN PHẠT (TongTienPhat):
+                      TỔNG TIỀN PHẠT:
                     </div>
                     <div class="flex items-baseline justify-between mt-1">
                       <span class="font-mono-data-lg text-[32px] text-white font-bold tracking-tight">

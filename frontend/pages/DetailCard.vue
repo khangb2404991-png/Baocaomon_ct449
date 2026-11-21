@@ -22,13 +22,17 @@
       </nav>
 
       <!-- Far Right: Unified User Profile Block -->
-      <a href="#/profile" class="inline-flex items-center gap-3 px-3.5 py-1.5 bg-[#141414] border border-[#2A2A2A] cursor-pointer hover:border-neutral-500 transition-colors no-underline text-white">
+      <a v-if="isLoggedIn && currentUser" href="#/profile" class="inline-flex items-center gap-3 px-3.5 py-1.5 bg-[#141414] border border-[#2A2A2A] cursor-pointer hover:border-neutral-500 transition-colors no-underline text-white">
         <div class="w-6 h-6 bg-[#262626] flex items-center justify-center text-white">
           <span class="material-symbols-outlined text-sm">person</span>
         </div>
         <div class="flex flex-col">
-          <span class="text-sm font-medium text-white leading-tight">{{ currentUser.name || currentUser.hoTen || 'Nguyễn Văn An' }}</span>
+          <span class="text-sm font-medium text-white leading-tight">{{ currentUser.tenDG || currentUser.name || currentUser.hoTen || 'Độc giả' }}</span>
         </div>
+      </a>
+      <a v-else href="#/login" class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#141414] border border-[#2A2A2A] cursor-pointer hover:border-primary transition-colors no-underline text-white">
+        <span class="material-symbols-outlined text-sm text-primary">login</span>
+        <span class="text-sm font-medium text-primary leading-tight">ĐĂNG NHẬP</span>
       </a>
     </header>
 
